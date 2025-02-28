@@ -1,20 +1,21 @@
 <template>
     <div class="parent">
-        <List />
+        <PriceList />
     </div>
 </template>
 
 <script>
-import List from '@/pages/Pricelist.vue';
+import PriceList from '@/pages/PriceList.vue';
 
 export default {
     components: {
-        List
+        PriceList
     },
 };
 </script>
 
 <style scoped>
+
 .parent {
     max-width: 375px;
     margin-inline: auto;

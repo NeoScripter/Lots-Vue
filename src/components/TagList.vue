@@ -1,11 +1,3 @@
-<template>
-    <div class="tag-list">
-        <div v-for="(tag, index) in tags" :key="index" class="tag">
-            {{ tag }}
-        </div>
-    </div>
-</template>
-
 <script>
 export default {
     name: 'TagList',
@@ -18,11 +10,18 @@ export default {
 };
 </script>
 
+<template>
+    <div class="tag-list mb-3">
+        <div v-for="(tag, index) in tags" :key="index" class="tag">
+            {{ tag }}
+        </div>
+    </div>
+</template>
+
 <style scoped>
 .tag-list {
     display: flex;
     gap: 0.5rem;
-    margin-bottom: 0.75rem;
 }
 
 .tag {
