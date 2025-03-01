@@ -11,15 +11,16 @@ export default {
         },
         suffix: {
             type: String,
+            default: '',
         }
     },
 };
 </script>
 
 <template>
-    <div v-if="value != null">
+    <div>
         <header class="card__data__header">{{ title }}</header>
-        <div class="card__data__body">{{ `${value}${suffix}` }}</div>
+        <div class="card__data__body">{{ `${value === null ? '' : value}${value === null ? '' : suffix}` }}</div>
     </div>
 </template>
 
@@ -35,5 +36,6 @@ export default {
     color: #514f62;
     font-size: 13px;
     font-weight: 400;
+    height: 1em;
 }
 </style>

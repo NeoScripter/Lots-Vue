@@ -33,8 +33,8 @@ export default {
             <div class="lot-props">
                 <div class="attr">{{ LotData.building }} корп</div>
                 <div class="attr">{{ LotData.floor }} эт.</div>
-                <div class="attr">{{ LotData.area }} м2</div>
-                <div class="attr">3к</div>
+                <div class="attr">{{ LotData.area }} м<sup>2</sup></div>
+                <div class="attr">{{ isNaN(parseInt(LotData.building)) ? LotData.building : `${LotData.building}к` }}</div>
             </div>
         </div>
 
@@ -42,16 +42,16 @@ export default {
             <DataItem
                 title="Изм. со ст"
                 :value="LotData.start_change"
-                suffix="$"
+                suffix="%"
             />
 
             <DataItem
                 title="за 30 дней"
                 :value="LotData.month_change"
-                suffix="$"
+                suffix="%"
             />
 
-            <DataItem title="за день" value="0.0" suffix="%" />
+            <DataItem title="за день" :value="LotData.start_change" suffix="%" />
 
             <DataItem title="за 7 дней" :value="LotData.week_change" suffix="%" />
 
@@ -60,9 +60,15 @@ export default {
         </div>
 
         <div class="card__panel">
-            <div class="card__panel-status">
+            <div v-if="LotData.is_start === true" class="card__panel-status success">
                 Старт продаж
                 <img :src="rocket" alt="Rocket" />
+            </div>
+            <div v-else-if="LotData.bron === true" class="card__panel-status info">
+                Забронировано
+            </div>
+            <div v-else-if="LotData.is_actual === false" class="card__panel-status danger">
+                Не в продаже
             </div>
             <button class="card__panel-btn">
                 <img :src="chart" alt="Chart" />
@@ -117,12 +123,23 @@ export default {
     color: #8b8b8b;
     font-size: 10px;
     font-weight: 400;
-    background-color: #e2ffda;
     border-radius: 5px;
     padding: 6px 10px;
     display: flex;
     align-items: center;
     gap: 4px;
+}
+
+.card__panel-status.success {
+    background-color: #e2ffda;
+}
+
+.card__panel-status.info {
+    background-color: #E1F4FF;
+}
+
+.card__panel-status.danger {
+    background-color: #FFEAEA;
 }
 
 .card__panel-btn {

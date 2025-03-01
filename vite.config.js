@@ -12,7 +12,7 @@ export default defineConfig({
     server: {
         proxy: {
             '/api': {
-                target: 'https://hist.pulsprodaj.ru',
+                target: 'https://test3.pulsprodaj.ru',
                 changeOrigin: true,
                 secure: false,
             },
