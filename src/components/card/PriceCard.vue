@@ -1,64 +1,79 @@
 <script>
-import DataItem from './DataItem.vue';
-import LotProps from './LotProps.vue';
 import rocket from '/svgs/rocket.svg';
 import chart from '/svgs/chart.svg';
 import chain from '/svgs/chain.svg';
-
+import DataItem from './DataItem.vue';
 
 export default {
     name: 'PriceCard',
-    components: { LotProps, DataItem },
+    components: { DataItem },
+    props: {
+        LotData: Object,
+    },
     data() {
         return {
-            HEADERS: [
-                'Изм. со ст',
-                'за 30 дней',
-                'за день',
-                'за 7 дней',
-                'на сайте',
-                'ключи до',
-            ],
-            BODY_TEXT: [
-                '-22,1%',
-                '-6,8%',
-                '0,0%',
-                '-7,0%',
-                '786 д',
-                '2027-06-01',
-            ],
             rocket,
             chart,
-            chain
+            chain,
         };
     },
+    computed: {
+        formattedPrice() {
+            return new Intl.NumberFormat('ru-RU').format(this.LotData.price);
+        }
+    }
 };
 </script>
 
 <template>
-    <div class="card__container">
+    <div class="card__container mb-3">
         <div class="card__header">
-            <span class="card__price">21 608 445 ₽</span>
+            <span class="card__price">{{ formattedPrice }} ₽</span>
 
-            <LotProps />
+            <div class="lot-props">
+                <div class="attr">{{ LotData.building }} корп</div>
+                <div class="attr">{{ LotData.floor }} эт.</div>
+                <div class="attr">{{ LotData.area }} м2</div>
+                <div class="attr">3к</div>
+            </div>
         </div>
 
         <div class="card__data">
-            <div v-for="(item, index) in HEADERS" :key="index">
-                <DataItem :header="item" :body="BODY_TEXT[index]" />
-            </div>
+            <DataItem
+                title="Изм. со ст"
+                :value="LotData.start_change"
+                suffix="$"
+            />
+
+            <DataItem
+                title="за 30 дней"
+                :value="LotData.month_change"
+                suffix="$"
+            />
+
+            <DataItem title="за день" value="0.0" suffix="%" />
+
+            <DataItem title="за 7 дней" :value="LotData.week_change" suffix="%" />
+
+            <DataItem title="на сайте" :value="LotData.days_on_site" suffix=" д" />
+            <DataItem title="ключи до" :value="LotData.keys" />
         </div>
 
         <div class="card__panel">
-            <div class="card__panel-status">Старт продаж
-                <img :src="rocket" alt="Rocket">
+            <div class="card__panel-status">
+                Старт продаж
+                <img :src="rocket" alt="Rocket" />
             </div>
             <button class="card__panel-btn">
-                <img :src="chart" alt="Chart">
+                <img :src="chart" alt="Chart" />
             </button>
-            <a class="card__panel-article">
-                <img :src="chain" alt="Link">
-                961369
+            <a
+                :href="LotData.flat_url"
+                target="_blank"
+                class="card__panel-article"
+            >
+                <img :src="chain" alt="Link" />
+                {{ LotData.article != null ? LotData.article : LotData.number }}
             </a>
         </div>
     </div>
@@ -88,7 +103,6 @@ export default {
 .card__data {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 8px;
 }
 
@@ -103,7 +117,7 @@ export default {
     color: #8b8b8b;
     font-size: 10px;
     font-weight: 400;
-    background-color: #E2FFDA;
+    background-color: #e2ffda;
     border-radius: 5px;
     padding: 6px 10px;
     display: flex;
@@ -114,7 +128,7 @@ export default {
 .card__panel-btn {
     border-radius: 5px;
     padding: 6px 10px;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
     margin-right: auto;
     height: 26px;
     display: flex;
@@ -135,5 +149,29 @@ export default {
 .card__panel-article img {
     margin-top: 0.2em;
     display: block;
+}
+
+.lot-props {
+    display: flex;
+    align-items: center;
+}
+
+.attr {
+    color: #514f62;
+    font-size: 12px;
+    font-weight: 400;
+    padding-inline: 8px;
+    position: relative;
+}
+
+.attr:not(:first-of-type)::after {
+    content: '';
+    position: absolute;
+    background-color: #514f62;
+    left: 0;
+    width: 1px;
+    height: 10px;
+    transform: translateY(50%);
+    top: 0;
 }
 </style>

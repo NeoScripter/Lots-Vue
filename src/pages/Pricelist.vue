@@ -6,6 +6,8 @@ import DataProvider from '../components/api/DataProvider.vue';
 import Complex from '../components/header/Complex.vue';
 import ComplexDataProvider from '../components/api/ComplexDataProvider.vue';
 import DataInfo from '../components/header/DataInfo.vue';
+import LotDataProvider from '../components/api/LotDataProvider.vue';
+import CardSkeleton from '../components/card/CardSkeleton.vue';
 
 export default {
     data() {
@@ -21,7 +23,9 @@ export default {
         PriceCard,
         DataProvider,
         ComplexDataProvider,
+        LotDataProvider,
         DataInfo,
+        CardSkeleton
     },
 };
 </script>
@@ -31,51 +35,44 @@ export default {
         :complexId="complexId"
         v-slot="{ complexData, complexDataIsLoading, actuality }"
     >
-        <div class="container">
-            <div class="has-background-white p-3">
-                <header class="is-flex mb-1">
-                    <img
-                        :src="logo"
-                        alt="Пульс продаж новостроек"
-                        class="logo"
-                    />
-                </header>
-                <div>
-                    <Complex
-                        :complexData="complexData"
-                        :complexDataIsLoading="complexDataIsLoading"
-                    />
+        <LotDataProvider :complexId="complexId">
+            <template v-slot="{ items, lotDataIsLoading, totalPages, totalItems }">
+                <div class="container">
+                    <div class="has-background-white p-3">
+                        <header class="is-flex mb-1">
+                            <img
+                                :src="logo"
+                                alt="Пульс продаж новостроек"
+                                class="logo"
+                            />
+                        </header>
+                        <div>
+                            <Complex
+                                :complexData="complexData"
+                                :complexDataIsLoading="complexDataIsLoading"
+                            />
 
-                    <DataInfo
-                        :actuality="actuality"
-                        priceFrom="2024-04-11"
-                        :totalLots="462"
-                        :availableLots="437"
-                        :isLoading="complexDataIsLoading"
-                    />
+                            <DataInfo
+                                :actuality="actuality"
+                                priceFrom="2024-04-11"
+                                :totalLots="totalItems"
+                                :availableLots="437"
+                                :isLoading="complexDataIsLoading || lotDataIsLoading"
+                            />
 
-                    <FilterBtns />
+                            <FilterBtns />
+                        </div>
+                    </div>
+
+                    <div class="p-3">
+                        <div v-for="(item, _) in items" :key="item.id">
+                            <PriceCard :LotData="item" />
+                        </div>
+                        <CardSkeleton v-if="lotDataIsLoading" />
+                    </div>
                 </div>
-            </div>
-
-            <div class="p-3">
-                <PriceCard />
-            </div>
-
-            <DataProvider
-                apiUrl="https://api.escuelajs.co/api/v1/products?offset=0"
-            >
-                <template v-slot="{ items, isLoading }">
-                    <ul>
-                        <li v-for="item in items" :key="item.id">
-                            {{ item.title }}
-                        </li>
-                    </ul>
-
-                    <div v-if="isLoading" class="loading">Loading...</div>
-                </template>
-            </DataProvider>
-        </div>
+            </template>
+        </LotDataProvider>
     </ComplexDataProvider>
 </template>
 

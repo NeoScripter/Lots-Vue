@@ -22,6 +22,9 @@ export default {
 </template>
 
 <style scoped>
+.skeleton {
+    font-size: 1.2rem !important;
+}
 .tag-list {
     display: flex;
     gap: 0.5rem;

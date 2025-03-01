@@ -2,21 +2,28 @@
 export default {
     name: 'DataItem',
     props: {
-        header: String,
-        body: String
-    }
+        title: {
+            type: String,
+            required: true,
+        },
+        value: {
+            required: true,
+        },
+        suffix: {
+            type: String,
+        }
+    },
 };
 </script>
 
 <template>
-    <div>
-        <header class="card__data__header" v-text="header"></header>
-        <div class="card__data__body" v-text="body"></div>
+    <div v-if="value != null">
+        <header class="card__data__header">{{ title }}</header>
+        <div class="card__data__body">{{ `${value}${suffix}` }}</div>
     </div>
 </template>
 
 <style scoped>
-
 .card__data__header {
     color: #8b8b8b;
     font-size: 10px;
