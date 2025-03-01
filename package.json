@@ -15,7 +15,9 @@
     "vue": "^2.7.16"
   },
   "dependencies": {
+    "chart.js": "^2.9.4",
     "date-fns": "^4.1.0",
-    "postcss-discard-unused": "^7.0.3"
+    "postcss-discard-unused": "^7.0.3",
+    "vue-chartjs": "^3.5.1"
   }
 }

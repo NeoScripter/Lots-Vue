@@ -30,18 +30,18 @@ export default {
 
 <template>
     <div class="mb-3">
-        <div v-if="isLoading" class="skeleton is-size-5 mb-1"></div>
+        <div v-if="isLoading" class="skeleton is-size-6 mb-1"></div>
         <div v-else class="data-row data-row--highlighted">
             <span>Актуальность данных</span>
             <img :src="clock" alt="clock" />
             <span>{{ actuality }}</span>
         </div>
-        <div v-if="isLoading" class="skeleton is-size-5 mb-1"></div>
+        <div v-if="isLoading" class="skeleton is-size-6 mb-1"></div>
         <div v-else class="data-row">
             <span>Вам доступна история цен с</span>
             <span>{{ priceFrom  }}</span>
         </div>
-        <div v-if="isLoading" class="skeleton is-size-5 mb-1"></div>
+        <div v-if="isLoading" class="skeleton is-size-6 mb-1"></div>
         <div v-else class="data-row">
             <span>Лотов на сайте</span>
             <span>{{ totalLots }}</span>
@@ -56,6 +56,7 @@ export default {
     display: flex;
     align-items: center;
     gap: 0.35rem;
+    font-size: 14px;
 }
 
 .data-row--highlighted img {

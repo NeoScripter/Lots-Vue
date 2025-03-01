@@ -2,7 +2,6 @@
 import logo from '/images/logo.webp';
 import FilterBtns from '../components/FilterBtns.vue';
 import PriceCard from '../components/card/PriceCard.vue';
-import DataProvider from '../components/api/DataProvider.vue';
 import Complex from '../components/header/Complex.vue';
 import ComplexDataProvider from '../components/api/ComplexDataProvider.vue';
 import DataInfo from '../components/header/DataInfo.vue';
@@ -21,7 +20,6 @@ export default {
         Complex,
         FilterBtns,
         PriceCard,
-        DataProvider,
         ComplexDataProvider,
         LotDataProvider,
         DataInfo,
@@ -66,7 +64,7 @@ export default {
 
                     <div class="p-3">
                         <div v-for="(item, _) in items" :key="item.id">
-                            <PriceCard :LotData="item" />
+                            <PriceCard :LotData="item" :complexId="complexId" />
                         </div>
                         <CardSkeleton v-if="lotDataIsLoading" />
                     </div>

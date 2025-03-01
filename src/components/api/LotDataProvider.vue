@@ -44,7 +44,6 @@ export default {
 
                 if (Array.isArray(data.items) && data.items.length > 0) {
                     this.items = [...this.items, ...data.items];
-                    console.log(this.items);
                 }
 
                 this.page++;

@@ -3,25 +3,30 @@ import rocket from '/svgs/rocket.svg';
 import chart from '/svgs/chart.svg';
 import chain from '/svgs/chain.svg';
 import DataItem from './DataItem.vue';
+import PriceChart from './PriceChart.vue';
+import Popup from '../Popup.vue';
+import ChartDataProvider from '../api/ChartDataProvider.vue';
 
 export default {
     name: 'PriceCard',
-    components: { DataItem },
+    components: { DataItem, PriceChart, Popup, ChartDataProvider },
     props: {
         LotData: Object,
+        complexId: String,
     },
     data() {
         return {
             rocket,
             chart,
             chain,
+            showChart: false,
         };
     },
     computed: {
         formattedPrice() {
             return new Intl.NumberFormat('ru-RU').format(this.LotData.price);
-        }
-    }
+        },
+    },
 };
 </script>
 
@@ -33,10 +38,35 @@ export default {
             <div class="lot-props">
                 <div class="attr">{{ LotData.building }} корп</div>
                 <div class="attr">{{ LotData.floor }} эт.</div>
-                <div class="attr">{{ LotData.area }} м<sup>2</sup></div>
-                <div class="attr">{{ isNaN(parseInt(LotData.building)) ? LotData.building : `${LotData.building}к` }}</div>
+                <div class="attr">
+                    {{ LotData.area }} м
+                    <sup>2</sup>
+                </div>
+                <div class="attr">
+                    {{
+                        isNaN(parseInt(LotData.building))
+                            ? LotData.building
+                            : `${LotData.building}к`
+                    }}
+                </div>
             </div>
         </div>
+
+        <Popup :show.sync="showChart" title="График">
+            <div class="chart-wrapper">
+                <ChartDataProvider
+                    :complexId="complexId"
+                    :lotId="LotData.id.toString()"
+                    v-slot="{ prices, isLoading }"
+                >
+                    <div class="chart-wrapper">
+                        <div v-if="isLoading && showChart" class="skeleton"></div>
+
+                        <PriceChart v-else-if="!isLoading && showChart" :prices="prices" />
+                    </div>
+                </ChartDataProvider>
+            </div>
+        </Popup>
 
         <div class="card__data">
             <DataItem
@@ -51,26 +81,47 @@ export default {
                 suffix="%"
             />
 
-            <DataItem title="за день" :value="LotData.start_change" suffix="%" />
+            <DataItem
+                title="за день"
+                :value="LotData.start_change"
+                suffix="%"
+            />
 
-            <DataItem title="за 7 дней" :value="LotData.week_change" suffix="%" />
+            <DataItem
+                title="за 7 дней"
+                :value="LotData.week_change"
+                suffix="%"
+            />
 
-            <DataItem title="на сайте" :value="LotData.days_on_site" suffix=" д" />
+            <DataItem
+                title="на сайте"
+                :value="LotData.days_on_site"
+                suffix=" д"
+            />
             <DataItem title="ключи до" :value="LotData.keys" />
         </div>
 
         <div class="card__panel">
-            <div v-if="LotData.is_start === true" class="card__panel-status success">
+            <div
+                v-if="LotData.is_start === true"
+                class="card__panel-status success"
+            >
                 Старт продаж
                 <img :src="rocket" alt="Rocket" />
             </div>
-            <div v-else-if="LotData.bron === true" class="card__panel-status info">
+            <div
+                v-else-if="LotData.bron === true"
+                class="card__panel-status info"
+            >
                 Забронировано
             </div>
-            <div v-else-if="LotData.is_actual === false" class="card__panel-status danger">
+            <div
+                v-else-if="LotData.is_actual === false"
+                class="card__panel-status danger"
+            >
                 Не в продаже
             </div>
-            <button class="card__panel-btn">
+            <button @click="showChart = true" class="card__panel-btn">
                 <img :src="chart" alt="Chart" />
             </button>
             <a
@@ -86,6 +137,9 @@ export default {
 </template>
 
 <style scoped>
+.chart-wrapper {
+    height: 400px;
+}
 .card__container {
     background-color: white;
     border-radius: 5px;
@@ -135,11 +189,11 @@ export default {
 }
 
 .card__panel-status.info {
-    background-color: #E1F4FF;
+    background-color: #e1f4ff;
 }
 
 .card__panel-status.danger {
-    background-color: #FFEAEA;
+    background-color: #ffeaea;
 }
 
 .card__panel-btn {
