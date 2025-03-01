@@ -6,13 +6,16 @@ export default {
             type: Array,
             required: true,
         },
+        isLoading: {
+            type: Boolean
+        }
     },
 };
 </script>
 
 <template>
-    <div class="tag-list mb-3">
-        <div v-for="(tag, index) in tags" :key="index" class="tag">
+    <div class="tag-list mb-2 scrollbar-hidden">
+        <div v-for="(tag, index) in tags" :key="index" class="tag" :class="{ skeleton: isLoading }">
             {{ tag }}
         </div>
     </div>
@@ -22,6 +25,7 @@ export default {
 .tag-list {
     display: flex;
     gap: 0.5rem;
+    overflow-x: auto;
 }
 
 .tag {
@@ -29,9 +33,6 @@ export default {
     padding: 0.4rem 0.75rem;
     border-radius: 5px;
     transition: background 0.2s;
-}
-
-.tag:hover {
-    background-color: #a9a6a6;
+    font-size: 10px;
 }
 </style>
