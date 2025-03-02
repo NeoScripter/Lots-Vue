@@ -3,9 +3,9 @@ import logo from '/images/logo.webp';
 import FilterBtns from '../components/FilterBtns.vue';
 import PriceCard from '../components/card/PriceCard.vue';
 import Complex from '../components/header/Complex.vue';
-import ComplexDataProvider from '../components/api/ComplexDataProvider.vue';
+import ComplexDataProvider from '../components/providers/ComplexDataProvider.vue';
 import DataInfo from '../components/header/DataInfo.vue';
-import LotDataProvider from '../components/api/LotDataProvider.vue';
+import LotDataProvider from '../components/providers/LotDataProvider.vue';
 import CardSkeleton from '../components/card/CardSkeleton.vue';
 import { COMPLEX_ID } from '../const/api-url.js';
 

@@ -5,15 +5,17 @@ import chain from '/svgs/chain.svg';
 import DataItem from './DataItem.vue';
 import PriceChart from './PriceChart.vue';
 import Popup from '../Popup.vue';
-import ChartDataProvider from '../api/ChartDataProvider.vue';
+import ChartDataProvider from '../providers/ChartDataProvider.vue';
+import Spinner from './Spinner.vue';
 
 export default {
     name: 'PriceCard',
-    components: { DataItem, PriceChart, Popup, ChartDataProvider },
+    components: { DataItem, PriceChart, Popup, ChartDataProvider, Spinner },
     props: {
         LotData: Object,
         complexId: String,
     },
+
     data() {
         return {
             rocket,
@@ -25,6 +27,24 @@ export default {
     computed: {
         formattedPrice() {
             return new Intl.NumberFormat('ru-RU').format(this.LotData.price);
+        },
+    },
+    methods: {
+        confirmRedirect(link) {
+            this.$swal({
+                title: 'Перейти на страницу этого лота на сайте застройщика?',
+                showCancelButton: true,
+                icon: 'question',
+                confirmButtonText: 'Да',
+                cancelButtonText: 'Нет',
+                confirmButtonColor: '#99daff',
+                cancelButtonColor: '#ff6666',
+                background: '#fff',
+                color: '#1A1345',
+            }).then(
+                ({ isConfirmed }) =>
+                    isConfirmed && (window.location.href = link)
+            );
         },
     },
 };
@@ -60,9 +80,12 @@ export default {
                     v-slot="{ prices, isLoading }"
                 >
                     <div class="chart-wrapper">
-                        <div v-if="isLoading && showChart" class="skeleton"></div>
+                        <Spinner v-if="isLoading && showChart" />
 
-                        <PriceChart v-else-if="!isLoading && showChart" :prices="prices" />
+                        <PriceChart
+                            v-else-if="!isLoading && showChart"
+                            :prices="prices"
+                        />
                     </div>
                 </ChartDataProvider>
             </div>
@@ -124,19 +147,20 @@ export default {
             <button @click="showChart = true" class="card__panel-btn">
                 <img :src="chart" alt="Chart" />
             </button>
-            <a
-                :href="LotData.flat_url"
+            <button
+                @click="confirmRedirect(LotData.flat_url)"
                 target="_blank"
                 class="card__panel-article"
             >
                 <img :src="chain" alt="Link" />
                 {{ LotData.article != null ? LotData.article : LotData.number }}
-            </a>
+            </button>
         </div>
     </div>
 </template>
 
 <style scoped>
+
 .chart-wrapper {
     height: 400px;
 }
