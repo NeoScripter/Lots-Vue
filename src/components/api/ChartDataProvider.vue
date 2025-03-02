@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import { URLS } from '../../const/api-url.js';
 export default {
     name: "ChartDataProvider",
     props: {
@@ -12,7 +13,7 @@ export default {
     data() {
         return {
             isLoading: false,
-            url: '/api/lot/',
+            url: URLS.CHART,
             prices: [],
         };
     },

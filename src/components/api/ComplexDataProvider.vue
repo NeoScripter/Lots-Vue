@@ -1,5 +1,6 @@
 <script>
 import { calculateActuality } from '@/utils/getTimeLabel';
+import { URLS } from '../../const/api-url.js';
 
 export default {
     props: {
@@ -9,7 +10,7 @@ export default {
         return {
             complexData: {},
             complexDataIsLoading: false,
-            url: '/api/complex/',
+            url: URLS.COMPLEX,
         };
     },
     methods: {

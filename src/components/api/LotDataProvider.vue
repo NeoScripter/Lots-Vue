@@ -1,4 +1,6 @@
 <script>
+import { URLS } from '../../const/api-url.js';
+
 export default {
     props: {
         complexId: String,
@@ -21,7 +23,7 @@ export default {
             totalItems: 0,
             page: 1,
             lotDataIsLoading: false,
-            url: '/api/lots/',
+            url: URLS.LOT,
         };
     },
     methods: {

@@ -7,12 +7,13 @@ import ComplexDataProvider from '../components/api/ComplexDataProvider.vue';
 import DataInfo from '../components/header/DataInfo.vue';
 import LotDataProvider from '../components/api/LotDataProvider.vue';
 import CardSkeleton from '../components/card/CardSkeleton.vue';
+import { COMPLEX_ID } from '../const/api-url.js';
 
 export default {
     data() {
         return {
             logo,
-            complexId: '4154',
+            complexId: COMPLEX_ID,
         };
     },
     name: 'PriceList',
