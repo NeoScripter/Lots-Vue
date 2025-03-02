@@ -35,7 +35,7 @@ export default {
         v-slot="{ complexData, complexDataIsLoading, actuality }"
     >
         <LotDataProvider :complexId="complexId">
-            <template v-slot="{ items, lotDataIsLoading, totalPages, totalItems }">
+            <template v-slot="{ items, lotDataIsLoading, totalItems, fetchData }">
                 <div class="container">
                     <div class="has-background-white p-3">
                         <header class="is-flex mb-1">
@@ -59,7 +59,7 @@ export default {
                                 :isLoading="complexDataIsLoading || lotDataIsLoading"
                             />
 
-                            <FilterBtns />
+                            <FilterBtns :fetchData="fetchData" />
                         </div>
                     </div>
 

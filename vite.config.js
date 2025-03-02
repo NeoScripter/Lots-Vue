@@ -9,7 +9,7 @@ export default defineConfig({
             '@': path.resolve(__dirname, 'src'),
         },
     },
-    server: {
+/*     server: {
         proxy: {
             '/api': {
                 target: 'https://test3.pulsprodaj.ru',
@@ -17,7 +17,7 @@ export default defineConfig({
                 secure: false,
             },
         },
-    },
+    }, */
     build: {
         outDir: 'docs'
     },

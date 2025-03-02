@@ -88,6 +88,6 @@ export default {
 
 <template>
     <div>
-        <slot :items="items" :lotDataIsLoading="lotDataIsLoading" :totalPages="totalPages" :totalItems="totalItems"></slot>
+        <slot :items="items" :lotDataIsLoading="lotDataIsLoading" :totalItems="totalItems" :fetchData="fetchData"></slot>
     </div>
 </template>

@@ -10,6 +10,9 @@ export default {
             search,
         };
     },
+    props: {
+        fetchData: Function
+    }
 };
 </script>
 
@@ -32,7 +35,7 @@ export default {
             <img :src="filterIcon" alt="Filter" />
         </button>
 
-        <button class="button button--icon is-light is-small">
+        <button @click="fetchData" class="button button--icon is-light is-small">
             <img :src="search" alt="Filter" />
         </button>
     </div>
