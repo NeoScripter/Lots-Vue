@@ -64,9 +64,9 @@ export default {
                 </div>
                 <div class="attr">
                     {{
-                        isNaN(parseInt(LotData.building))
-                            ? LotData.building
-                            : `${LotData.building}к`
+                        isNaN(parseInt(LotData.rooms))
+                            ? "Студия"
+                            : `${LotData.rooms}к`
                     }}
                 </div>
             </div>
@@ -125,30 +125,32 @@ export default {
         </div>
 
         <div class="card__panel">
-            <div
-                v-if="LotData.is_start === true"
-                class="card__panel-status success"
-            >
-                Старт продаж
-                <img :src="rocket" alt="Rocket" />
-            </div>
-            <div
-                v-else-if="LotData.bron === true"
-                class="card__panel-status info"
-            >
-                Забронировано
-            </div>
-            <div
-                v-else-if="LotData.is_actual === false"
-                class="card__panel-status danger"
-            >
-                Не в продаже
-            </div>
-            <div
-                v-else
-                class="card__panel-status info"
-            >
-                Неизвестно
+            <div class="card__status">
+                <div
+                    v-if="LotData.is_start === true"
+                    class="card__panel-status success"
+                >
+                    Старт продаж
+                    <img :src="rocket" alt="Rocket" />
+                </div>
+                <div
+                    v-else-if="LotData.bron === true"
+                    class="card__panel-status info"
+                >
+                    Забронировано
+                </div>
+                <div
+                    v-else-if="LotData.is_actual === false"
+                    class="card__panel-status danger"
+                >
+                    Не в продаже
+                </div>
+                <div
+                    v-else
+                    class="card__panel-status info"
+                >
+                    Неизвестно
+                </div>
             </div>
             <button @click="showChart = true" class="card__panel-btn">
                 <img :src="chart" alt="Chart" />
@@ -203,6 +205,10 @@ export default {
     justify-content: space-between;
 }
 
+.card__status {
+    flex-basis: 110px;
+}
+
 .card__panel-status {
     color: #8b8b8b;
     font-size: 10px;
@@ -212,6 +218,7 @@ export default {
     display: flex;
     align-items: center;
     gap: 4px;
+    width: max-content;
 }
 
 .card__panel-status.success {
@@ -230,8 +237,8 @@ export default {
     border-radius: 5px;
     padding: 6px 10px;
     background-color: #f5f5f5;
-    margin-right: auto;
     height: 26px;
+    margin-right: auto;
     display: flex;
     align-items: center;
     justify-content: center;

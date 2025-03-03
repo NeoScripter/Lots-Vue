@@ -21,6 +21,7 @@ export default {
                 this.complexDataIsLoading = true;
                 const response = await fetch(`${this.url}${this.complexId}`);
                 const data = await response.json();
+
                 this.complexData = data;
             } catch (error) {
                 console.error('API Error:', error);
@@ -32,10 +33,18 @@ export default {
     computed: {
         getActuality() {
             return calculateActuality(
-                this.complexData.days_actual, 
-                this.complexData.hours_actual, 
-                this.complexData.minutes_actual 
+                this.complexData.days_actual,
+                this.complexData.hours_actual,
+                this.complexData.minutes_actual
             );
+        },
+        getBuildings() {
+            return (this.complexData?.buildings || []).map(
+                (building) => building.num
+            );
+        },
+        getRooms() {
+            return this.complexData.rooms;
         },
     },
     async created() {
@@ -45,5 +54,13 @@ export default {
 </script>
 
 <template>
-    <div><slot :complexData="complexData" :complexDataIsLoading="complexDataIsLoading" :actuality="getActuality"></slot></div>
+    <div>
+        <slot
+            :complexData="complexData"
+            :complexDataIsLoading="complexDataIsLoading"
+            :actuality="getActuality"
+            :getBuildings="getBuildings"
+            :getRooms="getRooms"
+        ></slot>
+    </div>
 </template>

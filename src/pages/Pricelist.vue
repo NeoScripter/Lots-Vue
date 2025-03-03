@@ -9,6 +9,8 @@ import LotDataProvider from '../components/providers/LotDataProvider.vue';
 import CardSkeleton from '../components/card/CardSkeleton.vue';
 import { COMPLEX_ID } from '../const/api-url.js';
 import { SEARCH_FIELDS } from '../const/SearchFields.js';
+import Popup from '../components/Popup.vue';
+import FiltersPanel from '../components/FiltersPanel.vue';
 
 export default {
     data() {
@@ -24,6 +26,7 @@ export default {
                 per_page: 20,
             },
             lotOptions: {},
+            showFilters: true,
         };
     },
     created() {
@@ -38,11 +41,13 @@ export default {
         LotDataProvider,
         DataInfo,
         CardSkeleton,
+        Popup,
+        FiltersPanel,
     },
     methods: {
         resetLotOptions() {
             this.lotOptions = { ...this.defaultLotOptions };
-            console.log("from reset", this.lotOptions.sort);
+            console.log('from reset', this.lotOptions.sort);
         },
         selectSortingOption(field) {
             if (this.lotOptions.sort_field === field) {
@@ -52,7 +57,7 @@ export default {
                     ...this.lotOptions,
                     sort: SEARCH_FIELDS.ASCENDING_ORDER,
                     sort_field: field,
-                }; 
+                };
             }
         },
         changeSortingOrder() {
@@ -61,14 +66,31 @@ export default {
                 this.lotOptions = {
                     ...this.lotOptions,
                     sort: SEARCH_FIELDS.DESCENDING_ORDER,
-                }; 
+                };
             } else {
                 this.lotOptions = {
                     ...this.lotOptions,
                     sort: SEARCH_FIELDS.ASCENDING_ORDER,
-                }; 
+                };
             }
             console.log('end', this.lotOptions.sort);
+        },
+        setBuilding(building) {
+            this.lotOptions = {
+                ...this.lotOptions,
+                building: building,
+            };
+        },
+        setRoom(room) {
+            this.lotOptions = {
+                ...this.lotOptions,
+                rooms: room,
+            };
+        },
+        handleSearchClick() {
+            this.resetItems();
+            this.fetchData();
+            this.resetLotOptions();
         },
     },
 };
@@ -77,60 +99,83 @@ export default {
 <template>
     <ComplexDataProvider
         :complexId="complexId"
-        v-slot="{ complexData, complexDataIsLoading, actuality }"
+        v-slot="{
+            complexData,
+            complexDataIsLoading,
+            actuality,
+            getBuildings,
+            getRooms,
+        }"
     >
-        <LotDataProvider :complexId="complexId" :options="lotOptions">
-            <template
-                v-slot="{
-                    items,
-                    lotDataIsLoading,
-                    totalItems,
-                    fetchData,
-                    resetItems,
-                }"
-            >
-                <div class="container">
-                    <div class="has-background-white p-3">
-                        <header class="is-flex mb-1">
-                            <img
-                                :src="logo"
-                                alt="Пульс продаж новостроек"
-                                class="logo"
-                            />
-                        </header>
-                        <div>
-                            <Complex
-                                :complexData="complexData"
-                                :complexDataIsLoading="complexDataIsLoading"
-                            />
+        <LotDataProvider
+            :complexId="complexId"
+            :options="lotOptions"
+            v-slot="{
+                items,
+                lotDataIsLoading,
+                totalItems,
+                fetchData,
+                resetItems,
+            }"
+        >
+            <Popup :show.sync="showFilters" title="Фильтры">
+                <FiltersPanel
+                    :complexId="complexId"
+                    :lotOptions.sync="lotOptions"
+                    :getBuildings="getBuildings"
+                    :getRooms="getRooms"
+                    :fetchData="fetchData"
+                    :resetLotOptions="resetLotOptions"
+                    :resetItems="resetItems"
+                    :closePopup="() => showFilters = false"
+                />
+            </Popup>
 
-                            <DataInfo
-                                :actuality="actuality"
-                                priceFrom="2024-04-11"
-                                :totalLots="totalItems"
-                                :availableLots="437"
-                                :isLoading="complexDataIsLoading"
-                            />
+            <div class="container">
+                <div class="has-background-white p-3">
+                    <header class="is-flex mb-1">
+                        <img
+                            :src="logo"
+                            alt="Пульс продаж новостроек"
+                            class="logo"
+                        />
+                    </header>
+                    <div>
+                        <Complex
+                            :complexData="complexData"
+                            :complexDataIsLoading="complexDataIsLoading"
+                        />
 
-                            <FilterBtns
-                                :fetchData="fetchData"
-                                :resetLotOptions="resetLotOptions"
-                                :selectSortingOption="selectSortingOption"
-                                :resetItems="resetItems"
-                                :sortField="lotOptions.sort_field"
-                                :sort="lotOptions.sort"
-                            />
-                        </div>
-                    </div>
+                        <DataInfo
+                            :actuality="actuality"
+                            priceFrom="2024-04-11"
+                            :totalLots="totalItems"
+                            :availableLots="437"
+                            :isLoading="complexDataIsLoading"
+                        />
 
-                    <div class="p-3">
-                        <div v-for="(item, _) in items" :key="item.id">
-                            <PriceCard :LotData="item" :complexId="complexId" />
-                        </div>
-                        <CardSkeleton v-if="lotDataIsLoading" />
+                        <FilterBtns
+                            :fetchData="fetchData"
+                            :resetLotOptions="resetLotOptions"
+                            :selectSortingOption="selectSortingOption"
+                            :resetItems="resetItems"
+                            :sortField="lotOptions.sort_field"
+                            :sort="lotOptions.sort"
+                            :showFilters.sync="showFilters"
+                        />
                     </div>
                 </div>
-            </template>
+
+                <div class="p-3">
+                    <p v-if="items.length === 0 && !lotDataIsLoading">
+                        По вашему запросу ничего не найдено
+                    </p>
+                    <div v-for="(item, _) in items" :key="item.id">
+                        <PriceCard :LotData="item" :complexId="complexId" />
+                    </div>
+                    <CardSkeleton v-if="lotDataIsLoading" />
+                </div>
+            </div>
         </LotDataProvider>
     </ComplexDataProvider>
 </template>

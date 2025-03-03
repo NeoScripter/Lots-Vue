@@ -37,13 +37,16 @@ export default {
         handleSelectChangeClick() {
             this.selectSortingOption(SEARCH_FIELDS.CHANGE);
         },
+        openFilters() {
+            this.$emit('update:showFilters', true);
+        },
     },
 };
 </script>
 
 <template>
     <div class="filter-actions">
-        <button class="button is-light is-small">Фильтры</button>
+        <button @click="openFilters" class="button is-light is-small">Фильтры</button>
 
         <!--  <button @click="handleSelectPriceClick" class="button is-light is-small">
             Цена

@@ -33,7 +33,6 @@ export default {
                     body: JSON.stringify(requestOptions),
                 });
 
-                console.log('from provider', requestOptions.sort); 
                 const data = await response.json();
 
                 if (Array.isArray(data.items) && data.items.length > 0) {

@@ -5,7 +5,7 @@ export default {
     name: 'Popup',
     props: {
         show: Boolean,
-        title: String
+        title: String,
     },
     methods: {
         closePopup() {
