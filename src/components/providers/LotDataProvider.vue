@@ -6,14 +6,6 @@ export default {
         complexId: String,
         options: {
             type: Object,
-            default: () => ({
-                building: '',
-                rooms: '',
-                sort_field: 'price',
-                sort: 'asc',
-                page: 1,
-                per_page: 20,
-            }),
         },
     },
     data() {
@@ -32,16 +24,16 @@ export default {
 
             try {
                 this.lotDataIsLoading = true;
-                this.options.page = this.page;
+
+                const requestOptions = { ...this.options, page: this.page }; 
 
                 const response = await fetch(`${this.url}${this.complexId}`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(this.options),
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestOptions),
                 });
 
+                console.log('from provider', requestOptions.sort); 
                 const data = await response.json();
 
                 if (Array.isArray(data.items) && data.items.length > 0) {
@@ -51,13 +43,13 @@ export default {
                 this.page++;
                 this.totalPages = data.pages;
                 this.totalItems = data.total;
-
             } catch (error) {
                 console.error('API Error:', error);
             } finally {
                 this.lotDataIsLoading = false;
             }
         },
+
         async handleScroll() {
             const nearBottom =
                 window.innerHeight + window.scrollY >=
@@ -67,17 +59,12 @@ export default {
                 await this.fetchData();
             }
         },
-    },
-    watch: {
-        options: {
-            handler() {
-                this.fetchData();
-            },
-            deep: true,
+        resetItems() {
+            this.items.length = 0;
         },
     },
     async created() {
-        await this.fetchData(); 
+        await this.fetchData();
         window.addEventListener('scroll', this.handleScroll);
     },
     beforeDestroy() {
@@ -88,6 +75,12 @@ export default {
 
 <template>
     <div>
-        <slot :items="items" :lotDataIsLoading="lotDataIsLoading" :totalItems="totalItems" :fetchData="fetchData"></slot>
+        <slot
+            :items="items"
+            :lotDataIsLoading="lotDataIsLoading"
+            :totalItems="totalItems"
+            :fetchData="fetchData"
+            :resetItems="resetItems"
+        ></slot>
     </div>
 </template>

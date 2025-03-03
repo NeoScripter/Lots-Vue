@@ -8,13 +8,26 @@ import DataInfo from '../components/header/DataInfo.vue';
 import LotDataProvider from '../components/providers/LotDataProvider.vue';
 import CardSkeleton from '../components/card/CardSkeleton.vue';
 import { COMPLEX_ID } from '../const/api-url.js';
+import { SEARCH_FIELDS } from '../const/SearchFields.js';
 
 export default {
     data() {
         return {
             logo,
             complexId: COMPLEX_ID,
+            defaultLotOptions: {
+                building: '',
+                rooms: '',
+                sort_field: '',
+                sort: SEARCH_FIELDS.ASCENDING_ORDER,
+                page: 1,
+                per_page: 20,
+            },
+            lotOptions: {},
         };
+    },
+    created() {
+        this.lotOptions = { ...this.defaultLotOptions };
     },
     name: 'PriceList',
     components: {
@@ -24,7 +37,39 @@ export default {
         ComplexDataProvider,
         LotDataProvider,
         DataInfo,
-        CardSkeleton
+        CardSkeleton,
+    },
+    methods: {
+        resetLotOptions() {
+            this.lotOptions = { ...this.defaultLotOptions };
+            console.log("from reset", this.lotOptions.sort);
+        },
+        selectSortingOption(field) {
+            if (this.lotOptions.sort_field === field) {
+                this.changeSortingOrder();
+            } else {
+                this.lotOptions = {
+                    ...this.lotOptions,
+                    sort: SEARCH_FIELDS.ASCENDING_ORDER,
+                    sort_field: field,
+                }; 
+            }
+        },
+        changeSortingOrder() {
+            console.log('start', this.lotOptions.sort);
+            if (this.lotOptions.sort === SEARCH_FIELDS.ASCENDING_ORDER) {
+                this.lotOptions = {
+                    ...this.lotOptions,
+                    sort: SEARCH_FIELDS.DESCENDING_ORDER,
+                }; 
+            } else {
+                this.lotOptions = {
+                    ...this.lotOptions,
+                    sort: SEARCH_FIELDS.ASCENDING_ORDER,
+                }; 
+            }
+            console.log('end', this.lotOptions.sort);
+        },
     },
 };
 </script>
@@ -34,8 +79,16 @@ export default {
         :complexId="complexId"
         v-slot="{ complexData, complexDataIsLoading, actuality }"
     >
-        <LotDataProvider :complexId="complexId">
-            <template v-slot="{ items, lotDataIsLoading, totalItems, fetchData }">
+        <LotDataProvider :complexId="complexId" :options="lotOptions">
+            <template
+                v-slot="{
+                    items,
+                    lotDataIsLoading,
+                    totalItems,
+                    fetchData,
+                    resetItems,
+                }"
+            >
                 <div class="container">
                     <div class="has-background-white p-3">
                         <header class="is-flex mb-1">
@@ -56,10 +109,17 @@ export default {
                                 priceFrom="2024-04-11"
                                 :totalLots="totalItems"
                                 :availableLots="437"
-                                :isLoading="complexDataIsLoading || lotDataIsLoading"
+                                :isLoading="complexDataIsLoading"
                             />
 
-                            <FilterBtns :fetchData="fetchData" />
+                            <FilterBtns
+                                :fetchData="fetchData"
+                                :resetLotOptions="resetLotOptions"
+                                :selectSortingOption="selectSortingOption"
+                                :resetItems="resetItems"
+                                :sortField="lotOptions.sort_field"
+                                :sort="lotOptions.sort"
+                            />
                         </div>
                     </div>
 

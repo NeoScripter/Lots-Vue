@@ -1,6 +1,10 @@
 <script>
 import filterIcon from '/svgs/filter-icon.svg';
 import search from '/svgs/search.svg';
+import ascending from '/svgs/asc.svg';
+import descending from '/svgs/desc.svg';
+
+import { SEARCH_FIELDS } from '../const/SearchFields';
 
 export default {
     name: 'FilterBtns',
@@ -8,11 +12,32 @@ export default {
         return {
             filterIcon,
             search,
+            SEARCH_FIELDS,
+            ascending,
+            descending
         };
     },
     props: {
-        fetchData: Function
-    }
+        fetchData: Function,
+        selectSortingOption: Function,
+        resetLotOptions: Function,
+        resetItems: Function,
+        sortField: String,
+        sort: String,
+    },
+    methods: {
+        handleSearchClick() {
+            this.resetItems();
+            this.fetchData();
+            this.resetLotOptions();
+        },
+        handleSelectPriceClick() {
+            this.selectSortingOption(SEARCH_FIELDS.PRICE);
+        },
+        handleSelectChangeClick() {
+            this.selectSortingOption(SEARCH_FIELDS.CHANGE);
+        },
+    },
 };
 </script>
 
@@ -20,28 +45,42 @@ export default {
     <div class="filter-actions">
         <button class="button is-light is-small">Фильтры</button>
 
-        <button class="button is-light is-small">
+        <!--  <button @click="handleSelectPriceClick" class="button is-light is-small">
             Цена
             <img :src="filterIcon" alt="Filter" />
-        </button>
+        </button> -->
 
-        <button class="button is-light is-small">
+        <button
+            @click="handleSelectPriceClick"
+            class="button is-light is-small"
+            :class="{ 'active-filter': sortField === SEARCH_FIELDS.PRICE }"
+        >
             Стоимость
-            <img :src="filterIcon" alt="Filter" />
+            <img v-if="sortField === SEARCH_FIELDS.PRICE" :src="sort === SEARCH_FIELDS.ASCENDING_ORDER ? ascending : descending" alt="descending order">
         </button>
 
-        <button class="button is-light is-small">
+        <button
+            @click="handleSelectChangeClick"
+            class="button is-light is-small"
+            :class="{ 'active-filter': sortField === SEARCH_FIELDS.CHANGE }"
+        >
             Изменение
-            <img :src="filterIcon" alt="Filter" />
+            <img v-if="sortField === SEARCH_FIELDS.CHANGE" :src="sort === SEARCH_FIELDS.ASCENDING_ORDER ? ascending : descending" alt="ascending order" />
         </button>
 
-        <button @click="fetchData" class="button button--icon is-light is-small">
+        <button
+            @click="handleSearchClick"
+            class="button button--icon is-light is-small"
+        >
             <img :src="search" alt="Filter" />
         </button>
     </div>
 </template>
 
 <style scoped>
+.active-filter {
+    background-color: rgb(24, 156, 204, 0.25);
+}
 .filter-actions {
     display: flex;
     align-items: center;

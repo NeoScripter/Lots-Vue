@@ -144,6 +144,12 @@ export default {
             >
                 Не в продаже
             </div>
+            <div
+                v-else
+                class="card__panel-status info"
+            >
+                Неизвестно
+            </div>
             <button @click="showChart = true" class="card__panel-btn">
                 <img :src="chart" alt="Chart" />
             </button>
