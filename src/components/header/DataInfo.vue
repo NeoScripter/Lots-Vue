@@ -36,17 +36,17 @@ export default {
             <img :src="clock" alt="clock" />
             <span>{{ actuality }}</span>
         </div>
-        <div v-if="isLoading" class="skeleton is-size-6 mb-1"></div>
+    <!--     <div v-if="isLoading" class="skeleton is-size-6 mb-1"></div>
         <div v-else class="data-row">
             <span>Вам доступна история цен с</span>
             <span>{{ priceFrom  }}</span>
-        </div>
+        </div> -->
         <div v-if="isLoading" class="skeleton is-size-6 mb-1"></div>
         <div v-else class="data-row">
-            <span>Лотов на сайте</span>
+            <span>Лотов на сайте:</span>
             <span>{{ totalLots }}</span>
-            <span>, доступны к покупке</span>
-            <span>{{ availableLots }}</span>
+            <!-- <span>, доступны к покупке</span>
+            <span>{{ availableLots }}</span> -->
         </div>
     </div>
 </template>

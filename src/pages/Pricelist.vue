@@ -11,6 +11,8 @@ import { COMPLEX_ID } from '../const/api-url.js';
 import { SEARCH_FIELDS } from '../const/SearchFields.js';
 import Popup from '../components/Popup.vue';
 import FiltersPanel from '../components/FiltersPanel.vue';
+import SearchDataProvider from '../components/providers/SearchDataProvider.vue';
+import SearchInput from '../components/SearchInput.vue';
 
 export default {
     data() {
@@ -26,7 +28,8 @@ export default {
                 per_page: 20,
             },
             lotOptions: {},
-            showFilters: true,
+            showFilters: false,
+            showSearch: false,
         };
     },
     created() {
@@ -39,15 +42,16 @@ export default {
         PriceCard,
         ComplexDataProvider,
         LotDataProvider,
+        SearchDataProvider,
         DataInfo,
         CardSkeleton,
         Popup,
         FiltersPanel,
+        SearchInput
     },
     methods: {
         resetLotOptions() {
             this.lotOptions = { ...this.defaultLotOptions };
-            console.log('from reset', this.lotOptions.sort);
         },
         selectSortingOption(field) {
             if (this.lotOptions.sort_field === field) {
@@ -61,7 +65,6 @@ export default {
             }
         },
         changeSortingOrder() {
-            console.log('start', this.lotOptions.sort);
             if (this.lotOptions.sort === SEARCH_FIELDS.ASCENDING_ORDER) {
                 this.lotOptions = {
                     ...this.lotOptions,
@@ -73,7 +76,6 @@ export default {
                     sort: SEARCH_FIELDS.ASCENDING_ORDER,
                 };
             }
-            console.log('end', this.lotOptions.sort);
         },
         setBuilding(building) {
             this.lotOptions = {
@@ -127,7 +129,7 @@ export default {
                     :fetchData="fetchData"
                     :resetLotOptions="resetLotOptions"
                     :resetItems="resetItems"
-                    :closePopup="() => showFilters = false"
+                    :closePopup="() => (showFilters = false)"
                 />
             </Popup>
 
@@ -165,16 +167,34 @@ export default {
                         />
                     </div>
                 </div>
+                
 
-                <div class="p-3">
-                    <p v-if="items.length === 0 && !lotDataIsLoading">
-                        По вашему запросу ничего не найдено
-                    </p>
-                    <div v-for="(item, _) in items" :key="item.id">
-                        <PriceCard :LotData="item" :complexId="complexId" />
+                <!-- <SearchDataProvider
+                    :url="''"
+                    v-slot="{ seachItems, searchIsLoading, searchLot }"
+                >
+                    <Popup
+                        :show.sync="showSearch"
+                        title="Поиск по артикулу или URL"
+                    >
+                        <SearchInput
+                            :url.sync="searchUrl"
+                            :searchLot="searchLot"
+                            :closePopup="() => (showSearch = false)"
+                        />
+                    </Popup>
+
+                </SearchDataProvider> -->
+
+                    <div class="p-3">
+                        <p v-if="items.length === 0 && !lotDataIsLoading">
+                            По вашему запросу ничего не найдено
+                        </p>
+                        <div v-for="(item, _) in items" :key="item.id">
+                            <PriceCard :LotData="item" :complexId="complexId" />
+                        </div>
+                        <CardSkeleton v-if="lotDataIsLoading" />
                     </div>
-                    <CardSkeleton v-if="lotDataIsLoading" />
-                </div>
             </div>
         </LotDataProvider>
     </ComplexDataProvider>

@@ -35,9 +35,7 @@ export default {
 
                 const data = await response.json();
 
-                if (Array.isArray(data.items) && data.items.length > 0) {
-                    this.items = [...this.items, ...data.items];
-                }
+                this.items = [...this.items, ...data.items];
 
                 this.page++;
                 this.totalPages = data.pages;
