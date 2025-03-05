@@ -1,4 +1,4 @@
-export const COMPLEX_ID = '4154';
+export const COMPLEX_ID = '5578';
 
 const PREFIX = "https://test3.pulsprodaj.ru";
 export const URLS = {

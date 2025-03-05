@@ -17,6 +17,7 @@ export default {
             lotDataIsLoading: false,
             isError: false,
             url: URLS.LOT,
+            searchUrl: '',
         };
     },
     methods: {
@@ -27,7 +28,7 @@ export default {
                 this.lotDataIsLoading = true;
                 this.isError = false;
 
-                const requestOptions = { ...this.options, page: this.page }; 
+                const requestOptions = { ...this.options, page: this.page };
 
                 const response = await fetch(`${this.url}${this.complexId}`, {
                     method: 'POST',
@@ -50,6 +51,33 @@ export default {
             }
         },
 
+        async searchLot() {
+            if (this.lotDataIsLoading) return;
+
+            try {
+                this.resetItems();
+                this.lotDataIsLoading = true;
+                this.isError = false;
+
+                const response = await fetch(`${this.url}${this.complexId}/search/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(this.searchUrl),
+                });
+
+                const data = await response.json();
+
+                this.items = [...data.items];
+            } catch (error) {
+                console.error('API Error:', error);
+                this.isError = true;
+            } finally {
+                this.lotDataIsLoading = false;
+            }
+        },
+
         async handleScroll() {
             const nearBottom =
                 window.innerHeight + window.scrollY >=
@@ -61,6 +89,15 @@ export default {
         },
         resetItems() {
             this.items.length = 0;
+        },
+    },
+    watch: {
+        options: {
+            handler() {
+                this.resetItems();
+                this.fetchData();
+            },
+            deep: true,
         },
     },
     async created() {
@@ -82,6 +119,8 @@ export default {
             :totalItems="totalItems"
             :fetchData="fetchData"
             :resetItems="resetItems"
+            :searchUrl="searchUrl"
+            :searchLot="searchLot"
         ></slot>
     </div>
 </template>

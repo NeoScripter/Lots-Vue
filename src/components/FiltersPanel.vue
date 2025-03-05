@@ -6,10 +6,7 @@ export default {
         lotOptions: Object, 
         getBuildings: Array,
         getRooms: Array,
-        fetchData: Function,
         selectSortingOption: Function,
-        resetLotOptions: Function,
-        resetItems: Function,
         closePopup: Function
     },
     methods: {
@@ -20,9 +17,6 @@ export default {
             this.$emit("update:lotOptions", { ...this.lotOptions, rooms: room });
         },
         handleSearchClick() {
-            this.resetItems();
-            this.fetchData();
-            this.resetLotOptions();
             this.closePopup();
         },
     }
@@ -77,7 +71,7 @@ export default {
         </div>
 
         <button @click="handleSearchClick" class="button is-light is-medium">
-            Поиск
+            Закрыть
         </button>
     </div>
 </template>

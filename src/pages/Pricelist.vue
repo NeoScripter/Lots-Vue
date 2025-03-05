@@ -22,7 +22,7 @@ export default {
             defaultLotOptions: {
                 building: '',
                 rooms: '',
-                sort_field: '',
+                sort_field: SEARCH_FIELDS.PRICE,
                 sort: SEARCH_FIELDS.ASCENDING_ORDER,
                 page: 1,
                 per_page: 20,
@@ -90,9 +90,7 @@ export default {
             };
         },
         handleSearchClick() {
-            this.resetItems();
-            this.fetchData();
-            this.resetLotOptions();
+            this.showSearch = true;
         },
     },
 };
@@ -120,6 +118,8 @@ export default {
                 lotLoadingError,
                 fetchData,
                 resetItems,
+                searchLot,
+                searchUrl,
             }"
         >
             <Popup :show.sync="showFilters" title="Фильтры">
@@ -128,9 +128,6 @@ export default {
                     :lotOptions.sync="lotOptions"
                     :getBuildings="getBuildings"
                     :getRooms="getRooms"
-                    :fetchData="fetchData"
-                    :resetLotOptions="resetLotOptions"
-                    :resetItems="resetItems"
                     :closePopup="() => (showFilters = false)"
                 />
             </Popup>
@@ -167,10 +164,8 @@ export default {
                         />
 
                         <FilterBtns
-                            :fetchData="fetchData"
-                            :resetLotOptions="resetLotOptions"
                             :selectSortingOption="selectSortingOption"
-                            :resetItems="resetItems"
+                            :handleSearchClick="handleSearchClick"
                             :sortField="lotOptions.sort_field"
                             :sort="lotOptions.sort"
                             :showFilters.sync="showFilters"
@@ -178,25 +173,19 @@ export default {
                     </div>
                 </div>
 
-                <!-- <SearchDataProvider
-                    :url="''"
-                    v-slot="{ seachItems, searchIsLoading, searchLot }"
+                <Popup
+                    :show.sync="showSearch"
+                    title="Поиск по артикулу или URL"
                 >
-                    <Popup
-                        :show.sync="showSearch"
-                        title="Поиск по артикулу или URL"
-                    >
-                        <SearchInput
-                            :url.sync="searchUrl"
-                            :searchLot="searchLot"
-                            :closePopup="() => (showSearch = false)"
-                        />
-                    </Popup>
-
-                </SearchDataProvider> -->
+                    <SearchInput
+                        :url.sync="searchUrl"
+                        :searchLot="searchLot"
+                        :closePopup="() => (showSearch = false)"
+                    />
+                </Popup>
 
                 <div class="p-3">
-                    <p v-if="lotLoadingError">
+                    <p v-if="lotLoadingError" class="is-size-7">
                         Произошла ошибка, попробуйте позднее или обратитесь в
                         поддержку
                         <a href="https://t.me/pulsprodajru_supportbot">

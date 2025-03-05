@@ -18,19 +18,12 @@ export default {
         };
     },
     props: {
-        fetchData: Function,
         selectSortingOption: Function,
-        resetLotOptions: Function,
-        resetItems: Function,
+        handleSearchClick: Function,
         sortField: String,
         sort: String,
     },
     methods: {
-        handleSearchClick() {
-            this.resetItems();
-            this.fetchData();
-            this.resetLotOptions();
-        },
         handleSelectPriceClick() {
             this.selectSortingOption(SEARCH_FIELDS.PRICE);
         },
@@ -72,7 +65,7 @@ export default {
         </button>
 
         <button
-            @click="handleSearchClick"
+           @click="handleSearchClick"
             class="button button--icon is-light is-small"
         >
             <img :src="search" alt="Filter" />
