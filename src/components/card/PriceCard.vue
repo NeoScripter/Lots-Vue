@@ -43,7 +43,7 @@ export default {
                 color: '#1A1345',
             }).then(({ isConfirmed }) => {
                 if (isConfirmed) {
-                    window.open(link, '_blank'); 
+                    window.open(link, '_blank');
                 }
             });
         },
@@ -73,9 +73,15 @@ export default {
             </div>
         </div>
 
-        <Popup :show.sync="showChart" title="График" :key="`${LotData.id}ChartPopup`">
+        <Popup
+            :show.sync="showChart"
+            title="График"
+            :key="`${LotData.id}ChartPopup`"
+        >
             <div class="chart-wrapper">
-                <ChartDataProvider v-if="showChart" :key="`${LotData.id}ChartProvider`"
+                <ChartDataProvider
+                    v-if="showChart"
+                    :key="`${LotData.id}ChartProvider`"
                     :complexId="complexId"
                     :lotId="LotData.id.toString()"
                     v-slot="{ prices, isLoading }"
@@ -127,8 +133,9 @@ export default {
 
         <div class="card__panel">
             <div class="card__status">
+                <div v-if="LotData.is_actual === true"></div>
                 <div
-                    v-if="LotData.is_start === true"
+                    v-else-if="LotData.is_start === true"
                     class="card__panel-status success"
                 >
                     Старт продаж
@@ -146,7 +153,6 @@ export default {
                 >
                     Не в продаже
                 </div>
-                <div v-else class="card__panel-status info">Неизвестно</div>
             </div>
             <button @click="showChart = true" class="card__panel-btn">
                 <img :src="chart" alt="Chart" />
