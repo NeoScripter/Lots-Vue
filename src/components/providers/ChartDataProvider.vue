@@ -1,5 +1,5 @@
 <template>
-    <div><slot :prices="prices" :isLoading="isLoading"></slot></div>
+    <div><slot :prices="prices" :bookings="bookings" :isLoading="isLoading"></slot></div>
 </template>
 
 <script>
@@ -15,6 +15,7 @@ export default {
             isLoading: false,
             url: URLS.CHART,
             prices: [],
+            bookings: [],
         };
     },
     methods: {
@@ -28,9 +29,8 @@ export default {
                 );
                 const data = await response.json();
 
-                if (data.prices && Array.isArray(data.prices)) {
-                    this.prices = data.prices;
-                }
+                this.prices = data.prices;
+                this.bookings = data.bron;
             } catch (error) {
                 console.error('API Error:', error);
             } finally {

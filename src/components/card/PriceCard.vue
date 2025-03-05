@@ -84,14 +84,14 @@ export default {
                     :key="`${LotData.id}ChartProvider`"
                     :complexId="complexId"
                     :lotId="LotData.id.toString()"
-                    v-slot="{ prices, isLoading }"
+                    v-slot="{ prices, bookings, isLoading }"
                 >
                     <div class="chart-wrapper">
                         <Spinner v-if="isLoading && showChart" />
 
                         <PriceChart
                             v-else-if="!isLoading && showChart"
-                            :prices="prices"
+                            :prices="prices" :bookings="bookings"
                         />
                     </div>
                 </ChartDataProvider>
