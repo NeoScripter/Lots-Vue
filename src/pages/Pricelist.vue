@@ -47,7 +47,7 @@ export default {
         CardSkeleton,
         Popup,
         FiltersPanel,
-        SearchInput
+        SearchInput,
     },
     methods: {
         resetLotOptions() {
@@ -104,6 +104,7 @@ export default {
         v-slot="{
             complexData,
             complexDataIsLoading,
+            complexLoadingError,
             actuality,
             getBuildings,
             getRooms,
@@ -116,6 +117,7 @@ export default {
                 items,
                 lotDataIsLoading,
                 totalItems,
+                lotLoadingError,
                 fetchData,
                 resetItems,
             }"
@@ -142,7 +144,15 @@ export default {
                             class="logo"
                         />
                     </header>
-                    <div>
+
+                    <p v-if="complexLoadingError" class="is-size-7">
+                        Произошла ошибка, попробуйте позднее или обратитесь в
+                        поддержку
+                        <a href="https://t.me/pulsprodajru_supportbot">
+                            https://t.me/pulsprodajru_supportbot
+                        </a>
+                    </p>
+                    <div v-else>
                         <Complex
                             :complexData="complexData"
                             :complexDataIsLoading="complexDataIsLoading"
@@ -167,7 +177,6 @@ export default {
                         />
                     </div>
                 </div>
-                
 
                 <!-- <SearchDataProvider
                     :url="''"
@@ -186,15 +195,22 @@ export default {
 
                 </SearchDataProvider> -->
 
-                    <div class="p-3">
-                        <p v-if="items.length === 0 && !lotDataIsLoading">
-                            По вашему запросу ничего не найдено
-                        </p>
-                        <div v-for="(item, _) in items" :key="item.id">
-                            <PriceCard :LotData="item" :complexId="complexId" />
-                        </div>
-                        <CardSkeleton v-if="lotDataIsLoading" />
+                <div class="p-3">
+                    <p v-if="lotLoadingError">
+                        Произошла ошибка, попробуйте позднее или обратитесь в
+                        поддержку
+                        <a href="https://t.me/pulsprodajru_supportbot">
+                            https://t.me/pulsprodajru_supportbot
+                        </a>
+                    </p>
+                    <p v-else-if="items.length === 0 && !lotDataIsLoading">
+                        По вашему запросу ничего не найдено
+                    </p>
+                    <div v-for="(item, _) in items" :key="item.id">
+                        <PriceCard :LotData="item" :complexId="complexId" />
                     </div>
+                    <CardSkeleton v-if="lotDataIsLoading" />
+                </div>
             </div>
         </LotDataProvider>
     </ComplexDataProvider>

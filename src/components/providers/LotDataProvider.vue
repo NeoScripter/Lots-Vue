@@ -15,6 +15,7 @@ export default {
             totalItems: 0,
             page: 1,
             lotDataIsLoading: false,
+            isError: false,
             url: URLS.LOT,
         };
     },
@@ -24,6 +25,7 @@ export default {
 
             try {
                 this.lotDataIsLoading = true;
+                this.isError = false;
 
                 const requestOptions = { ...this.options, page: this.page }; 
 
@@ -42,6 +44,7 @@ export default {
                 this.totalItems = data.total;
             } catch (error) {
                 console.error('API Error:', error);
+                this.isError = true;
             } finally {
                 this.lotDataIsLoading = false;
             }
@@ -75,6 +78,7 @@ export default {
         <slot
             :items="items"
             :lotDataIsLoading="lotDataIsLoading"
+            :lotLoadingError="isError"
             :totalItems="totalItems"
             :fetchData="fetchData"
             :resetItems="resetItems"

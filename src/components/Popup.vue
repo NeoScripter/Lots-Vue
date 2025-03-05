@@ -48,6 +48,7 @@ export default {
 .overlay {
     position: fixed;
     display: flex;
+    overflow-y: auto;
     flex-direction: column;
     inset: 0;
     background-color: rgb(0, 0, 0, 0.5);

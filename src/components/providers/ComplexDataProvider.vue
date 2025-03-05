@@ -10,6 +10,7 @@ export default {
         return {
             complexData: {},
             complexDataIsLoading: false,
+            isError: false,
             url: URLS.COMPLEX,
         };
     },
@@ -19,12 +20,15 @@ export default {
 
             try {
                 this.complexDataIsLoading = true;
+                this.isError = false;;
+
                 const response = await fetch(`${this.url}${this.complexId}`);
                 const data = await response.json();
 
                 this.complexData = data;
             } catch (error) {
                 console.error('API Error:', error);
+                this.isError = true;
             } finally {
                 this.complexDataIsLoading = false;
             }
@@ -58,6 +62,7 @@ export default {
         <slot
             :complexData="complexData"
             :complexDataIsLoading="complexDataIsLoading"
+            :complexLoadingError="isError"
             :actuality="getActuality"
             :getBuildings="getBuildings"
             :getRooms="getRooms"
