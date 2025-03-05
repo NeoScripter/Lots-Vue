@@ -34,7 +34,7 @@ export default {
 
 .card__data__body {
     color: #514f62;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 400;
     height: 1em;
 }

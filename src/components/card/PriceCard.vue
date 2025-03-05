@@ -195,7 +195,8 @@ export default {
 .card__data {
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 3px;
 }
 
 .card__panel {
