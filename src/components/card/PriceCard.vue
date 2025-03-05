@@ -41,10 +41,11 @@ export default {
                 cancelButtonColor: '#ff6666',
                 background: '#fff',
                 color: '#1A1345',
-            }).then(
-                ({ isConfirmed }) =>
-                    isConfirmed && (window.location.href = link)
-            );
+            }).then(({ isConfirmed }) => {
+                if (isConfirmed) {
+                    window.open(link, '_blank'); 
+                }
+            });
         },
     },
 };
@@ -65,7 +66,7 @@ export default {
                 <div class="attr">
                     {{
                         isNaN(parseInt(LotData.rooms))
-                            ? "Студия"
+                            ? 'Студия'
                             : `${LotData.rooms}к`
                     }}
                 </div>
@@ -145,12 +146,7 @@ export default {
                 >
                     Не в продаже
                 </div>
-                <div
-                    v-else
-                    class="card__panel-status info"
-                >
-                    Неизвестно
-                </div>
+                <div v-else class="card__panel-status info">Неизвестно</div>
             </div>
             <button @click="showChart = true" class="card__panel-btn">
                 <img :src="chart" alt="Chart" />
@@ -168,7 +164,6 @@ export default {
 </template>
 
 <style scoped>
-
 .chart-wrapper {
     height: 400px;
 }
