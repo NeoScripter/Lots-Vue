@@ -73,9 +73,9 @@ export default {
             </div>
         </div>
 
-        <Popup :show.sync="showChart" title="График">
+        <Popup :show.sync="showChart" title="График" :key="`${LotData.id}ChartPopup`">
             <div class="chart-wrapper">
-                <ChartDataProvider
+                <ChartDataProvider v-if="showChart" :key="`${LotData.id}ChartProvider`"
                     :complexId="complexId"
                     :lotId="LotData.id.toString()"
                     v-slot="{ prices, isLoading }"

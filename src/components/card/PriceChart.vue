@@ -53,7 +53,7 @@ export default {
                             {
                                 scaleLabel: {
                                     display: true,
-                                    labelString: 'Цена (₽)',
+                                    labelString: 'Стоимость (₽)',
                                 },
                                 ticks: {
                                     beginAtZero: false,
