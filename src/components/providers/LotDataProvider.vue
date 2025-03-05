@@ -18,15 +18,21 @@ export default {
             isError: false,
             url: URLS.LOT,
             searchUrl: '',
+            abortController: null,
         };
     },
     methods: {
         async fetchData() {
-            if (this.lotDataIsLoading) return;
+            if (this.lotDataIsLoading) {
+                this.abortController.abort();
+            }
 
             try {
                 this.lotDataIsLoading = true;
                 this.isError = false;
+
+                this.abortController = new AbortController();
+                const { signal } = this.abortController;
 
                 const requestOptions = { ...this.options, page: this.page };
 
@@ -34,6 +40,7 @@ export default {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(requestOptions),
+                    signal,
                 });
 
                 const data = await response.json();
@@ -44,6 +51,8 @@ export default {
                 this.totalPages = data.pages;
                 this.totalItems = data.total;
             } catch (error) {
+                if (error.name === 'AbortError') return;
+
                 console.error('API Error:', error);
                 this.isError = true;
             } finally {
@@ -59,13 +68,16 @@ export default {
                 this.lotDataIsLoading = true;
                 this.isError = false;
 
-                const response = await fetch(`${this.url}${this.complexId}/search/`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(this.searchUrl),
-                });
+                const response = await fetch(
+                    `${this.url}${this.complexId}/search/`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(this.searchUrl),
+                    }
+                );
 
                 const data = await response.json();
 
