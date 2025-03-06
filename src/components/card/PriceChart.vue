@@ -36,7 +36,7 @@ export default {
                     labels,
                     datasets: [
                         {
-                            label: "График цены",
+                            label: "График стоимости",
                             data: priceData,
                             borderColor: "#42A5F5",
                             backgroundColor: "rgba(66, 165, 245, 0.2)",
