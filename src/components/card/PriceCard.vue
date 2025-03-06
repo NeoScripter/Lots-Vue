@@ -47,6 +47,15 @@ export default {
                 }
             });
         },
+        keysValue(keys_now, keys) {
+            if (keys_now) {
+                return 'Уже выдают';
+            } else if (keys) {
+                return `${keys}`;
+            } else {
+                return '';
+            }
+        }
     },
 };
 </script>
@@ -128,7 +137,7 @@ export default {
                 :value="LotData.days_on_site"
                 suffix=" д"
             />
-            <DataItem title="ключи до" :value="LotData.keys" />
+            <DataItem title="ключи до" :value="keysValue(LotData.keys_now, LotData.keys)" />
         </div>
 
         <div class="card__panel">
