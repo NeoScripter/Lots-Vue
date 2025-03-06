@@ -20,6 +20,7 @@ export default {
             logo,
             complexId: COMPLEX_ID,
             defaultLotOptions: {
+                status: 'active',
                 building: '',
                 rooms: '',
                 sort_field: SEARCH_FIELDS.PRICE,
@@ -77,18 +78,6 @@ export default {
                 };
             }
         },
-        setBuilding(building) {
-            this.lotOptions = {
-                ...this.lotOptions,
-                building: building,
-            };
-        },
-        setRoom(room) {
-            this.lotOptions = {
-                ...this.lotOptions,
-                rooms: room,
-            };
-        },
         handleSearchClick() {
             this.showSearch = true;
         },
@@ -119,7 +108,7 @@ export default {
                 fetchData,
                 resetItems,
                 searchLot,
-                searchUrl,
+                updateSearchUrl,
             }"
         >
             <Popup :show.sync="showFilters" title="Фильтры">
@@ -178,7 +167,7 @@ export default {
                     title="Поиск по артикулу или URL"
                 >
                     <SearchInput
-                        :url.sync="searchUrl"
+                        :updateSearchUrl="updateSearchUrl"
                         :searchLot="searchLot"
                         :closePopup="() => (showSearch = false)"
                     />

@@ -68,14 +68,16 @@ export default {
                 this.lotDataIsLoading = true;
                 this.isError = false;
 
+                console.log(this.searchUrl);
+
                 const response = await fetch(
-                    `${this.url}${this.complexId}/search/`,
+                    `${this.url}${this.complexId}/search`,
                     {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify(this.searchUrl),
+                        body: JSON.stringify({search: this.searchUrl}),
                     }
                 );
 
@@ -102,6 +104,9 @@ export default {
         resetItems() {
             this.items.length = 0;
         },
+        updateSearchUrl(newUrl) {
+            this.searchUrl = newUrl;
+        }
     },
     watch: {
         options: {
@@ -131,7 +136,7 @@ export default {
             :totalItems="totalItems"
             :fetchData="fetchData"
             :resetItems="resetItems"
-            :searchUrl="searchUrl"
+            :updateSearchUrl="updateSearchUrl"
             :searchLot="searchLot"
         ></slot>
     </div>

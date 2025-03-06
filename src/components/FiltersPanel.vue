@@ -16,6 +16,9 @@ export default {
         setRoom(room) {
             this.$emit("update:lotOptions", { ...this.lotOptions, rooms: room });
         },
+        setStatus(status) {
+            this.$emit("update:lotOptions", { ...this.lotOptions, status: status });
+        },
         handleSearchClick() {
             this.closePopup();
         },
@@ -67,6 +70,41 @@ export default {
                 >
                     {{ room === 'studio' ? 'Студия' : room }}
                 </button>
+            </div>
+        </div>
+
+        <div class="filters__btn-group">
+            <p>Статус</p>
+            <div class="filters__btn-wrapper">
+                <button
+                    @click="setStatus('active')"
+                    class="button is-light is-small"
+                    :class="{ 'active-filter': lotOptions.status === 'active' }"
+                >
+                    Все
+                </button>
+                <button
+                    @click="setStatus('bron')"
+                    class="button is-light is-small"
+                    :class="{ 'active-filter': lotOptions.status === 'bron' }"
+                >
+                    Забронировано
+                </button>
+                <button
+                    @click="setStatus('start')"
+                    class="button is-light is-small"
+                    :class="{ 'active-filter': lotOptions.status === 'start' }"
+                >
+                    Старт продаж
+                </button>
+                <button
+                    @click="setStatus('not_available')"
+                    class="button is-light is-small"
+                    :class="{ 'active-filter': lotOptions.status === 'not_available' }"
+                >
+                    Не в продаже
+                </button>
+                
             </div>
         </div>
 

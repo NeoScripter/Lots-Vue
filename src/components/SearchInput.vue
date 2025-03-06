@@ -1,25 +1,30 @@
 <script>
 export default {
     props: {
-        url: String,          
+        updateSearchUrl: Function,          
         searchLot: Function, 
         closePopup: Function 
     },
     data() {
         return {
-            searchUrl: this.url
+            searchUrl: ""
         };
     },
     watch: {
         searchUrl(newUrl) {
-            this.$emit("update:url", newUrl); 
+            this.updateSearchUrl(newUrl); 
         }
     },
     methods: {
         handleSearchClick() {
             if (!this.searchUrl) return; 
             this.searchLot();  
+            this.resetUrls(); 
             this.closePopup();
+        },
+        resetUrls() {
+            this.searchUrl = '';
+            this.updateSearchUrl(''); 
         }
     }
 };
@@ -33,7 +38,7 @@ export default {
                 type="search"
                 placeholder="Введите url"
             />
-            <button @click="closePopup">
+            <button @click="resetUrls">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <g id="Group 381">
                         <rect x="11.7573" y="3.53552" width="1" height="11" transform="rotate(45 11.7573 3.53552)" fill="black" />
