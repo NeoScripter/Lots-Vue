@@ -77,11 +77,18 @@ export default {
             <p>Статус</p>
             <div class="filters__btn-wrapper">
                 <button
+                    @click="setStatus('')"
+                    class="button is-light is-small"
+                    :class="{ 'active-filter': lotOptions.status === '' }"
+                >
+                    Все
+                </button>
+                <button
                     @click="setStatus('active')"
                     class="button is-light is-small"
                     :class="{ 'active-filter': lotOptions.status === 'active' }"
                 >
-                    Все
+                    В продаже
                 </button>
                 <button
                     @click="setStatus('bron')"

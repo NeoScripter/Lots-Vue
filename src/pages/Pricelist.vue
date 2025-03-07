@@ -20,7 +20,7 @@ export default {
             logo,
             complexId: COMPLEX_ID,
             defaultLotOptions: {
-                status: 'active',
+                status: '',
                 building: '',
                 rooms: '',
                 sort_field: SEARCH_FIELDS.PRICE,
@@ -197,6 +197,7 @@ export default {
 <style scoped>
 .container {
     border-inline: 1px solid rgb(198, 193, 193, 0.2);
+    min-height: 100vh;
 }
 
 .logo {
