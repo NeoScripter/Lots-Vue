@@ -104,6 +104,7 @@ export default {
                 items,
                 lotDataIsLoading,
                 totalItems,
+                lotsAvailable,
                 lotLoadingError,
                 fetchData,
                 resetItems,
@@ -148,7 +149,7 @@ export default {
                             :actuality="actuality"
                             priceFrom="2024-04-11"
                             :totalLots="totalItems"
-                            :availableLots="437"
+                            :availableLots="lotsAvailable"
                             :isLoading="complexDataIsLoading"
                         />
 

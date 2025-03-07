@@ -13,6 +13,7 @@ export default {
             items: [],
             totalPages: 1,
             totalItems: 0,
+            lotsAvailable: 0,
             page: 1,
             lotDataIsLoading: false,
             isError: false,
@@ -50,6 +51,7 @@ export default {
                 this.page++;
                 this.totalPages = data.pages;
                 this.totalItems = data.total;
+                this.lotsAvailable = data.lots_available;
             } catch (error) {
                 if (error.name === 'AbortError') return;
 
@@ -95,7 +97,7 @@ export default {
         async handleScroll() {
             const nearBottom =
                 window.innerHeight + window.scrollY >=
-                document.body.offsetHeight - 1200;
+                document.body.offsetHeight - 500;
 
             if (nearBottom && !this.isLoading && this.page < this.totalPages) {
                 await this.fetchData();
@@ -134,6 +136,7 @@ export default {
             :lotDataIsLoading="lotDataIsLoading"
             :lotLoadingError="isError"
             :totalItems="totalItems"
+            :lotsAvailable = "lotsAvailable"
             :fetchData="fetchData"
             :resetItems="resetItems"
             :updateSearchUrl="updateSearchUrl"

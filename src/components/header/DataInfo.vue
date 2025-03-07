@@ -45,8 +45,8 @@ export default {
         <div v-else class="data-row">
             <span>Лотов на сайте:</span>
             <span>{{ totalLots }}</span>
-            <!-- <span>, доступны к покупке</span>
-            <span>{{ availableLots }}</span> -->
+            <span>, доступны к покупке</span>
+            <span>{{ availableLots || 0 }}</span>
         </div>
     </div>
 </template>
