@@ -5,6 +5,8 @@ import ascending from '/svgs/asc.svg';
 import descending from '/svgs/desc.svg';
 
 import { SEARCH_FIELDS } from '../const/SearchFields';
+import Popup from './Popup.vue';
+import SortBtn from './SortBtn.vue';
 
 export default {
     name: 'FilterBtns',
@@ -15,7 +17,12 @@ export default {
             SEARCH_FIELDS,
             ascending,
             descending,
+            showSortPopup: false,
         };
+    },
+    components: {
+        Popup,
+        SortBtn,
     },
     props: {
         selectSortingOption: Function,
@@ -39,6 +46,18 @@ export default {
         },
     },
     computed: {
+        getSortButtonContent() {
+            switch (this.sortField) {
+                case SEARCH_FIELDS.PRICE:
+                    return 'Стоимость';
+                case SEARCH_FIELDS.SQM_PRICE:
+                    return 'Цена';
+                case SEARCH_FIELDS.CHANGE:
+                    return 'Изменение';
+                default:
+                    return 'Сортировка';
+            }
+        },
         getFilterButtonContent() {
             if (!this.rooms && !this.building && !this.status) {
                 return 'Фильтры';
@@ -52,7 +71,7 @@ export default {
 
             if (this.rooms) {
                 if (this.rooms === 'studio') {
-                    parts.push('Студия');
+                    parts.push('Студ.');
                 } else {
                     parts.push(`${this.rooms} к.`);
                 }
@@ -62,16 +81,16 @@ export default {
                 let statusText = '';
                 switch (this.status) {
                     case 'active':
-                        statusText = 'в продаже';
+                        statusText = 'в пр.';
                         break;
                     case 'bron':
-                        statusText = 'забронировано';
+                        statusText = 'забр.';
                         break;
                     case 'start':
-                        statusText = 'старт продаж';
+                        statusText = 'ст. пр.';
                         break;
                     case 'not_available':
-                        statusText = 'не в продаже';
+                        statusText = 'не в пр.';
                         break;
                 }
                 if (statusText) {
@@ -96,7 +115,7 @@ export default {
             <img :src="filterIcon" alt="Filter" />
         </button> -->
 
-        <button
+        <!--    <button
             @click="handleSelectPriceClick"
             class="button is-light is-small"
             :class="{ 'active-filter': sortField === SEARCH_FIELDS.PRICE }"
@@ -111,24 +130,65 @@ export default {
                 "
                 alt="descending order"
             />
-        </button>
+        </button> -->
+
+        <!-- <button
+            @click="() => (showSortPopup = true)"
+            class="button is-light is-small"
+        >
+            Сортировка
+        </button> -->
 
         <button
-            @click="handleSelectChangeClick"
+            @click="() => (showSortPopup = true)"
             class="button is-light is-small"
-            :class="{ 'active-filter': sortField === SEARCH_FIELDS.CHANGE }"
+            :class="{ 'active-filter': sortField !== '' }"
         >
-            Изменение
+            {{ getSortButtonContent }}
             <img
-                v-if="sortField === SEARCH_FIELDS.CHANGE"
+                v-if="sortField !== ''"
                 :src="
                     sort === SEARCH_FIELDS.ASCENDING_ORDER
                         ? ascending
                         : descending
                 "
-                alt="ascending order"
+                alt="descending order"
             />
         </button>
+
+        <Popup :show.sync="showSortPopup" title="Сортировка">
+            <div class="sort-popup">
+                <div class="filter-actions mb-4">
+                    <SortBtn
+                        label="Стоимость"
+                        :sortField="sortField"
+                        :currentSortField="SEARCH_FIELDS.PRICE"
+                        :sort="sort"
+                        @click="selectSortingOption(SEARCH_FIELDS.PRICE)"
+                    />
+                    <SortBtn
+                        label="Цена"
+                        :sortField="sortField"
+                        :currentSortField="SEARCH_FIELDS.SQM_PRICE"
+                        :sort="sort"
+                        @click="selectSortingOption(SEARCH_FIELDS.SQM_PRICE)"
+                    />
+                    <SortBtn
+                        label="Изменение"
+                        :sortField="sortField"
+                        :currentSortField="SEARCH_FIELDS.CHANGE"
+                        :sort="sort"
+                        @click="selectSortingOption(SEARCH_FIELDS.CHANGE)"
+                    />
+                </div>
+                <button
+                    @click="() => (showSortPopup = false)"
+                    class="button is-light is-medium is-fullwidth"
+                >
+                    Закрыть
+                </button>
+            </div>
+        </Popup>
 
         <button
             @click="handleSearchClick"
@@ -175,9 +235,15 @@ export default {
     gap: 0.5rem;
 }
 
-.button {
+.sort-popup {
+    padding-inline: 20px;
+    margin-top: -20px;
+}
+
+.button:not(.is-medium) {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
     gap: 0.3rem;
     font-weight: 700;
     font-size: 0.65rem;

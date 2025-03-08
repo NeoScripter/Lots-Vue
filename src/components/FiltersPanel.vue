@@ -29,7 +29,7 @@ export default {
 <template>
     <div class="filters-container">
 
-        <div class="filters__btn-group">
+        <div class="filters__btn-group scrollbar-hidden">
             <p>Выбор корпуса</p>
             <div class="filters__btn-wrapper">
                 <button
@@ -51,7 +51,7 @@ export default {
             </div>
         </div>
 
-        <div class="filters__btn-group">
+        <div class="filters__btn-group scrollbar-hidden">
             <p>Комнатность</p>
             <div class="filters__btn-wrapper">
                 <button
@@ -73,7 +73,7 @@ export default {
             </div>
         </div>
 
-        <div class="filters__btn-group">
+        <div class="filters__btn-group scrollbar-hidden">
             <p>Статус</p>
             <div class="filters__btn-wrapper">
                 <button
@@ -129,12 +129,18 @@ export default {
     gap: 1rem;
     margin-inline: 20px;
     margin-top: -20px;
+    overflow: hidden;
 }
 
 .filters__btn-wrapper {
     display: flex;
     gap: 0.5rem;
     align-items: center;
+}
+
+.filters__btn-group {
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 .filters__btn-group > p {
