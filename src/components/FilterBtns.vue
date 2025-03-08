@@ -14,12 +14,13 @@ export default {
             search,
             SEARCH_FIELDS,
             ascending,
-            descending
+            descending,
         };
     },
     props: {
         selectSortingOption: Function,
         handleSearchClick: Function,
+        resetLotOptions: Function,
         sortField: String,
         sort: String,
     },
@@ -39,7 +40,9 @@ export default {
 
 <template>
     <div class="filter-actions">
-        <button @click="openFilters" class="button is-light is-small">Фильтры</button>
+        <button @click="openFilters" class="button is-light is-small">
+            Фильтры
+        </button>
 
         <!--  <button @click="handleSelectPriceClick" class="button is-light is-small">
             Цена
@@ -52,7 +55,15 @@ export default {
             :class="{ 'active-filter': sortField === SEARCH_FIELDS.PRICE }"
         >
             Стоимость
-            <img v-if="sortField === SEARCH_FIELDS.PRICE" :src="sort === SEARCH_FIELDS.ASCENDING_ORDER ? ascending : descending" alt="descending order">
+            <img
+                v-if="sortField === SEARCH_FIELDS.PRICE"
+                :src="
+                    sort === SEARCH_FIELDS.ASCENDING_ORDER
+                        ? ascending
+                        : descending
+                "
+                alt="descending order"
+            />
         </button>
 
         <button
@@ -61,14 +72,48 @@ export default {
             :class="{ 'active-filter': sortField === SEARCH_FIELDS.CHANGE }"
         >
             Изменение
-            <img v-if="sortField === SEARCH_FIELDS.CHANGE" :src="sort === SEARCH_FIELDS.ASCENDING_ORDER ? ascending : descending" alt="ascending order" />
+            <img
+                v-if="sortField === SEARCH_FIELDS.CHANGE"
+                :src="
+                    sort === SEARCH_FIELDS.ASCENDING_ORDER
+                        ? ascending
+                        : descending
+                "
+                alt="ascending order"
+            />
         </button>
 
         <button
-           @click="handleSearchClick"
+            @click="handleSearchClick"
             class="button button--icon is-light is-small"
         >
             <img :src="search" alt="Filter" />
+        </button>
+
+        <button
+            @click="resetLotOptions"
+            class="button button--icon is-light is-small"
+        >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <g id="Group 381">
+                    <rect
+                        x="11.7573"
+                        y="3.53552"
+                        width="1"
+                        height="11"
+                        transform="rotate(45 11.7573 3.53552)"
+                        fill="black"
+                    />
+                    <rect
+                        x="12.4644"
+                        y="11.3137"
+                        width="1"
+                        height="11"
+                        transform="rotate(135 12.4644 11.3137)"
+                        fill="black"
+                    />
+                </g>
+            </svg>
         </button>
     </div>
 </template>
@@ -97,6 +142,11 @@ export default {
 
 .button--icon img {
     margin-block: 1.5px;
+    width: 1rem;
+}
+
+.button--icon svg {
+    margin-block: 1.7px;
     width: 1rem;
 }
 </style>

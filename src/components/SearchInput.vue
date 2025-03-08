@@ -3,7 +3,8 @@ export default {
     props: {
         updateSearchUrl: Function,          
         searchLot: Function, 
-        closePopup: Function 
+        closePopup: Function,
+        resetLotOptions: Function
     },
     data() {
         return {
@@ -21,6 +22,7 @@ export default {
             this.searchLot();  
             this.resetUrls(); 
             this.closePopup();
+            this.resetLotOptions();
         },
         resetUrls() {
             this.searchUrl = '';

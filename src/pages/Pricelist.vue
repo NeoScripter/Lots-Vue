@@ -23,7 +23,7 @@ export default {
                 status: '',
                 building: '',
                 rooms: '',
-                sort_field: SEARCH_FIELDS.PRICE,
+                sort_field: '',
                 sort: SEARCH_FIELDS.ASCENDING_ORDER,
                 page: 1,
                 per_page: 20,
@@ -159,6 +159,7 @@ export default {
                             :sortField="lotOptions.sort_field"
                             :sort="lotOptions.sort"
                             :showFilters.sync="showFilters"
+                            :resetLotOptions="resetLotOptions"
                         />
                     </div>
                 </div>
@@ -171,6 +172,7 @@ export default {
                         :updateSearchUrl="updateSearchUrl"
                         :searchLot="searchLot"
                         :closePopup="() => (showSearch = false)"
+                        :resetLotOptions="resetLotOptions"
                     />
                 </Popup>
 

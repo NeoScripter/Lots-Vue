@@ -24,9 +24,7 @@ export default {
     },
     methods: {
         async fetchData() {
-            if (this.lotDataIsLoading) {
-                this.abortController.abort();
-            }
+            if (this.lotDataIsLoading) return;
 
             try {
                 this.lotDataIsLoading = true;

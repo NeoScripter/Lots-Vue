@@ -22,6 +22,8 @@ export default {
             chart,
             chain,
             showChart: false,
+            showRedirect: false,
+            redirectLink: '',
         };
     },
     computed: {
@@ -31,21 +33,8 @@ export default {
     },
     methods: {
         confirmRedirect(link) {
-            this.$swal({
-                title: 'Перейти на страницу этого лота на сайте застройщика?',
-                showCancelButton: true,
-                icon: 'question',
-                confirmButtonText: 'Да',
-                cancelButtonText: 'Нет',
-                confirmButtonColor: '#99daff',
-                cancelButtonColor: '#ff6666',
-                background: '#fff',
-                color: '#1A1345',
-            }).then(({ isConfirmed }) => {
-                if (isConfirmed) {
-                    window.open(link, '_blank');
-                }
-            });
+            this.showRedirect = true;
+            this.redirectLink = link;
         },
         keysValue(keys_now, keys) {
             if (keys_now) {
@@ -104,6 +93,16 @@ export default {
                         />
                     </div>
                 </ChartDataProvider>
+            </div>
+        </Popup>
+
+        <Popup
+            :show.sync="showRedirect"
+            title="Перейти на страницу этого лота на сайте застройщика?"
+            :key="`${LotData.id}RedirectPopup`"
+        >
+            <div v-if="showRedirect" class="redirect-popup">
+                <a :href="redirectLink" target="_blank" class="button is-light">Перейти</a>
             </div>
         </Popup>
 
@@ -179,6 +178,16 @@ export default {
 </template>
 
 <style scoped>
+
+.redirect-popup {
+    padding-inline: 1rem;
+}
+
+.redirect-popup a {
+    display: block;
+    width: max-content;
+    margin-inline: auto;
+}
 .chart-wrapper {
     height: 400px;
 }

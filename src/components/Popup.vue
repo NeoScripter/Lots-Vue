@@ -57,10 +57,16 @@ export default {
 
 .popup__header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
+    text-wrap: balance;
     padding-inline: 20px;
     margin-bottom: 40px;
+    gap: 5px;
+}
+
+.popup__header button {
+    flex-shrink: 0;
 }
 
 .popup__title {
