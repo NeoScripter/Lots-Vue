@@ -44,8 +44,8 @@ export default {
         <div v-if="isLoading" class="skeleton is-size-6 mb-1"></div>
         <div v-else class="data-row">
             <span>Лотов на сайте:</span>
-            <span>{{ totalLots }}</span>
-            <span>, доступны к покупке</span>
+            <span>{{ totalLots }},</span>
+            <span>доступны к покупке:</span>
             <span>{{ availableLots || 0 }}</span>
         </div>
     </div>

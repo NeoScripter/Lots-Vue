@@ -23,6 +23,9 @@ export default {
         resetLotOptions: Function,
         sortField: String,
         sort: String,
+        building: String,
+        rooms: String,
+        status: String,
     },
     methods: {
         handleSelectPriceClick() {
@@ -35,13 +38,57 @@ export default {
             this.$emit('update:showFilters', true);
         },
     },
+    computed: {
+        getFilterButtonContent() {
+            if (!this.rooms && !this.building && !this.status) {
+                return 'Фильтры';
+            }
+
+            const parts = [];
+
+            if (this.building) {
+                parts.push(`${this.building} корп.`);
+            }
+
+            if (this.rooms) {
+                if (this.rooms === 'studio') {
+                    parts.push('Студия');
+                } else {
+                    parts.push(`${this.rooms} к.`);
+                }
+            }
+
+            if (this.status) {
+                let statusText = '';
+                switch (this.status) {
+                    case 'active':
+                        statusText = 'в продаже';
+                        break;
+                    case 'bron':
+                        statusText = 'забронировано';
+                        break;
+                    case 'start':
+                        statusText = 'старт продаж';
+                        break;
+                    case 'not_available':
+                        statusText = 'не в продаже';
+                        break;
+                }
+                if (statusText) {
+                    parts.push(statusText);
+                }
+            }
+
+            return parts.join(', ');
+        },
+    },
 };
 </script>
 
 <template>
     <div class="filter-actions">
         <button @click="openFilters" class="button is-light is-small">
-            Фильтры
+            {{ getFilterButtonContent }}
         </button>
 
         <!--  <button @click="handleSelectPriceClick" class="button is-light is-small">

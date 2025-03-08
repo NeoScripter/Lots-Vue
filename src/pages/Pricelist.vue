@@ -158,6 +158,9 @@ export default {
                             :handleSearchClick="handleSearchClick"
                             :sortField="lotOptions.sort_field"
                             :sort="lotOptions.sort"
+                            :rooms="lotOptions.rooms"
+                            :building="lotOptions.building"
+                            :status="lotOptions.status"
                             :showFilters.sync="showFilters"
                             :resetLotOptions="resetLotOptions"
                         />
