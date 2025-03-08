@@ -44,7 +44,7 @@ export default {
             } else {
                 return '';
             }
-        }
+        },
     },
 };
 </script>
@@ -89,7 +89,8 @@ export default {
 
                         <PriceChart
                             v-else-if="!isLoading && showChart"
-                            :prices="prices" :bookings="bookings"
+                            :prices="prices"
+                            :bookings="bookings"
                         />
                     </div>
                 </ChartDataProvider>
@@ -102,7 +103,9 @@ export default {
             :key="`${LotData.id}RedirectPopup`"
         >
             <div v-if="showRedirect" class="redirect-popup">
-                <a :href="redirectLink" target="_blank" class="button is-light">Перейти</a>
+                <a :href="redirectLink" target="_blank" class="button is-light">
+                    Перейти
+                </a>
             </div>
         </Popup>
 
@@ -136,7 +139,10 @@ export default {
                 :value="LotData.days_on_site"
                 suffix=" д"
             />
-            <DataItem title="ключи до" :value="keysValue(LotData.keys_now, LotData.keys)" />
+            <DataItem
+                title="ключи до"
+                :value="keysValue(LotData.keys_now, LotData.keys)"
+            />
         </div>
 
         <div class="card__panel">
@@ -178,7 +184,6 @@ export default {
 </template>
 
 <style scoped>
-
 .redirect-popup {
     padding-inline: 1rem;
 }
@@ -208,7 +213,7 @@ export default {
 .card__price {
     font-weight: 600;
     color: #1a1345;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .card__data {
@@ -286,7 +291,7 @@ export default {
 
 .attr {
     color: #514f62;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 400;
     padding-inline: 8px;
     position: relative;
@@ -301,5 +306,14 @@ export default {
     height: 10px;
     transform: translateY(50%);
     top: 0;
+}
+
+@media screen and (min-width: 380px) {
+    .card__price {
+        font-size: 14px;
+    }
+    .attr {
+        font-size: 12px;
+    }
 }
 </style>
