@@ -35,6 +35,22 @@ export default {
     },
     created() {
         this.lotOptions = { ...this.defaultLotOptions };
+
+        const newComplexId = this.getComplexIdFromUrl();
+
+        if (newComplexId !== '') {
+            this.complexId = newComplexId;
+        }
+
+        window.addEventListener('popstate', () => {
+            const newComplexId = this.getComplexIdFromUrl();
+            if (newComplexId !== this.complexId && newComplexId !== '') {
+                this.complexId = newComplexId;
+            }
+        });
+    },
+    beforeDestroy() {
+        window.removeEventListener('popstate', this.getComplexIdFromUrl);
     },
     name: 'PriceList',
     components: {
@@ -80,6 +96,18 @@ export default {
         },
         handleSearchClick() {
             this.showSearch = true;
+        },
+        getComplexIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('complexId') || '';
+        },
+    },
+    watch: {
+        complexId: {
+            immediate: true,
+            handler() {
+                this.resetLotOptions();
+            },
         },
     },
 };
