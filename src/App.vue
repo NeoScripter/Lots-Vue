@@ -18,7 +18,7 @@ export default {
     methods: {
         async checkAuth() {
             try {
-                const response = await fetch('test3.pulsprodaj.ru/api/tgauth');
+                const response = await fetch('http://test3.pulsprodaj.ru/api/tgauth');
                 const data = await response.json();
 
                 this.authData = data;
@@ -35,7 +35,7 @@ export default {
     },
     mounted() {
         this.checkAuth();
-        this.intervalId = setInterval(this.checkAuth, 3000);
+       /*  this.intervalId = setInterval(this.checkAuth, 3000); */
     },
     beforeDestroy() {
         if (this.intervalId) clearInterval(this.intervalId);

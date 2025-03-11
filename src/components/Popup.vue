@@ -12,10 +12,23 @@ export default {
             this.$emit('update:show', false);
         },
     },
+    watch: {
+        show(newVal) {
+            if (newVal) {
+                document.documentElement.classList.add('no-scroll'); 
+            } else {
+                document.documentElement.classList.remove('no-scroll'); 
+            }
+        },
+        deep: true,
+    },
     data() {
         return {
             close,
         };
+    },
+    beforeDestroy() {
+        document.documentElement.classList.remove('no-scroll'); 
     },
 };
 </script>

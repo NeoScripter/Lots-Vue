@@ -24,7 +24,7 @@ export default {
                 building: '',
                 rooms: '',
                 sort_field: '',
-                sort: SEARCH_FIELDS.ASCENDING_ORDER,
+                sort: '',
                 page: 1,
                 per_page: 20,
             },

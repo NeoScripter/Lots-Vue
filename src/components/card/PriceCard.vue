@@ -59,7 +59,7 @@ export default {
                 <div class="attr">{{ LotData.floor }} эт.</div>
                 <div class="attr">
                     {{ LotData.area }} м
-                    <sup>2</sup>
+                    <sup class="attr--area">2</sup>
                 </div>
                 <div class="attr">
                     {{
@@ -103,7 +103,7 @@ export default {
             :key="`${LotData.id}RedirectPopup`"
         >
             <div v-if="showRedirect" class="redirect-popup">
-                <a :href="redirectLink" target="_blank" class="button is-light">
+                <a @click="showRedirect = false" :href="redirectLink" target="_blank" class="button is-light">
                     Перейти
                 </a>
             </div>
@@ -306,6 +306,10 @@ export default {
     height: 10px;
     transform: translateY(50%);
     top: 0;
+}
+
+.attr--area {
+    font-size: 8px;
 }
 
 @media screen and (min-width: 380px) {

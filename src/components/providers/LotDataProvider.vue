@@ -65,10 +65,9 @@ export default {
 
             try {
                 this.resetItems();
+                this.resetPage();
                 this.lotDataIsLoading = true;
                 this.isError = false;
-
-                console.log(this.searchUrl);
 
                 const response = await fetch(
                     `${this.url}${this.complexId}/search`,
@@ -77,7 +76,7 @@ export default {
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({search: this.searchUrl}),
+                        body: JSON.stringify({ search: this.searchUrl }),
                     }
                 );
 
@@ -104,14 +103,28 @@ export default {
         resetItems() {
             this.items.length = 0;
         },
+        resetPage() {
+            this.page = 1;
+        },
         updateSearchUrl(newUrl) {
             this.searchUrl = newUrl;
-        }
+        },
+    },
+    computed: {
+        filteredOptions() {
+            return {
+                status: this.options.status,
+                building: this.options.building,
+                rooms: this.options.rooms,
+                sort: this.options.sort,
+            };
+        },
     },
     watch: {
-        options: {
+        filteredOptions: {
             handler() {
                 this.resetItems();
+                this.resetPage();
                 this.fetchData();
             },
             deep: true,
@@ -134,7 +147,7 @@ export default {
             :lotDataIsLoading="lotDataIsLoading"
             :lotLoadingError="isError"
             :totalItems="totalItems"
-            :lotsAvailable = "lotsAvailable"
+            :lotsAvailable="lotsAvailable"
             :fetchData="fetchData"
             :resetItems="resetItems"
             :updateSearchUrl="updateSearchUrl"

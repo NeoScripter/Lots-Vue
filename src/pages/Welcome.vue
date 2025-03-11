@@ -95,7 +95,7 @@ export default {
             </div>
 
             <div class="columns is-multiline">
-                <div class="column is-one-third">
+                <div class="column">
                     <div class="box">
                         <h2 class="box-title">
                             <i class="fas fa-map-marker-alt"></i>
@@ -103,7 +103,7 @@ export default {
                         </h2>
                     </div>
                 </div>
-                <div class="column is-one-third">
+                <div class="column">
                     <div class="box">
                         <h2 class="box-title">
                             <i class="fas fa-sync-alt"></i>
@@ -111,7 +111,7 @@ export default {
                         </h2>
                     </div>
                 </div>
-                <div class="column is-one-third">
+                <div class="column">
                     <div class="box">
                         <h2 class="box-title">
                             <i class="fas fa-chart-line"></i>
@@ -120,7 +120,7 @@ export default {
                         </h2>
                     </div>
                 </div>
-                <div class="column is-one-third">
+                <div class="column">
                     <div class="box">
                         <h2 class="box-title">
                             <i class="fas fa-calculator"></i>
@@ -129,7 +129,7 @@ export default {
                         </h2>
                     </div>
                 </div>
-                <div class="column is-one-third">
+                <div class="column">
                     <div class="box">
                         <h2 class="box-title">
                             <i class="fas fa-history"></i>
@@ -137,7 +137,7 @@ export default {
                         </h2>
                     </div>
                 </div>
-                <div class="column is-one-third">
+                <div class="column">
                     <div class="box">
                         <h2 class="box-title">
                             <i class="fas fa-search"></i>

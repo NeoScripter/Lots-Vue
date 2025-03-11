@@ -86,6 +86,7 @@ export default {
                         ],
                         yAxes: [
                             {
+                                position: 'right',
                                 scaleLabel: {
                                     display: true,
                                     labelString: 'Стоимость (₽)',
