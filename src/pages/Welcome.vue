@@ -30,7 +30,11 @@ export default {
                     const qr = qrcode(0, 'M');
                     qr.addData(newVal.bot_link);
                     qr.make();
-                    document.getElementById('qrcode').innerHTML = qr.createImgTag(5);
+
+                    const imageContainer = document.getElementById('qrcode');
+                    if (imageContainer !== null) {
+                        imageContainer.innerHTML = qr.createImgTag(5);
+                    }
                 }
             },
         },
