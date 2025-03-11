@@ -56,7 +56,7 @@ export default {
                 </h1>
             </div>
 
-            <div v-if="authData.msg" class="has-text-centered mt-4">
+            <div v-if="authData.msg" class="has-text-centered mt-4 mb-4">
                 <div class="mb-4" v-html="authData.msg"></div>
                 <a
                     href="/tgauth/unlink/"
@@ -75,7 +75,7 @@ export default {
 
                 <div class="has-text-centered mb-4">
                     <a
-                        href="https://t.me/pulsprodajru_bot?start=hauth230p9wrwg80hntvm3ma3wuum50g386o8"
+                        :href="botLink"
                         target="_blank"
                         class="button tg_auth_button is-link"
                     >

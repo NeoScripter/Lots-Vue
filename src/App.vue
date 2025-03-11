@@ -15,10 +15,12 @@ export default {
             intervalId: null,
         };
     },
+
+    //https://test3.pulsprodaj.ru
     methods: {
         async checkAuth() {
             try {
-                const response = await fetch('http://test3.pulsprodaj.ru/api/tgauth');
+                const response = await fetch('https://test3.pulsprodaj.ru/api/tgauth');
                 const data = await response.json();
 
                 this.authData = data;
@@ -35,7 +37,7 @@ export default {
     },
     mounted() {
         this.checkAuth();
-       /*  this.intervalId = setInterval(this.checkAuth, 3000); */
+        this.intervalId = setInterval(this.checkAuth, 3000);
     },
     beforeDestroy() {
         if (this.intervalId) clearInterval(this.intervalId);
@@ -45,7 +47,7 @@ export default {
 
 <template>
     <div class="parent">
-        <PriceList v-if="true || isAuthorized" />
+        <PriceList v-if="isAuthorized" />
         <Welcome v-else :auth-data="authData" />
     </div>
 </template>
