@@ -20,7 +20,7 @@ export default {
     methods: {
         async checkAuth() {
             try {
-                const response = await fetch('https://test3.pulsprodaj.ru/api/tgauth');
+                const response = await fetch('https://test3.pulsprodaj.ru/api/tgauth', {credentials:'include'});
                 const data = await response.json();
 
                 this.authData = data;
