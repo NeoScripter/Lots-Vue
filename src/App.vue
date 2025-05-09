@@ -16,7 +16,6 @@ export default {
         };
     },
 
-    //https://test3.pulsprodaj.ru
     methods: {
         async checkAuth() {
             try {
@@ -47,9 +46,8 @@ export default {
 
 <template>
     <div class="parent">
-        <PriceList v-if="isAuthorized" />
-        <Welcome v-else :auth-data="authData" />
-    </div>
+        <PriceList  />
+        </div>
 </template>
 
 <style scoped>

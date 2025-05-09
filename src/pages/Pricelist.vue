@@ -1,18 +1,18 @@
 <script>
-import logo from '/images/logo.webp';
-import FilterBtns from '../components/FilterBtns.vue';
-import PriceCard from '../components/card/PriceCard.vue';
-import Complex from '../components/header/Complex.vue';
-import ComplexDataProvider from '../components/providers/ComplexDataProvider.vue';
-import DataInfo from '../components/header/DataInfo.vue';
-import LotDataProvider from '../components/providers/LotDataProvider.vue';
-import CardSkeleton from '../components/card/CardSkeleton.vue';
-import { COMPLEX_ID } from '../const/api-url.js';
-import { SEARCH_FIELDS } from '../const/SearchFields.js';
-import Popup from '../components/Popup.vue';
-import FiltersPanel from '../components/FiltersPanel.vue';
-import SearchDataProvider from '../components/providers/SearchDataProvider.vue';
-import SearchInput from '../components/SearchInput.vue';
+import logo from "/images/logo.webp";
+import FilterBtns from "../components/FilterBtns.vue";
+import PriceCard from "../components/card/PriceCard.vue";
+import Complex from "../components/header/Complex.vue";
+import ComplexDataProvider from "../components/providers/ComplexDataProvider.vue";
+import DataInfo from "../components/header/DataInfo.vue";
+import LotDataProvider from "../components/providers/LotDataProvider.vue";
+import CardSkeleton from "../components/card/CardSkeleton.vue";
+import { COMPLEX_ID } from "../const/api-url.js";
+import { SEARCH_FIELDS } from "../const/SearchFields.js";
+import Popup from "../components/Popup.vue";
+import FiltersPanel from "../components/FiltersPanel.vue";
+import SearchDataProvider from "../components/providers/SearchDataProvider.vue";
+import SearchInput from "../components/SearchInput.vue";
 
 export default {
     data() {
@@ -20,11 +20,11 @@ export default {
             logo,
             complexId: COMPLEX_ID,
             defaultLotOptions: {
-                status: '',
-                building: '',
-                rooms: '',
-                sort_field: '',
-                sort: '',
+                status: "",
+                building: "",
+                rooms: "",
+                sort_field: "",
+                sort: "",
                 page: 1,
                 per_page: 20,
             },
@@ -38,21 +38,21 @@ export default {
 
         const newComplexId = this.getComplexIdFromUrl();
 
-        if (newComplexId !== '') {
+        if (newComplexId !== "") {
             this.complexId = newComplexId;
         }
 
-        window.addEventListener('popstate', () => {
+        window.addEventListener("popstate", () => {
             const newComplexId = this.getComplexIdFromUrl();
-            if (newComplexId !== this.complexId && newComplexId !== '') {
+            if (newComplexId !== this.complexId && newComplexId !== "") {
                 this.complexId = newComplexId;
             }
         });
     },
     beforeDestroy() {
-        window.removeEventListener('popstate', this.getComplexIdFromUrl);
+        window.removeEventListener("popstate", this.getComplexIdFromUrl);
     },
-    name: 'PriceList',
+    name: "PriceList",
     components: {
         Complex,
         FilterBtns,
@@ -99,7 +99,7 @@ export default {
         },
         getComplexIdFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('complexId') || '';
+            return urlParams.get("complexId") || "";
         },
     },
     watch: {
@@ -114,103 +114,63 @@ export default {
 </script>
 
 <template>
-    <ComplexDataProvider
-        :complexId="complexId"
-        v-slot="{
-            complexData,
-            complexDataIsLoading,
-            complexLoadingError,
-            actuality,
-            getBuildings,
-            getRooms,
-        }"
-    >
-        <LotDataProvider
-            :complexId="complexId"
-            :options="lotOptions"
-            v-slot="{
-                items,
-                lotDataIsLoading,
-                totalItems,
-                lotsAvailable,
-                lotLoadingError,
-                fetchData,
-                resetItems,
-                searchLot,
-                updateSearchUrl,
-            }"
-        >
+    <ComplexDataProvider :complexId="complexId" v-slot="{
+        complexData,
+        complexDataIsLoading,
+        complexLoadingError,
+        actuality,
+        getBuildings,
+        getRooms,
+    }">
+        <LotDataProvider :complexId="complexId" :options="lotOptions" v-slot="{
+            items,
+            lotDataIsLoading,
+            totalItems,
+            lotsAvailable,
+            lotLoadingError,
+            fetchData,
+            resetItems,
+            searchLot,
+            updateSearchUrl,
+        }">
             <Popup :show.sync="showFilters" title="Фильтры">
-                <FiltersPanel
-                    :complexId="complexId"
-                    :lotOptions.sync="lotOptions"
-                    :getBuildings="getBuildings"
-                    :getRooms="getRooms"
-                    :closePopup="() => (showFilters = false)"
-                />
+                <FiltersPanel :complexId="complexId" :lotOptions.sync="lotOptions" :getBuildings="getBuildings"
+                    :getRooms="getRooms" :closePopup="() => (showFilters = false)" />
             </Popup>
 
             <div class="container">
                 <div class="has-background-white p-3">
                     <header class="is-flex mb-1">
-                        <img
-                            :src="logo"
-                            alt="Пульс продаж новостроек"
-                            class="logo"
-                        />
+                        <img :src="logo" alt="Пульс продаж новостроек" class="logo" />
                     </header>
 
                     <p v-if="complexLoadingError" class="is-size-7">
-                        Произошла ошибка, попробуйте позднее или обратитесь в
-                        поддержку
+                        Произошла ошибка, попробуйте позднее или обратитесь в поддержку
                         <a href="https://t.me/pulsprodajru_supportbot">
                             https://t.me/pulsprodajru_supportbot
                         </a>
                     </p>
                     <div v-else>
-                        <Complex
-                            :complexData="complexData"
-                            :complexDataIsLoading="complexDataIsLoading"
-                        />
+                        <Complex :complexData="complexData" :complexDataIsLoading="complexDataIsLoading" />
 
-                        <DataInfo
-                            :actuality="actuality"
-                            priceFrom="2024-04-11"
-                            :totalLots="totalItems"
-                            :availableLots="lotsAvailable"
-                            :isLoading="complexDataIsLoading"
-                        />
+                        <DataInfo :actuality="actuality" priceFrom="2024-04-11" :totalLots="totalItems"
+                            :availableLots="lotsAvailable" :isLoading="complexDataIsLoading" />
 
-                        <FilterBtns
-                            :selectSortingOption="selectSortingOption"
-                            :handleSearchClick="handleSearchClick"
-                            :sortField="lotOptions.sort_field"
-                            :sort="lotOptions.sort"
-                            :rooms="lotOptions.rooms"
-                            :building="lotOptions.building"
-                            :status="lotOptions.status"
-                            :showFilters.sync="showFilters"
-                            :resetLotOptions="resetLotOptions"
-                        />
+                        <FilterBtns :selectSortingOption="selectSortingOption" :handleSearchClick="handleSearchClick"
+                            :sortField="lotOptions.sort_field" :sort="lotOptions.sort" :rooms="lotOptions.rooms"
+                            :building="lotOptions.building" :status="lotOptions.status" :showFilters.sync="showFilters"
+                            :resetLotOptions="resetLotOptions" />
                     </div>
                 </div>
 
-                <Popup
-                    :show.sync="showSearch"
-                    title="Поиск по артикулу или URL"
-                >
-                    <SearchInput
-                        :updateSearchUrl="updateSearchUrl"
-                        :searchLot="searchLot"
-                        :closePopup="() => (showSearch = false)"
-                        :resetLotOptions="resetLotOptions"
-                    />
+                <Popup :show.sync="showSearch" title="Поиск по артикулу или URL">
+                    <SearchInput :updateSearchUrl="updateSearchUrl" :searchLot="searchLot"
+                        :closePopup="() => (showSearch = false)" :resetLotOptions="resetLotOptions" />
                 </Popup>
 
                 <div class="p-3">
                     <p v-if="lotLoadingError" class="is-size-7">
-                        Произошла ошибка, попробуйте позднее или обратитесь в
-                        поддержку
+                        Произошла ошибка, попробуйте позднее или обратитесь в поддержку
                         <a href="https://t.me/pulsprodajru_supportbot">
                             https://t.me/pulsprodajru_supportbot
                         </a>
