@@ -52,7 +52,8 @@ export default {
 <template>
     <div class="card__container mb-3">
         <div class="card__header">
-            <span class="card__price">{{ formattedPrice }} ₽</span>
+            <span class="card__price" :class="{ 'card__price--crossed': LotData.is_actual === false && LotData.bron === false }">{{ formattedPrice
+                }} ₽</span>
 
             <div class="lot-props">
                 <div class="attr">{{ LotData.building }} корп</div>

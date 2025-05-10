@@ -50,6 +50,7 @@ export default {
                 this.totalPages = data.pages;
                 this.totalItems = data.total;
                 this.lotsAvailable = data.lots_available;
+                console.log(data);
             } catch (error) {
                 if (error.name === 'AbortError') return;
 

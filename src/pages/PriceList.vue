@@ -1,6 +1,5 @@
 <script>
 import logo from "/images/logo.webp";
-import telegram from "/images/telegram.svg";
 import FilterBtns from "../components/FilterBtns.vue";
 import PriceCard from "../components/card/PriceCard.vue";
 import Complex from "../components/header/Complex.vue";
@@ -53,7 +52,7 @@ export default {
     beforeDestroy() {
         window.removeEventListener("popstate", this.getComplexIdFromUrl);
     },
-    name: "LotExlorer",
+    name: "LotExplorer",
     components: {
         Complex,
         FilterBtns,
@@ -139,16 +138,13 @@ export default {
                     :getRooms="getRooms" :closePopup="() => (showFilters = false)" />
             </Popup>
 
-            <div class="lot-explorer">
-                <header class="lot-explorer__header">
-                    <img :src="logo" alt="Пульс продаж новостроек" class="lot-explorer__logo" />
-                    <a class="lot-explorer__link">
-                        <img :src="telegram" alt="Телеграм" class="lot-explorer--link-svg">
-                    </a>
+            <div class="price-list_wrapper">
+                <header class="header-bar">
+                    <img :src="logo" alt="Пульс продаж новостроек" class="logo" />
                 </header>
-                <div class="lot-explorer__content">
+                <div class="price-list_content">
 
-                    <p v-if="complexLoadingError" class="lot-explorer__error-message">
+                    <p v-if="complexLoadingError" class="is-size-7">
                         Произошла ошибка, попробуйте позднее или обратитесь в поддержку
                         <a href="https://t.me/pulsprodajru_supportbot">
                             https://t.me/pulsprodajru_supportbot
@@ -168,12 +164,12 @@ export default {
                 </div>
 
                 <Popup :show.sync="showSearch" title="Поиск по артикулу или URL">
-                    <SearchInput :show="showSearch" :updateSearchUrl="updateSearchUrl" :searchLot="searchLot"
+                    <SearchInput :updateSearchUrl="updateSearchUrl" :searchLot="searchLot"
                         :closePopup="() => (showSearch = false)" :resetLotOptions="resetLotOptions" />
                 </Popup>
 
-                <div class="lot-explorer__cards">
-                    <p v-if="lotLoadingError" class="lot-explorer__error-message">
+                <div class="p-3">
+                    <p v-if="lotLoadingError" class="is-size-7">
                         Произошла ошибка, попробуйте позднее или обратитесь в поддержку
                         <a href="https://t.me/pulsprodajru_supportbot">
                             https://t.me/pulsprodajru_supportbot
@@ -192,4 +188,4 @@ export default {
     </ComplexDataProvider>
 </template>
 
-<style scoped src="../assets/styles/lot-explorer.css"></style>
+<style scoped src="../assets/styles/header.css"></style>

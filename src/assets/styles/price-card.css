@@ -32,6 +32,11 @@
     font-size: 12px;
 }
 
+.card__price--crossed {
+    text-decoration: line-through;
+}
+
+
 .card__data {
     display: flex;
     align-items: center;
