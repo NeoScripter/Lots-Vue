@@ -1,11 +1,11 @@
 
 <script>
-import PriceList from '@/pages/PriceList.vue';
 import Welcome from './pages/Welcome.vue';
+import LotExplorer from './pages/LotExplorer.vue';
 
 export default {
     components: {
-        PriceList,
+        LotExplorer,
         Welcome,
     },
     data() {
@@ -45,13 +45,13 @@ export default {
 </script>
 
 <template>
-    <div class="parent">
-        <PriceList  />
+    <div class="app">
+        <LotExplorer />
         </div>
 </template>
 
 <style scoped>
-.parent {
+.app {
     max-width: 375px;
     margin-inline: auto;
 }

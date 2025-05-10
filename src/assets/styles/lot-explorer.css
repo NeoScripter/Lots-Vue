@@ -1,0 +1,30 @@
+.lot-explorer {
+    border-inline: 1px solid rgb(198, 193, 193, 0.2);
+    min-height: 100vh;
+    position: relative;
+}
+.lot-explorer__header {
+    position: sticky;
+    top: 0;
+    display: flex;
+    padding: 0.75rem;
+    background-color: white;
+    z-index: 20;
+}
+
+.lot-explorer__logo {
+    width: 6.375rem;
+}
+
+.lot-explorer__content {
+    background-color: white;
+    padding: 0.75rem;
+    padding-top: 0;
+
+}
+.lot-explorer__error-message {
+    font-size: 0.75rem;
+}
+.lot-explorer__cards {
+    padding: 0.75rem;
+}

@@ -65,7 +65,7 @@ export default {
     flex-direction: column;
     inset: 0;
     background-color: rgb(0, 0, 0, 0.5);
-    z-index: 10;
+    z-index: 50;
 }
 
 .popup__header {

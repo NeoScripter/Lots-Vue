@@ -52,7 +52,7 @@ export default {
     beforeDestroy() {
         window.removeEventListener("popstate", this.getComplexIdFromUrl);
     },
-    name: "PriceList",
+    name: "LotExlorer",
     components: {
         Complex,
         FilterBtns,
@@ -138,13 +138,13 @@ export default {
                     :getRooms="getRooms" :closePopup="() => (showFilters = false)" />
             </Popup>
 
-            <div class="container">
-                <div class="has-background-white p-3">
-                    <header class="is-flex mb-1">
-                        <img :src="logo" alt="Пульс продаж новостроек" class="logo" />
-                    </header>
+            <div class="lot-explorer">
+                <header class="lot-explorer__header">
+                    <img :src="logo" alt="Пульс продаж новостроек" class="lot-explorer__logo" />
+                </header>
+                <div class="lot-explorer__content">
 
-                    <p v-if="complexLoadingError" class="is-size-7">
+                    <p v-if="complexLoadingError" class="lot-explorer__error-message">
                         Произошла ошибка, попробуйте позднее или обратитесь в поддержку
                         <a href="https://t.me/pulsprodajru_supportbot">
                             https://t.me/pulsprodajru_supportbot
@@ -164,12 +164,12 @@ export default {
                 </div>
 
                 <Popup :show.sync="showSearch" title="Поиск по артикулу или URL">
-                    <SearchInput :updateSearchUrl="updateSearchUrl" :searchLot="searchLot"
+                    <SearchInput :show="showSearch" :updateSearchUrl="updateSearchUrl" :searchLot="searchLot"
                         :closePopup="() => (showSearch = false)" :resetLotOptions="resetLotOptions" />
                 </Popup>
 
-                <div class="p-3">
-                    <p v-if="lotLoadingError" class="is-size-7">
+                <div class="lot-explorer__cards">
+                    <p v-if="lotLoadingError" class="lot-explorer__error-message">
                         Произошла ошибка, попробуйте позднее или обратитесь в поддержку
                         <a href="https://t.me/pulsprodajru_supportbot">
                             https://t.me/pulsprodajru_supportbot
@@ -188,13 +188,4 @@ export default {
     </ComplexDataProvider>
 </template>
 
-<style scoped>
-.container {
-    border-inline: 1px solid rgb(198, 193, 193, 0.2);
-    min-height: 100vh;
-}
-
-.logo {
-    width: 6.375rem;
-}
-</style>
+<style scoped src="../assets/styles/lot-explorer.css"></style>

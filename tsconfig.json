@@ -1,14 +1,25 @@
 {
     "compilerOptions": {
-      "allowJs": true,               
-      "checkJs": true,               
-      "noEmit": true,               
-      "target": "ESNext",            
-      "moduleResolution": "Node",    
-      "strict": true,                
-      "skipLibCheck": true           
+        "allowJs": true,
+        "checkJs": true,
+        "noEmit": true,
+        "target": "ESNext",
+        "moduleResolution": "Node",
+        "strict": true,
+        "skipLibCheck": true,
+        "baseUrl": ".", // required
+        "paths": {
+            "@/*": [
+                "src/*"
+            ] // alias definition
+        }
     },
-    "include": ["src/utils/**/*.js"], 
-    "exclude": ["node_modules", "dist"] 
-  }
-  
+    "include": [
+        "src/**/*"
+    ], // not just utils — include Vue files
+    "exclude": [
+        "node_modules",
+        "dist",
+        "docs"
+    ]
+}

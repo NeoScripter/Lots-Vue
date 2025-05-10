@@ -1,50 +1,64 @@
 <script>
 export default {
     props: {
-        updateSearchUrl: Function,          
-        searchLot: Function, 
+        updateSearchUrl: Function,
+        searchLot: Function,
         closePopup: Function,
-        resetLotOptions: Function
+        resetLotOptions: Function,
+        show: {
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         return {
-            searchUrl: ""
+            searchUrl: "",
         };
     },
     watch: {
         searchUrl(newUrl) {
-            this.updateSearchUrl(newUrl); 
-        }
+            this.updateSearchUrl(newUrl);
+        },
+        show(newVal) {
+            if (newVal) {
+                setTimeout(() => {
+                    this.$refs.searchInput?.focus();
+                }, 100);
+            }
+        },
     },
     methods: {
         handleSearchClick() {
-            if (!this.searchUrl) return; 
-            this.searchLot();  
-            this.resetUrls(); 
+            if (!this.searchUrl) return;
+            this.searchLot();
+            this.resetUrls();
             this.closePopup();
             this.resetLotOptions();
         },
         resetUrls() {
-            this.searchUrl = '';
-            this.updateSearchUrl(''); 
-        }
-    }
+            this.searchUrl = "";
+            this.updateSearchUrl("");
+        },
+    },
+    updated() {
+        this.$nextTick(() => {
+            this.$refs.searchInput?.focus();
+        });
+    },
 };
 </script>
 
 <template>
     <div class="search__container">
         <div class="search__input-wrapper">
-            <input
-                v-model="searchUrl"
-                type="search"
-                placeholder="Введите url"
-            />
+            <input autofocus ref="searchInput" v-model="searchUrl" type="search" placeholder="Введите url" />
             <button @click="resetUrls">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <g id="Group 381">
-                        <rect x="11.7573" y="3.53552" width="1" height="11" transform="rotate(45 11.7573 3.53552)" fill="black" />
-                        <rect x="12.4644" y="11.3137" width="1" height="11" transform="rotate(135 12.4644 11.3137)" fill="black" />
+                        <rect x="11.7573" y="3.53552" width="1" height="11" transform="rotate(45 11.7573 3.53552)"
+                            fill="black" />
+                        <rect x="12.4644" y="11.3137" width="1" height="11" transform="rotate(135 12.4644 11.3137)"
+                            fill="black" />
                     </g>
                 </svg>
             </button>
