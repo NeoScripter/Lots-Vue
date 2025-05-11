@@ -3,6 +3,7 @@
     min-height: 100vh;
     position: relative;
 }
+
 .lot-explorer__header {
     position: sticky;
     top: 0;
@@ -21,17 +22,39 @@
 .lot-explorer__link {
     display: flex;
     align-items: center;
-    gap: 0.2rem;
+    gap: 0.35rem;
+    color: #4398b7;
+    font-size: 0.875rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
+
 .lot-explorer__content {
     background-color: white;
     padding: 0.75rem;
     padding-top: 0;
-
 }
+
+@media screen and (min-width: 1020px) {
+    .lot-explorer__content {
+        padding-inline: 1.5rem;
+    }
+
+    .lot-explorer__header {
+        padding-inline: 1.5rem;
+    }
+}
+
 .lot-explorer__error-message {
     font-size: 0.75rem;
 }
+
 .lot-explorer__cards {
     padding: 0.75rem;
+}
+
+@media screen and (min-width: 768px) {
+    .lot-explorer__mob-filter-btns {
+        display: none;
+    }
 }

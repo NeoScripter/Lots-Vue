@@ -52,7 +52,7 @@ export default {
 
 <style scoped>
 .app {
-    max-width: 375px;
+    max-width: 1440px;
     margin-inline: auto;
 }
 </style>

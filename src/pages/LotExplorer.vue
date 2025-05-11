@@ -1,6 +1,6 @@
 <script>
 import logo from "/images/logo.webp";
-import telegram from "/images/telegram.svg";
+import telegram from "@/assets/images/telegram.svg";
 import FilterBtns from "../components/FilterBtns.vue";
 import PriceCard from "../components/card/PriceCard.vue";
 import Complex from "../components/header/Complex.vue";
@@ -19,6 +19,7 @@ export default {
     data() {
         return {
             logo,
+            telegram,
             complexId: COMPLEX_ID,
             defaultLotOptions: {
                 status: "",
@@ -143,11 +144,11 @@ export default {
                 <header class="lot-explorer__header">
                     <img :src="logo" alt="Пульс продаж новостроек" class="lot-explorer__logo" />
                     <a class="lot-explorer__link">
-                        <img :src="telegram" alt="Телеграм" class="lot-explorer--link-svg">
+                        <img :src="telegram" alt="Телеграм" class="lot-explorer--link-svg" />
+                        Поддержка
                     </a>
                 </header>
                 <div class="lot-explorer__content">
-
                     <p v-if="complexLoadingError" class="lot-explorer__error-message">
                         Произошла ошибка, попробуйте позднее или обратитесь в поддержку
                         <a href="https://t.me/pulsprodajru_supportbot">
@@ -160,7 +161,8 @@ export default {
                         <DataInfo :actuality="actuality" priceFrom="2024-04-11" :totalLots="totalItems"
                             :availableLots="lotsAvailable" :isLoading="complexDataIsLoading" />
 
-                        <FilterBtns :selectSortingOption="selectSortingOption" :handleSearchClick="handleSearchClick"
+                        <FilterBtns :class="{ 'lot-explorer__mob-filter-btns': true }"
+                            :selectSortingOption="selectSortingOption" :handleSearchClick="handleSearchClick"
                             :sortField="lotOptions.sort_field" :sort="lotOptions.sort" :rooms="lotOptions.rooms"
                             :building="lotOptions.building" :status="lotOptions.status" :showFilters.sync="showFilters"
                             :resetLotOptions="resetLotOptions" />
