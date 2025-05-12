@@ -1,13 +1,12 @@
-
 <script>
 export default {
     props: {
         complexId: String,
-        lotOptions: Object, 
+        lotOptions: Object,
         getBuildings: Array,
         getRooms: Array,
         selectSortingOption: Function,
-        closePopup: Function
+        closePopup: Function,
     },
     methods: {
         setBuilding(building) {
@@ -22,30 +21,21 @@ export default {
         handleSearchClick() {
             this.closePopup();
         },
-    }
+    },
 };
 </script>
 
 <template>
-    <div class="filters-container">
-
+    <div class="filters__container">
         <div class="filters__btn-group scrollbar-hidden">
             <p>Выбор корпуса</p>
             <div class="filters__btn-wrapper">
-                <button
-                    @click="setBuilding('')"
-                    class="button is-light is-small"
-                    :class="{ 'active-filter': lotOptions.building === '' }"
-                >
+                <button @click="setBuilding('')" class="button is-light is-small"
+                    :class="{ 'active-filter': lotOptions.building === '' }">
                     Все
                 </button>
-                <button
-                    class="button is-light is-small"
-                    v-for="building in getBuildings"
-                    :key="building + complexId"
-                    @click="setBuilding(building)"
-                    :class="{ 'active-filter': building === lotOptions.building }"
-                >
+                <button class="button is-light is-small" v-for="building in getBuildings" :key="building + complexId"
+                    @click="setBuilding(building)" :class="{ 'active-filter': building === lotOptions.building }">
                     {{ building }}
                 </button>
             </div>
@@ -54,21 +44,13 @@ export default {
         <div class="filters__btn-group scrollbar-hidden">
             <p>Комнатность</p>
             <div class="filters__btn-wrapper">
-                <button
-                    @click="setRoom('')"
-                    class="button is-light is-small"
-                    :class="{ 'active-filter': lotOptions.rooms === '' }"
-                >
+                <button @click="setRoom('')" class="button is-light is-small"
+                    :class="{ 'active-filter': lotOptions.rooms === '' }">
                     Любая
                 </button>
-                <button
-                    class="button is-light is-small"
-                    v-for="room in getRooms"
-                    :key="room + complexId"
-                    @click="setRoom(room)"
-                    :class="{ 'active-filter': room === lotOptions.rooms }"
-                >
-                    {{ room === 'studio' ? 'Студия' : room }}
+                <button class="button is-light is-small" v-for="room in getRooms" :key="room + complexId"
+                    @click="setRoom(room)" :class="{ 'active-filter': room === lotOptions.rooms }">
+                    {{ room === "studio" ? "Студия" : room }}
                 </button>
             </div>
         </div>
@@ -76,55 +58,37 @@ export default {
         <div class="filters__btn-group scrollbar-hidden">
             <p>Статус</p>
             <div class="filters__btn-wrapper">
-                <button
-                    @click="setStatus('')"
-                    class="button is-light is-small"
-                    :class="{ 'active-filter': lotOptions.status === '' }"
-                >
+                <button @click="setStatus('')" class="button is-light is-small"
+                    :class="{ 'active-filter': lotOptions.status === '' }">
                     Все
                 </button>
-                <button
-                    @click="setStatus('active')"
-                    class="button is-light is-small"
-                    :class="{ 'active-filter': lotOptions.status === 'active' }"
-                >
+                <button @click="setStatus('active')" class="button is-light is-small"
+                    :class="{ 'active-filter': lotOptions.status === 'active' }">
                     В продаже
                 </button>
-                <button
-                    @click="setStatus('bron')"
-                    class="button is-light is-small"
-                    :class="{ 'active-filter': lotOptions.status === 'bron' }"
-                >
+                <button @click="setStatus('bron')" class="button is-light is-small"
+                    :class="{ 'active-filter': lotOptions.status === 'bron' }">
                     Забронировано
                 </button>
-                <button
-                    @click="setStatus('start')"
-                    class="button is-light is-small"
-                    :class="{ 'active-filter': lotOptions.status === 'start' }"
-                >
+                <button @click="setStatus('start')" class="button is-light is-small"
+                    :class="{ 'active-filter': lotOptions.status === 'start' }">
                     Старт продаж
                 </button>
-                <button
-                    @click="setStatus('not_available')"
-                    class="button is-light is-small"
-                    :class="{ 'active-filter': lotOptions.status === 'not_available' }"
-                >
+                <button @click="setStatus('not_available')" class="button is-light is-small"
+                    :class="{ 'active-filter': lotOptions.status === 'not_available' }">
                     Не в продаже
                 </button>
-                
             </div>
         </div>
 
-        <button @click="handleSearchClick" class="button is-light is-medium">
+        <button @click="handleSearchClick" class="button is-light is-medium filters__close-btn">
             Закрыть
         </button>
     </div>
 </template>
 
-
 <style scoped>
-
-.filters-container {
+.filters__container {
     display: grid;
     gap: 1rem;
     margin-inline: 20px;
@@ -143,7 +107,7 @@ export default {
     overflow-x: auto;
 }
 
-.filters__btn-group > p {
+.filters__btn-group>p {
     color: #1a1345;
     font-size: 12px;
     font-weight: 400;
@@ -153,5 +117,18 @@ export default {
 
 .active-filter {
     background-color: rgb(24, 156, 204, 0.25);
+}
+
+@media screen and (min-width: 768px) {
+    .filters__close-btn {
+        display: none !important;
+    }
+
+    .filters__container {
+        background-color: white;
+        padding: 1rem;
+        margin-inline: 10px;
+        margin-top: 1rem;
+    }
 }
 </style>

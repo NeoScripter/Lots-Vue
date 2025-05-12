@@ -33,6 +33,7 @@ export default {
             lotOptions: {},
             showFilters: false,
             showSearch: false,
+            isWide: window.innerWidth > 768,
         };
     },
     created() {
@@ -53,6 +54,10 @@ export default {
     },
     beforeDestroy() {
         window.removeEventListener("popstate", this.getComplexIdFromUrl);
+        window.removeEventListener("resize", this.checkWidth);
+    },
+    mounted() {
+        window.addEventListener("resize", this.checkWidth);
     },
     name: "LotExlorer",
     components: {
@@ -71,6 +76,9 @@ export default {
     methods: {
         resetLotOptions() {
             this.lotOptions = { ...this.defaultLotOptions };
+        },
+        checkWidth() {
+            this.isWide = window.innerWidth > 768;
         },
         selectSortingOption(field) {
             if (this.lotOptions.sort_field === field) {
@@ -136,10 +144,15 @@ export default {
             updateSearchUrl,
         }">
             <Popup :show.sync="showFilters" title="Фильтры">
-                <FiltersPanel :complexId="complexId" :lotOptions.sync="lotOptions" :getBuildings="getBuildings"
-                    :getRooms="getRooms" :closePopup="() => (showFilters = false)" />
+                <div>
+                    <portal-target name="filter-panel__mobile" />
+                </div>
             </Popup>
 
+            <portal :to="isWide ? 'filter-panel__desktop' : 'filter-panel__mobile'">
+                <FiltersPanel :complexId="complexId" :lotOptions.sync="lotOptions" :getBuildings="getBuildings"
+                    :getRooms="getRooms" :closePopup="() => (showFilters = false)" />
+            </portal>
             <div class="lot-explorer">
                 <header class="lot-explorer__header">
                     <img :src="logo" alt="Пульс продаж новостроек" class="lot-explorer__logo" />
@@ -174,6 +187,9 @@ export default {
                         :closePopup="() => (showSearch = false)" :resetLotOptions="resetLotOptions" />
                 </Popup>
 
+                <div>
+                    <portal-target name="filter-panel__desktop" />
+                </div>
                 <div class="lot-explorer__cards">
                     <p v-if="lotLoadingError" class="lot-explorer__error-message">
                         Произошла ошибка, попробуйте позднее или обратитесь в поддержку
