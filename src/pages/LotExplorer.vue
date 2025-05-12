@@ -1,7 +1,7 @@
 <script>
 import logo from "/images/logo.webp";
 import telegram from "@/assets/images/telegram.svg";
-import FilterBtns from "../components/FilterBtns.vue";
+import SortBtns from "../components/SortBtns.vue";
 import PriceCard from "../components/card/PriceCard.vue";
 import Complex from "../components/header/Complex.vue";
 import ComplexDataProvider from "../components/providers/ComplexDataProvider.vue";
@@ -62,7 +62,7 @@ export default {
     name: "LotExlorer",
     components: {
         Complex,
-        FilterBtns,
+        SortBtns,
         PriceCard,
         ComplexDataProvider,
         LotDataProvider,
@@ -153,6 +153,14 @@ export default {
                 <FiltersPanel :complexId="complexId" :lotOptions.sync="lotOptions" :getBuildings="getBuildings"
                     :getRooms="getRooms" :closePopup="() => (showFilters = false)" />
             </portal>
+
+            <portal :to="isWide ? 'sort-btns__desktop' : 'sort-btns__mobile'">
+                <SortBtns :selectSortingOption="selectSortingOption"
+                    :handleSearchClick="handleSearchClick" :sortField="lotOptions.sort_field" :sort="lotOptions.sort"
+                    :rooms="lotOptions.rooms" :building="lotOptions.building" :status="lotOptions.status"
+                    :showFilters.sync="showFilters" :resetLotOptions="resetLotOptions" />
+            </portal>
+
             <div class="lot-explorer">
                 <header class="lot-explorer__header">
                     <img :src="logo" alt="Пульс продаж новостроек" class="lot-explorer__logo" />
@@ -161,6 +169,7 @@ export default {
                         Поддержка
                     </a>
                 </header>
+
                 <div class="lot-explorer__content">
                     <p v-if="complexLoadingError" class="lot-explorer__error-message">
                         Произошла ошибка, попробуйте позднее или обратитесь в поддержку
@@ -174,11 +183,7 @@ export default {
                         <DataInfo :actuality="actuality" priceFrom="2024-04-11" :totalLots="totalItems"
                             :availableLots="lotsAvailable" :isLoading="complexDataIsLoading" />
 
-                        <FilterBtns :class="{ 'lot-explorer__mob-filter-btns': true }"
-                            :selectSortingOption="selectSortingOption" :handleSearchClick="handleSearchClick"
-                            :sortField="lotOptions.sort_field" :sort="lotOptions.sort" :rooms="lotOptions.rooms"
-                            :building="lotOptions.building" :status="lotOptions.status" :showFilters.sync="showFilters"
-                            :resetLotOptions="resetLotOptions" />
+                        <div><portal-target name="sort-btns__mobile" /></div>
                     </div>
                 </div>
 
@@ -190,6 +195,8 @@ export default {
                 <div>
                     <portal-target name="filter-panel__desktop" />
                 </div>
+                <div><portal-target name="sort-btns__desktop" /></div>
+
                 <div class="lot-explorer__cards">
                     <p v-if="lotLoadingError" class="lot-explorer__error-message">
                         Произошла ошибка, попробуйте позднее или обратитесь в поддержку

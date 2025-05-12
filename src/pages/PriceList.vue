@@ -1,6 +1,6 @@
 <script>
 import logo from "/images/logo.webp";
-import FilterBtns from "../components/FilterBtns.vue";
+import SortBtns from "../components/SortBtns.vue";
 import PriceCard from "../components/card/PriceCard.vue";
 import Complex from "../components/header/Complex.vue";
 import ComplexDataProvider from "../components/providers/ComplexDataProvider.vue";
@@ -55,7 +55,7 @@ export default {
     name: "LotExplorer",
     components: {
         Complex,
-        FilterBtns,
+        SortBtns,
         PriceCard,
         ComplexDataProvider,
         LotDataProvider,
@@ -156,7 +156,7 @@ export default {
                         <DataInfo :actuality="actuality" priceFrom="2024-04-11" :totalLots="totalItems"
                             :availableLots="lotsAvailable" :isLoading="complexDataIsLoading" />
 
-                        <FilterBtns :selectSortingOption="selectSortingOption" :handleSearchClick="handleSearchClick"
+                        <SortBtns :selectSortingOption="selectSortingOption" :handleSearchClick="handleSearchClick"
                             :sortField="lotOptions.sort_field" :sort="lotOptions.sort" :rooms="lotOptions.rooms"
                             :building="lotOptions.building" :status="lotOptions.status" :showFilters.sync="showFilters"
                             :resetLotOptions="resetLotOptions" />

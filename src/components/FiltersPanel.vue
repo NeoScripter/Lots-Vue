@@ -125,6 +125,10 @@ export default {
     }
 
     .filters__container {
+        border-radius: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
         background-color: white;
         padding: 1rem;
         margin-inline: 10px;
