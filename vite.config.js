@@ -9,15 +9,15 @@ export default defineConfig({
             '@': path.resolve(__dirname, 'src'),
         },
     },
-/*     server: {
-        proxy: {
-            '/api': {
-                target: 'https://test3.pulsprodaj.ru',
-                changeOrigin: true,
-                secure: false,
+    /*     server: {
+            proxy: {
+                '/api': {
+                    target: 'https://test3.pulsprodaj.ru',
+                    changeOrigin: true,
+                    secure: false,
+                },
             },
-        },
-    }, */
+        }, */
     build: {
         outDir: 'docs'
     },

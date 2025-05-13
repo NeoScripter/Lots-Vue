@@ -19,16 +19,24 @@
             </div>
         </div>
 
-        <Popup :show.sync="showChart" title="График" :key="`${LotData.id}ChartPopup`">
+        <ResponsivePortal v-if="isWide ? showChartBelow : showChart" :isWide="isWide" :mobile="LotData.id + 'chart-popup--mobile'" 
+             :desktop="LotData.id + 'chart-popup--desktop'">
             <div class="chart-wrapper">
-                <ChartDataProvider v-if="showChart" :key="`${LotData.id}ChartProvider`" :complexId="complexId"
+                <ChartDataProvider :key="LotData.id + 'ChartProvider'" :complexId="complexId"
                     :lotId="LotData.id.toString()" v-slot="{ prices, bookings, isLoading }">
                     <div class="chart-wrapper">
-                        <Spinner v-if="isLoading && showChart" />
+                        <Spinner v-if="isLoading && (showChart | showChartBelow)" />
 
-                        <PriceChart v-else-if="!isLoading && showChart" :prices="prices" :bookings="bookings" />
+                        <PriceChart v-else-if="!isLoading && (showChart | showChartBelow)" :prices="prices" :bookings="bookings" />
                     </div>
                 </ChartDataProvider>
+            </div>
+        </ResponsivePortal>
+
+        <Popup :show.sync="showChart" :class="{ 'chart-popup--desktop': true }" title="График"
+            :key="`${LotData.id}ChartPopup`">
+            <div>
+                <portal-target :name="LotData.id + 'chart-popup--mobile'" />
             </div>
         </Popup>
 
@@ -56,19 +64,21 @@
 
         <div class="card__panel">
             <div class="card__status">
-                <div v-if="LotData.is_actual === true"></div>
-                <div v-else-if="LotData.is_start === true" class="card__panel-status success">
+                <div v-if="LotData.status === 'active'" class="card__panel-status success">
+                    В продаже
+                </div>
+                <div v-else-if="LotData.status === 'start'" class="card__panel-status success">
                     Старт продаж
                     <img :src="rocket" alt="Rocket" />
                 </div>
-                <div v-else-if="LotData.bron === true" class="card__panel-status info">
+                <div v-else-if="LotData.status === 'bron'" class="card__panel-status info">
                     Забронировано
                 </div>
-                <div v-else-if="LotData.is_actual === false" class="card__panel-status danger">
+                <div v-else-if="LotData.status === 'not_available'" class="card__panel-status danger">
                     Не в продаже
                 </div>
             </div>
-            <button @click="showChart = true" class="card__panel-btn">
+            <button @click="isWide ? showChartBelow = !showChartBelow : showChart = true" class="card__panel-btn">
                 <img :src="chart" alt="Chart" />
             </button>
             <span class="card__price card__price--desktop" :class="{
@@ -83,6 +93,33 @@
         </div>
 
         <div class="card__data card__data--desktop">
+            <div class="card__status--desktop">
+                <div class="card__status">
+                    <div v-if="LotData.status === 'active'" class="card__panel-status success">
+                        В продаже
+                    </div>
+                    <div v-else-if="LotData.status === 'start'" class="card__panel-status success">
+                        Старт продаж
+                        <img :src="rocket" alt="Rocket" />
+                    </div>
+                    <div v-else-if="LotData.status === 'bron'" class="card__panel-status info">
+                        Забронировано
+                    </div>
+                    <div v-else-if="LotData.status === 'not_available'" class="card__panel-status danger">
+                        Не в продаже
+                    </div>
+                </div>
+                <button :key="`${LotData.id}close-desktop-chart-btn`" @click="showChartBelow=!showChartBelow"
+                    class="card__panel-btn">
+                    <img :src="chart" alt="Chart" />
+                </button>
+                <span class="card__price card__price--desktop" :class="{
+                    'card__price--crossed':
+                        LotData.is_actual === false && LotData.bron === false,
+                }">{{ formattedPrice }} ₽</span>
+            </div>
+
+            <DataItem title="Цена метра" :value="sqMeterPrice" suffix=" ₽" :class="{ 'card__sq-meter-price': true }" />
             <DataItem title="Изм. со ст" :value="LotData.start_change" suffix="%" />
 
             <DataItem title="за 30 дней" :value="LotData.month_change" suffix="%" />
@@ -99,8 +136,17 @@
             <DataItem title="Этаж" :value="LotData.floor" />
             <DataItem title="Площадь" :value="LotData.area" />
             <DataItem title="Комнат" :value="getRooms" />
+
+            <button @click="confirmRedirect(LotData.flat_url)" target="_blank"
+                class="card__panel-article card__panel-article--desktop">
+                <img :src="chain" alt="Link" />
+                {{ LotData.article != null ? LotData.article : LotData.number }}
+            </button>
+        </div>
+        <div>
+            <portal-target :name="LotData.id + 'chart-popup--desktop'" />
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -112,10 +158,18 @@ import PriceChart from "./PriceChart.vue";
 import Popup from "../Popup.vue";
 import ChartDataProvider from "../providers/ChartDataProvider.vue";
 import Spinner from "./Spinner.vue";
+import ResponsivePortal from "@/components/utils/ResponsivePortal.vue";
 
 export default {
     name: "PriceCard",
-    components: { DataItem, PriceChart, Popup, ChartDataProvider, Spinner },
+    components: {
+        DataItem,
+        PriceChart,
+        Popup,
+        ChartDataProvider,
+        Spinner,
+        ResponsivePortal,
+    },
     props: {
         LotData: Object,
         complexId: String,
@@ -129,6 +183,8 @@ export default {
             showChart: false,
             showRedirect: false,
             redirectLink: "",
+            isWide: window.innerWidth > 768,
+            showChartBelow: false,
         };
     },
     computed: {
@@ -136,8 +192,19 @@ export default {
             return new Intl.NumberFormat("ru-RU").format(this.LotData.price);
         },
         getRooms() {
-            return isNaN(parseInt(this.LotData.rooms)) ? "Студия" : `${this.LotData.rooms}к`;
-        }
+            return isNaN(parseInt(this.LotData.rooms))
+                ? "Студия"
+                : `${this.LotData.rooms}к`;
+        },
+        sqMeterPrice() {
+            return Math.floor(this.LotData.price / this.LotData.area);
+        },
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.checkWidth);
+    },
+    mounted() {
+        window.addEventListener("resize", this.checkWidth);
     },
     methods: {
         confirmRedirect(link) {
@@ -152,6 +219,9 @@ export default {
             } else {
                 return "";
             }
+        },
+        checkWidth() {
+            this.isWide = window.innerWidth > 768;
         },
     },
 };

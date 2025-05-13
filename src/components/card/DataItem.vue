@@ -38,4 +38,13 @@ export default {
     font-weight: 400;
     height: 1em;
 }
+
+@media screen and (min-width: 1024px) {
+    .card__data__header {
+        display: none;
+    }
+    .card__data__body {
+        font-size: 0.75rem;
+    }
+}
 </style>

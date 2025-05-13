@@ -36,7 +36,6 @@
     text-decoration: line-through;
 }
 
-
 .card__data {
     display: flex;
     align-items: center;
@@ -90,7 +89,7 @@
     justify-content: center;
 }
 
-.card__data--desktop { 
+.card__data--desktop {
     display: none;
 }
 
@@ -108,35 +107,77 @@
     gap: 4px;
 }
 
-@media screen and ( min-width: 768px ) {
+.card__sq-meter-price {
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
     .card__panel-btn {
         margin-right: 0;
     }
+
     .card__data--mobile {
         display: none;
     }
+
     .card__data--desktop {
         display: flex;
     }
+
     .card__header--mobile {
         display: none;
     }
+
     .card__price--desktop {
-        display: inline;
+        display: block;
         margin-right: auto;
+        margin-left: 0.5rem;
+    }
+    .chart-popup--desktop {
+        display: none;
     }
 }
 
-@media screen and ( min-width: 1440px ) {
+.card__status--desktop {
+    display: none;
+    flex-shrink: 0;
+}
+
+.card__panel-article--desktop {
+    display: none;
+}
+
+@media screen and (min-width: 1024px) {
+    .card__panel {
+        display: none;
+    }
+
+    .card__status--desktop {
+        display: flex;
+        flex-basis: 265px;
+    }
+
+    .card__price--desktop {
+        margin-right: 0;
+    }
+
+    .card__panel-article--desktop {
+        display: flex;
+    }
+    .card__sq-meter-price {
+        display: flex;
+    }
+}
+
+@media screen and (min-width: 1440px) {
     .card__price--desktop {
         font-size: 1rem !important;
     }
+
     .card__panel-article {
         font-size: 1rem !important;
     }
 }
-
-
 
 .card__panel-article img {
     margin-top: 0.2em;

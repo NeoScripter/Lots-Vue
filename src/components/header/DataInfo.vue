@@ -34,7 +34,7 @@ export default {
         <div v-else class="data-row data-row--highlighted">
             <span>Актуальность данных</span>
             <img :src="clock" alt="clock" />
-            <span>{{ actality }}</span>
+            <span>{{ actuality }}</span>
         </div>
         <div v-if="isLoading" class="skeleton is-size-6 mb-1"></div>
         <div v-else class="data-row">
