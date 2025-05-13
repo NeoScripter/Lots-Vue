@@ -132,7 +132,7 @@ export default {
         background-color: white;
         padding: 1rem;
         margin-inline: 10px;
-        margin-top: 1rem;
+        margin-top: 0.75rem;
     }
 }
 </style>

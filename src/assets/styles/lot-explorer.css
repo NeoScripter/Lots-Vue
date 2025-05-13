@@ -4,31 +4,6 @@
     position: relative;
 }
 
-.lot-explorer__header {
-    position: sticky;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem;
-    background-color: white;
-    z-index: 20;
-}
-
-.lot-explorer__logo {
-    width: 6.375rem;
-}
-
-.lot-explorer__link {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    color: #4398b7;
-    font-size: 0.875rem;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-}
-
 .lot-explorer__content {
     background-color: white;
     padding: 0.75rem;
@@ -45,13 +20,6 @@
     }
 }
 
-.lot-explorer__error-message {
-    font-size: 0.75rem;
-}
-
-.lot-explorer__cards {
-    padding: 0.75rem;
-}
 
 @media screen and (min-width: 768px) {
     .lot-explorer__mob-filter-btns {

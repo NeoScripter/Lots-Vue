@@ -216,7 +216,7 @@ export default {
 }
 
 .filter-actions--margin {
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
 }
 
 .sort-popup {
@@ -238,7 +238,7 @@ export default {
         margin-inline: 10px;
         border-radius: 0.5rem;
         padding: 20px;
-        margin-top: 20px;
+        margin-top: 0.75rem;
         background-color: white;
     }
 
