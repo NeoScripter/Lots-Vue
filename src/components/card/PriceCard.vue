@@ -1,59 +1,10 @@
-<script>
-import rocket from "/svgs/rocket.svg";
-import chart from "/svgs/chart.svg";
-import chain from "/svgs/chain.svg";
-import DataItem from "./DataItem.vue";
-import PriceChart from "./PriceChart.vue";
-import Popup from "../Popup.vue";
-import ChartDataProvider from "../providers/ChartDataProvider.vue";
-import Spinner from "./Spinner.vue";
-
-export default {
-    name: "PriceCard",
-    components: { DataItem, PriceChart, Popup, ChartDataProvider, Spinner },
-    props: {
-        LotData: Object,
-        complexId: String,
-    },
-
-    data() {
-        return {
-            rocket,
-            chart,
-            chain,
-            showChart: false,
-            showRedirect: false,
-            redirectLink: "",
-        };
-    },
-    computed: {
-        formattedPrice() {
-            return new Intl.NumberFormat("ru-RU").format(this.LotData.price);
-        },
-    },
-    methods: {
-        confirmRedirect(link) {
-            this.showRedirect = true;
-            this.redirectLink = link;
-        },
-        keysValue(keys_now, keys) {
-            if (keys_now) {
-                return "Уже выдают";
-            } else if (keys) {
-                return `${keys}`;
-            } else {
-                return "";
-            }
-        },
-    },
-};
-</script>
-
 <template>
     <div class="card__container mb-3">
-        <div class="card__header">
-            <span class="card__price" :class="{ 'card__price--crossed': LotData.is_actual === false && LotData.bron === false }">{{ formattedPrice
-                }} ₽</span>
+        <div class="card__header card__header--mobile">
+            <span class="card__price" :class="{
+                'card__price--crossed':
+                    LotData.is_actual === false && LotData.bron === false,
+            }">{{ formattedPrice }} ₽</span>
 
             <div class="lot-props">
                 <div class="attr">{{ LotData.building }} корп</div>
@@ -90,7 +41,7 @@ export default {
             </div>
         </Popup>
 
-        <div class="card__data">
+        <div class="card__data card__data--mobile">
             <DataItem title="Изм. со ст" :value="LotData.start_change" suffix="%" />
 
             <DataItem title="за 30 дней" :value="LotData.month_change" suffix="%" />
@@ -120,12 +71,90 @@ export default {
             <button @click="showChart = true" class="card__panel-btn">
                 <img :src="chart" alt="Chart" />
             </button>
+            <span class="card__price card__price--desktop" :class="{
+                'card__price--crossed':
+                    LotData.is_actual === false && LotData.bron === false,
+            }">{{ formattedPrice }} ₽</span>
+
             <button @click="confirmRedirect(LotData.flat_url)" target="_blank" class="card__panel-article">
                 <img :src="chain" alt="Link" />
                 {{ LotData.article != null ? LotData.article : LotData.number }}
             </button>
         </div>
+
+        <div class="card__data card__data--desktop">
+            <DataItem title="Изм. со ст" :value="LotData.start_change" suffix="%" />
+
+            <DataItem title="за 30 дней" :value="LotData.month_change" suffix="%" />
+
+            <DataItem title="за 7 дней" :value="LotData.week_change" suffix="%" />
+
+            <DataItem title="за день" :value="LotData.start_change" suffix="%" />
+
+            <DataItem title="на сайте" :value="LotData.days_on_site" suffix=" д" />
+
+            <DataItem title="ключи до" :value="keysValue(LotData.keys_now, LotData.keys)" />
+
+            <DataItem title="корпус" :value="LotData.building" />
+            <DataItem title="Этаж" :value="LotData.floor" />
+            <DataItem title="Площадь" :value="LotData.area" />
+            <DataItem title="Комнат" :value="getRooms" />
     </div>
+  </div>
 </template>
+
+<script>
+import rocket from "/svgs/rocket.svg";
+import chart from "/svgs/chart.svg";
+import chain from "/svgs/chain.svg";
+import DataItem from "./DataItem.vue";
+import PriceChart from "./PriceChart.vue";
+import Popup from "../Popup.vue";
+import ChartDataProvider from "../providers/ChartDataProvider.vue";
+import Spinner from "./Spinner.vue";
+
+export default {
+    name: "PriceCard",
+    components: { DataItem, PriceChart, Popup, ChartDataProvider, Spinner },
+    props: {
+        LotData: Object,
+        complexId: String,
+    },
+
+    data() {
+        return {
+            rocket,
+            chart,
+            chain,
+            showChart: false,
+            showRedirect: false,
+            redirectLink: "",
+        };
+    },
+    computed: {
+        formattedPrice() {
+            return new Intl.NumberFormat("ru-RU").format(this.LotData.price);
+        },
+        getRooms() {
+            return isNaN(parseInt(this.LotData.rooms)) ? "Студия" : `${this.LotData.rooms}к`;
+        }
+    },
+    methods: {
+        confirmRedirect(link) {
+            this.showRedirect = true;
+            this.redirectLink = link;
+        },
+        keysValue(keys_now, keys) {
+            if (keys_now) {
+                return "Уже выдают";
+            } else if (keys) {
+                return `${keys}`;
+            } else {
+                return "";
+            }
+        },
+    },
+};
+</script>
 
 <style scoped src="../../assets/styles/price-card.css"></style>

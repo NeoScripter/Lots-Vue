@@ -90,6 +90,14 @@
     justify-content: center;
 }
 
+.card__data--desktop { 
+    display: none;
+}
+
+.card__price--desktop {
+    display: none;
+}
+
 .card__panel-article {
     color: #4398b7;
     font-size: 12px;
@@ -99,6 +107,36 @@
     align-items: center;
     gap: 4px;
 }
+
+@media screen and ( min-width: 768px ) {
+    .card__panel-btn {
+        margin-right: 0;
+    }
+    .card__data--mobile {
+        display: none;
+    }
+    .card__data--desktop {
+        display: flex;
+    }
+    .card__header--mobile {
+        display: none;
+    }
+    .card__price--desktop {
+        display: inline;
+        margin-right: auto;
+    }
+}
+
+@media screen and ( min-width: 1440px ) {
+    .card__price--desktop {
+        font-size: 1rem !important;
+    }
+    .card__panel-article {
+        font-size: 1rem !important;
+    }
+}
+
+
 
 .card__panel-article img {
     margin-top: 0.2em;
