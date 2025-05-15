@@ -1,30 +1,3 @@
-<script>
-export default {
-    props: {
-        complexId: String,
-        lotOptions: Object,
-        getBuildings: Array,
-        getRooms: Array,
-        selectSortingOption: Function,
-        closePopup: Function,
-    },
-    methods: {
-        setBuilding(building) {
-            this.$emit("update:lotOptions", { ...this.lotOptions, building });
-        },
-        setRoom(room) {
-            this.$emit("update:lotOptions", { ...this.lotOptions, rooms: room });
-        },
-        setStatus(status) {
-            this.$emit("update:lotOptions", { ...this.lotOptions, status: status });
-        },
-        handleSearchClick() {
-            this.closePopup();
-        },
-    },
-};
-</script>
-
 <template>
     <div class="filters__container">
         <div class="filters__btn-group scrollbar-hidden">
@@ -136,3 +109,30 @@ export default {
     }
 }
 </style>
+
+<script>
+export default {
+    props: {
+        complexId: String,
+        lotOptions: Object,
+        getBuildings: Array,
+        getRooms: Array,
+        selectSortingOption: Function,
+        closePopup: Function,
+    },
+    methods: {
+        setBuilding(building) {
+            this.$emit("update:lotOptions", { ...this.lotOptions, building });
+        },
+        setRoom(room) {
+            this.$emit("update:lotOptions", { ...this.lotOptions, rooms: room });
+        },
+        setStatus(status) {
+            this.$emit("update:lotOptions", { ...this.lotOptions, status: status });
+        },
+        handleSearchClick() {
+            this.closePopup();
+        },
+    },
+};
+</script>

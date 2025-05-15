@@ -1,5 +1,6 @@
 
 export const SEARCH_FIELDS = {
+    STATUS: 'status',
     PRICE: 'price',
     SQM_PRICE: 'sqm_price',
     CHANGE: 'day_change',

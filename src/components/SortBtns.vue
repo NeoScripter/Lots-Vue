@@ -3,8 +3,7 @@ import filterIcon from "/svgs/filter-icon.svg";
 import search from "/svgs/search.svg";
 import ascending from "/svgs/asc.svg";
 import descending from "/svgs/desc.svg";
-
-import { SEARCH_FIELDS } from "../const/SearchFields";
+import {SEARCH_FIELDS} from "../const/SearchFields.js";
 import Popup from "./Popup.vue";
 import SortBtn from "./SortBtn.vue";
 
@@ -59,6 +58,7 @@ export default {
     computed: {
         getSortButtonContent() {
             const sortLabels = {
+                [SEARCH_FIELDS.STATUS]: "Статус",
                 [SEARCH_FIELDS.ARTICLE]: "Артикул или номер",
                 [SEARCH_FIELDS.BUILDING]: "Корпус",
                 [SEARCH_FIELDS.FLOOR]: "Этаж",
@@ -141,6 +141,8 @@ export default {
         <portal :to="isWide ? 'sort-panel__desktop' : 'sort-panel__mobile'">
             <div class="sort-popup">
                 <div class="filter-actions filter-actions--margin">
+                    <SortBtn label="Статус" :sortField="sortField" :currentSortField="SEARCH_FIELDS.STATUS" :sort="sort"
+                        @click="selectSortingOption(SEARCH_FIELDS.STATUS)" />
                     <SortBtn label="Артикул или номер" :sortField="sortField" :currentSortField="SEARCH_FIELDS.ARTICLE"
                         :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.ARTICLE)" />
                     <SortBtn label="Корпус" :sortField="sortField" :currentSortField="SEARCH_FIELDS.BUILDING"
@@ -235,7 +237,7 @@ export default {
 
 @media screen and (min-width: 768px) {
     .sort-popup {
-        margin-inline: 10px;
+        margin-inline: 12px;
         border-radius: 0.5rem;
         padding: 20px;
         margin-top: 0.75rem;
@@ -248,6 +250,12 @@ export default {
 
     .filter-actions--margin {
         margin-bottom: 0;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .sort-popup {
+        border-radius: 0.5rem 0.5rem 0 0;
     }
 }
 

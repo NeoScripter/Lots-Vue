@@ -44,6 +44,8 @@ export default {
         display: none;
     }
     .card__data__body {
+        display: block;
+        height: auto;
         font-size: 0.75rem;
     }
 }

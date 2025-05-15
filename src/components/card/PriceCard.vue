@@ -1,5 +1,5 @@
 <template>
-    <div class="card__container mb-3">
+    <div class="card__container">
         <div class="card__header card__header--mobile">
             <span class="card__price" :class="{
                 'card__price--crossed':

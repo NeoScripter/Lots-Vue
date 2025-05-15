@@ -9,8 +9,8 @@
         <p v-else-if="items.length === 0 && !isLoading">
             По вашему запросу ничего не найдено
         </p>
-        <div v-for="item in items" :key="item.id">
-            <PriceCard :LotData="item" :complexId="complexId" />
+        <div v-for="(item, index) in items" :key="item.id">
+            <PriceCard :LotData="item" :complexId="complexId" :class="{'card__container--odd': index % 2 === 0}" />
         </div>
         <CardSkeleton v-if="isLoading" />
     </div>
@@ -37,5 +37,10 @@ export default {
 
 .lot-explorer__cards {
     padding: 0.75rem;
+}
+@media screen and (min-width: 1024px) {
+    .lot-explorer__cards {
+        padding-top: 0;
+    } 
 }
 </style>

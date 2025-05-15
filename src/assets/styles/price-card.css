@@ -18,6 +18,7 @@
     padding: 14px;
     display: grid;
     gap: 12px;
+    margin-bottom: 0.75rem;
 }
 
 .card__header {
@@ -166,6 +167,18 @@
     }
     .card__sq-meter-price {
         display: flex;
+    }
+    .card__container {
+        margin-bottom: 0;
+        gap: 0;
+        padding: 1rem;
+        border-radius: 0;
+    }
+    .card__container--odd {
+        background-color: #F6F8F9;
+    }
+    .card__data--desktop {
+        align-items: center;
     }
 }
 

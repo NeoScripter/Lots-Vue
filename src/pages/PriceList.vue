@@ -1,3 +1,80 @@
+<template>
+    <ComplexDataProvider :complexId="complexId" v-slot="{
+        complexData,
+        complexDataIsLoading,
+        complexLoadingError,
+        actuality,
+        getBuildings,
+        getRooms,
+    }">
+        <LotDataProvider :complexId="complexId" :options="lotOptions" v-slot="{
+            items,
+            lotDataIsLoading,
+            totalItems,
+            lotsAvailable,
+            lotLoadingError,
+            fetchData,
+            resetItems,
+            searchLot,
+            updateSearchUrl,
+        }">
+            <Popup :show.sync="showFilters" title="Фильтры">
+                <FiltersPanel :complexId="complexId" :lotOptions.sync="lotOptions" :getBuildings="getBuildings"
+                    :getRooms="getRooms" :closePopup="() => (showFilters = false)" />
+            </Popup>
+
+            <div class="price-list_wrapper">
+                <header class="header-bar">
+                    <img :src="logo" alt="Пульс продаж новостроек" class="logo" />
+                </header>
+                <div class="price-list_content">
+
+                    <p v-if="complexLoadingError" class="is-size-7">
+                        Произошла ошибка, попробуйте позднее или обратитесь в поддержку
+                        <a href="https://t.me/pulsprodajru_supportbot">
+                            https://t.me/pulsprodajru_supportbot
+                        </a>
+                    </p>
+                    <div v-else>
+                        <Complex :complexData="complexData" :complexDataIsLoading="complexDataIsLoading" />
+
+                        <DataInfo :actuality="actuality" priceFrom="2024-04-11" :totalLots="totalItems"
+                            :availableLots="lotsAvailable" :isLoading="complexDataIsLoading" />
+
+                        <SortBtns :selectSortingOption="selectSortingOption" :handleSearchClick="handleSearchClick"
+                            :sortField="lotOptions.sort_field" :sort="lotOptions.sort" :rooms="lotOptions.rooms"
+                            :building="lotOptions.building" :status="lotOptions.status" :showFilters.sync="showFilters"
+                            :resetLotOptions="resetLotOptions" />
+                    </div>
+                </div>
+
+                <Popup :show.sync="showSearch" title="Поиск по артикулу или URL">
+                    <SearchInput :updateSearchUrl="updateSearchUrl" :searchLot="searchLot"
+                        :closePopup="() => (showSearch = false)" :resetLotOptions="resetLotOptions" />
+                </Popup>
+
+                <div class="p-3">
+                    <p v-if="lotLoadingError" class="is-size-7">
+                        Произошла ошибка, попробуйте позднее или обратитесь в поддержку
+                        <a href="https://t.me/pulsprodajru_supportbot">
+                            https://t.me/pulsprodajru_supportbot
+                        </a>
+                    </p>
+                    <p v-else-if="items.length === 0 && !lotDataIsLoading">
+                        По вашему запросу ничего не найдено
+                    </p>
+                    <div v-for="(item, _) in items" :key="item.id">
+                        <PriceCard :LotData="item" :complexId="complexId" />
+                    </div>
+                    <CardSkeleton v-if="lotDataIsLoading" />
+                </div>
+            </div>
+        </LotDataProvider>
+    </ComplexDataProvider>
+</template>
+
+<style scoped src="../assets/styles/header.css"></style>
+
 <script>
 import logo from "/images/logo.webp";
 import SortBtns from "../components/SortBtns.vue";
@@ -112,80 +189,3 @@ export default {
     },
 };
 </script>
-
-<template>
-    <ComplexDataProvider :complexId="complexId" v-slot="{
-        complexData,
-        complexDataIsLoading,
-        complexLoadingError,
-        actuality,
-        getBuildings,
-        getRooms,
-    }">
-        <LotDataProvider :complexId="complexId" :options="lotOptions" v-slot="{
-            items,
-            lotDataIsLoading,
-            totalItems,
-            lotsAvailable,
-            lotLoadingError,
-            fetchData,
-            resetItems,
-            searchLot,
-            updateSearchUrl,
-        }">
-            <Popup :show.sync="showFilters" title="Фильтры">
-                <FiltersPanel :complexId="complexId" :lotOptions.sync="lotOptions" :getBuildings="getBuildings"
-                    :getRooms="getRooms" :closePopup="() => (showFilters = false)" />
-            </Popup>
-
-            <div class="price-list_wrapper">
-                <header class="header-bar">
-                    <img :src="logo" alt="Пульс продаж новостроек" class="logo" />
-                </header>
-                <div class="price-list_content">
-
-                    <p v-if="complexLoadingError" class="is-size-7">
-                        Произошла ошибка, попробуйте позднее или обратитесь в поддержку
-                        <a href="https://t.me/pulsprodajru_supportbot">
-                            https://t.me/pulsprodajru_supportbot
-                        </a>
-                    </p>
-                    <div v-else>
-                        <Complex :complexData="complexData" :complexDataIsLoading="complexDataIsLoading" />
-
-                        <DataInfo :actuality="actuality" priceFrom="2024-04-11" :totalLots="totalItems"
-                            :availableLots="lotsAvailable" :isLoading="complexDataIsLoading" />
-
-                        <SortBtns :selectSortingOption="selectSortingOption" :handleSearchClick="handleSearchClick"
-                            :sortField="lotOptions.sort_field" :sort="lotOptions.sort" :rooms="lotOptions.rooms"
-                            :building="lotOptions.building" :status="lotOptions.status" :showFilters.sync="showFilters"
-                            :resetLotOptions="resetLotOptions" />
-                    </div>
-                </div>
-
-                <Popup :show.sync="showSearch" title="Поиск по артикулу или URL">
-                    <SearchInput :updateSearchUrl="updateSearchUrl" :searchLot="searchLot"
-                        :closePopup="() => (showSearch = false)" :resetLotOptions="resetLotOptions" />
-                </Popup>
-
-                <div class="p-3">
-                    <p v-if="lotLoadingError" class="is-size-7">
-                        Произошла ошибка, попробуйте позднее или обратитесь в поддержку
-                        <a href="https://t.me/pulsprodajru_supportbot">
-                            https://t.me/pulsprodajru_supportbot
-                        </a>
-                    </p>
-                    <p v-else-if="items.length === 0 && !lotDataIsLoading">
-                        По вашему запросу ничего не найдено
-                    </p>
-                    <div v-for="(item, _) in items" :key="item.id">
-                        <PriceCard :LotData="item" :complexId="complexId" />
-                    </div>
-                    <CardSkeleton v-if="lotDataIsLoading" />
-                </div>
-            </div>
-        </LotDataProvider>
-    </ComplexDataProvider>
-</template>
-
-<style scoped src="../assets/styles/header.css"></style>
