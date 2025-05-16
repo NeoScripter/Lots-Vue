@@ -18,13 +18,17 @@ export default {
 </script>
 
 <template>
-    <div>
+    <div class="card__data-wrapper">
         <header class="card__data__header">{{ title }}</header>
         <div class="card__data__body">{{ `${value === null ? '' : value}${value === null ? '' : suffix}` }}</div>
     </div>
 </template>
 
 <style scoped>
+.card__data-wrapper {
+    flex-shrink: 0;
+    min-width: 2rem;
+}
 .card__data__header {
     color: #8b8b8b;
     font-size: 10px;
@@ -33,6 +37,7 @@ export default {
 }
 
 .card__data__body {
+    flex-shrink: 0;
     color: #514f62;
     font-size: 11px;
     font-weight: 400;

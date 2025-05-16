@@ -11,46 +11,46 @@
                 alt="descending order" />
         </button>
 
-        <div>
+        <div class="portal-wrapper">
             <portal-target name="sort-panel__desktop" />
         </div>
 
-        <portal :to="isWide ? 'sort-panel__desktop' : 'sort-panel__mobile'">
+        <portal class="portal-wrapper" :to="isWide ? 'sort-panel__desktop' : 'sort-panel__mobile'">
             <div class="sort-popup">
                 <div class="filter-actions filter-actions--margin">
-                    <SortBtn label="Статус" :sortField="sortField" :currentSortField="SEARCH_FIELDS.STATUS" :sort="sort"
+                    <div class="filter__left-group">
+                        <SortBtn label="Статус" :sortField="sortField" :currentSortField="SEARCH_FIELDS.STATUS" :sort="sort"
                         @click="selectSortingOption(SEARCH_FIELDS.STATUS)" />
-                    <SortBtn label="Стоимость" :sortField="sortField" :currentSortField="SEARCH_FIELDS.PRICE"
-                             :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.PRICE)" />
+                        <SortBtn label="Стоимость" :sortField="sortField" :currentSortField="SEARCH_FIELDS.PRICE"
+                        :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.PRICE)" />
+                    </div>
                     <SortBtn label="Цена метра" :sortField="sortField" :currentSortField="SEARCH_FIELDS.SQM_PRICE"
-                             :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.SQM_PRICE)" />
-                    <SortBtn label="Артикул или номер" :sortField="sortField" :currentSortField="SEARCH_FIELDS.ARTICLE"
-                        :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.ARTICLE)" />
-                    <SortBtn label="Корпус" :sortField="sortField" :currentSortField="SEARCH_FIELDS.BUILDING"
+                        :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.SQM_PRICE)" />
+                    <SortBtn label="Изм.со ст." :sortField="sortField" :currentSortField="SEARCH_FIELDS.START_CHANGE"
+                        :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.START_CHANGE)" />
+                    <SortBtn label="за 7 дней" :sortField="sortField" :currentSortField="SEARCH_FIELDS.WEEK_CHANGE"
+                        :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.WEEK_CHANGE)" />
+                    <SortBtn label="за 30 дней" :sortField="sortField" :currentSortField="SEARCH_FIELDS.MONTH_CHANGE"
+                        :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.MONTH_CHANGE)" />
+                    <SortBtn label="за день" :sortField="sortField" :currentSortField="SEARCH_FIELDS.DAY_CHANGE"
+                        :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.DAY_CHANGE)" />
+                    <SortBtn label="на сайте" :sortField="sortField" :currentSortField="SEARCH_FIELDS.DAYS_ON_SITE"
+                        :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.DAYS_ON_SITE)" />
+                    <SortBtn label="Ключи до" :sortField="sortField" :currentSortField="SEARCH_FIELDS.KEYS_DATE"
+                        :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.KEYS_DATE)" />
+                    <SortBtn label="Корп." :sortField="sortField" :currentSortField="SEARCH_FIELDS.BUILDING"
                         :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.BUILDING)" />
                     <SortBtn label="Этаж" :sortField="sortField" :currentSortField="SEARCH_FIELDS.FLOOR" :sort="sort"
                         @click="selectSortingOption(SEARCH_FIELDS.FLOOR)" />
-                    <SortBtn label="Комнат" :sortField="sortField" :currentSortField="SEARCH_FIELDS.ROOMS" :sort="sort"
-                        @click="selectSortingOption(SEARCH_FIELDS.ROOMS)" />
+
                     <SortBtn label="Площадь" :sortField="sortField" :currentSortField="SEARCH_FIELDS.AREA" :sort="sort"
                         @click="selectSortingOption(SEARCH_FIELDS.AREA)" />
-                    <SortBtn label="Изм.со ст." :sortField="sortField"
-                        :currentSortField="SEARCH_FIELDS.START_CHANGE" :sort="sort"
-                        @click="selectSortingOption(SEARCH_FIELDS.START_CHANGE)" />
-                    <SortBtn label="за 7 дней" :sortField="sortField"
-                        :currentSortField="SEARCH_FIELDS.WEEK_CHANGE" :sort="sort"
-                        @click="selectSortingOption(SEARCH_FIELDS.WEEK_CHANGE)" />
-                    <SortBtn label="за 30 дней" :sortField="sortField"
-                        :currentSortField="SEARCH_FIELDS.MONTH_CHANGE" :sort="sort"
-                        @click="selectSortingOption(SEARCH_FIELDS.MONTH_CHANGE)" />
-                    <SortBtn label="за день" :sortField="sortField"
-                        :currentSortField="SEARCH_FIELDS.DAY_CHANGE" :sort="sort"
-                        @click="selectSortingOption(SEARCH_FIELDS.DAY_CHANGE)" />
-                    <SortBtn label="на сайте" :sortField="sortField" :currentSortField="SEARCH_FIELDS.DAYS_ON_SITE"
-                        :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.DAYS_ON_SITE)" />
-                    <SortBtn label="Ключи до" :sortField="sortField"
-                        :currentSortField="SEARCH_FIELDS.KEYS_DATE" :sort="sort"
-                        @click="selectSortingOption(SEARCH_FIELDS.KEYS_DATE)" />
+
+                    <SortBtn label="Комнат" :sortField="sortField" :currentSortField="SEARCH_FIELDS.ROOMS" :sort="sort"
+                        @click="selectSortingOption(SEARCH_FIELDS.ROOMS)" />
+
+                    <SortBtn label="Артикул" :sortField="sortField" :currentSortField="SEARCH_FIELDS.ARTICLE"
+                        :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.ARTICLE)" />
                 </div>
 
                 <button @click="() => (showSortPopup = false)"
@@ -82,81 +82,14 @@
     </div>
 </template>
 
-<style scoped>
-.active-filter {
-    background-color: rgb(24, 156, 204, 0.25);
-}
-
-.filter-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.filter-actions--margin {
-    margin-bottom: 0.75rem;
-}
-
-.sort-popup {
-    padding-inline: 20px;
-    margin-top: -20px;
-}
-
-.button:not(.is-medium) {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    gap: 0.3rem;
-    font-weight: 700;
-    font-size: 0.65rem;
-}
-
-@media screen and (min-width: 768px) {
-    .sort-popup {
-        margin-inline: 12px;
-        border-radius: 0.5rem;
-        padding: 20px;
-        margin-top: 0.75rem;
-        background-color: white;
-    }
-
-    .sort__desktop-hidden {
-        display: none !important;
-    }
-
-    .filter-actions--margin {
-        margin-bottom: 0;
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    .sort-popup {
-        border-radius: 0.5rem 0.5rem 0 0;
-    }
-}
-
-.button--icon {
-    padding-inline: 10px;
-}
-
-.button--icon img {
-    margin-block: 1.5px;
-    width: 1rem;
-}
-
-.button--icon svg {
-    margin-block: 1.7px;
-    width: 1rem;
-}
-</style>
+<style scoped src="../assets/styles/sort-btns.css"></style>
 
 <script>
 import filterIcon from "/svgs/filter-icon.svg";
 import search from "/svgs/search.svg";
 import ascending from "/svgs/asc.svg";
 import descending from "/svgs/desc.svg";
-import {SEARCH_FIELDS} from "../const/SearchFields.js";
+import { SEARCH_FIELDS } from "../const/SearchFields.js";
 import Popup from "./Popup.vue";
 import SortBtn from "./SortBtn.vue";
 
