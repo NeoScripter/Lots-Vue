@@ -2,7 +2,7 @@
     <header class="lot-explorer__header">
         <div class="lot-explorer__headline">
             <img :src="logo" alt="Пульс продаж новостроек" class="lot-explorer__logo" />
-            <a class="lot-explorer__link">
+            <a href="https://t.me/pulsprodajru_supportbot" class="lot-explorer__link">
                 <img :src="telegram" alt="Телеграм" class="lot-explorer--link-svg" />
                 Поддержка
             </a>

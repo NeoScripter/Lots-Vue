@@ -34,13 +34,13 @@ export default {
             }
         },
     },
-    mounted() {
+/*    mounted() {
         this.checkAuth();
         this.intervalId = setInterval(this.checkAuth, 3000);
     },
     beforeDestroy() {
         if (this.intervalId) clearInterval(this.intervalId);
-    },
+    },*/
 };
 </script>
 
