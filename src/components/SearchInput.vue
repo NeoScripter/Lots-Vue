@@ -1,4 +1,81 @@
+<template>
+    <div class="search__container">
+        <div class="search__input-wrapper">
+            <input autofocus ref="searchInput" v-model="searchUrl" type="search" placeholder="Введите url" />
+            <button @click="handleSearchClick" class="button is-light is-small search-btn__desktop">
+                <img :src="searchIcon" alt="Filter" />
+            </button>
+
+            <button @click="resetUrls" class="button is-light is-small">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <g id="Group 381">
+                        <rect x="11.7573" y="3.53552" width="1" height="11" transform="rotate(45 11.7573 3.53552)"
+                            fill="black" />
+                        <rect x="12.4644" y="11.3137" width="1" height="11" transform="rotate(135 12.4644 11.3137)"
+                            fill="black" />
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <button @click="handleSearchClick" class="button is-light is-medium search-btn__mobile">
+            Поиск
+        </button>
+    </div>
+</template>
+
+<style scoped>
+.search__container {
+    display: grid;
+    gap: 1rem;
+    margin-inline: 20px;
+    margin-top: -20px;
+}
+
+.search__input-wrapper {
+    background-color: #f5f8fa;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.search__input-wrapper input {
+    border: none;
+    background-color: #f5f8fa;
+    padding: 0.75em;
+    width: 100%;
+}
+
+.search__input-wrapper button {
+    aspect-ratio: 1/1;
+    height: 100%;
+}
+
+.search-btn__desktop {
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    .search__container {
+        margin-inline: 0.75rem;
+        margin-top: 0.75rem;
+        padding: 1rem;
+        background-color: white;
+    }
+
+    .search-btn__mobile {
+        display: none;
+    }
+
+    .search-btn__desktop {
+        display: flex;
+    }
+}
+</style>
+
 <script>
+import searchIcon from "/svgs/search.svg";
+
 export default {
     props: {
         updateSearchUrl: Function,
@@ -12,6 +89,7 @@ export default {
     },
     data() {
         return {
+            searchIcon,
             searchUrl: "",
         };
     },
@@ -38,6 +116,7 @@ export default {
         resetUrls() {
             this.searchUrl = "";
             this.updateSearchUrl("");
+            this.resetLotOptions();
         },
     },
     updated() {
@@ -47,52 +126,3 @@ export default {
     },
 };
 </script>
-
-<template>
-    <div class="search__container">
-        <div class="search__input-wrapper">
-            <input autofocus ref="searchInput" v-model="searchUrl" type="search" placeholder="Введите url" />
-            <button @click="resetUrls">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <g id="Group 381">
-                        <rect x="11.7573" y="3.53552" width="1" height="11" transform="rotate(45 11.7573 3.53552)"
-                            fill="black" />
-                        <rect x="12.4644" y="11.3137" width="1" height="11" transform="rotate(135 12.4644 11.3137)"
-                            fill="black" />
-                    </g>
-                </svg>
-            </button>
-        </div>
-
-        <button @click="handleSearchClick" class="button is-light is-medium">
-            Поиск
-        </button>
-    </div>
-</template>
-
-<style scoped>
-.search__container {
-    display: grid;
-    gap: 1rem;
-    margin-inline: 20px;
-    margin-top: -20px;
-}
-
-.search__input-wrapper {
-    background-color: #f5f8fa;
-    display: flex;
-    align-items: center;
-}
-
-.search__input-wrapper input {
-    border: none;
-    background-color: #f5f8fa;
-    padding: 0.75em;
-    width: 100%;
-}
-
-.search__input-wrapper button {
-    aspect-ratio: 1/1;
-    height: 100%;
-}
-</style>

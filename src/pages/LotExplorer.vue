@@ -36,6 +36,11 @@
                     :resetLotOptions="resetLotOptions" />
             </ResponsivePortal>
 
+            <ResponsivePortal :isWide="isWide" mobile="search-panel__mobile" desktop="search-panel__desktop">
+                <SearchInput :show="showSearch" :updateSearchUrl="updateSearchUrl" :searchLot="searchLot"
+                    :closePopup="() => (showSearch = false)" :resetLotOptions="resetLotOptions" />
+            </ResponsivePortal>
+
             <div class="lot-explorer">
                 <LotHeader :complexName="complexData.name" />
                 <div class="lot-explorer__content">
@@ -56,12 +61,11 @@
                 </div>
 
                 <Popup :show.sync="showSearch" title="Поиск по артикулу или URL">
-                    <SearchInput :show="showSearch" :updateSearchUrl="updateSearchUrl" :searchLot="searchLot"
-                        :closePopup="() => (showSearch = false)" :resetLotOptions="resetLotOptions" />
+                    <div><portal-target name="search-panel__mobile" /></div>
                 </Popup>
 
-                <div><portal-target name="filter-panel__desktop" />
-                </div>
+                <div><portal-target name="filter-panel__desktop" /></div>
+                <div><portal-target name="search-panel__desktop" /></div>
                 <div><portal-target name="sort-btns__desktop" /></div>
 
                 <LotCardList :items="items" :isLoading="lotDataIsLoading" :error="lotLoadingError"
