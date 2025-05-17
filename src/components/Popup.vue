@@ -96,4 +96,14 @@ export default {
     margin-top: auto;
     width: 100%;
 }
+@media screen and (min-width: 768px) {
+    .popup {
+        max-width: 20rem;
+        margin: auto;
+        border-radius: 1rem;
+    } 
+    .popup__header button {
+        display: none;
+    }
+}
 </style>

@@ -19,10 +19,10 @@
             <div class="sort-popup">
                 <div class="filter-actions filter-actions--margin">
                     <div class="filter__left-group">
-                        <SortBtn label="Статус" :sortField="sortField" :currentSortField="SEARCH_FIELDS.STATUS" :sort="sort"
-                        @click="selectSortingOption(SEARCH_FIELDS.STATUS)" />
+                        <SortBtn label="Статус" :sortField="sortField" :currentSortField="SEARCH_FIELDS.STATUS"
+                            :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.STATUS)" />
                         <SortBtn label="Стоимость" :sortField="sortField" :currentSortField="SEARCH_FIELDS.PRICE"
-                        :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.PRICE)" />
+                            :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.PRICE)" />
                     </div>
                     <SortBtn label="Цена метра" :sortField="sortField" :currentSortField="SEARCH_FIELDS.SQM_PRICE"
                         :sort="sort" @click="selectSortingOption(SEARCH_FIELDS.SQM_PRICE)" />
