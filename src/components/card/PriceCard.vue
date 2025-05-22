@@ -183,7 +183,7 @@ export default {
             showChart: false,
             showRedirect: false,
             redirectLink: "",
-            isWide: window.innerWidth > 768,
+            isWide: window.innerWidth >= 768,
             showChartBelow: false,
         };
     },
@@ -221,7 +221,7 @@ export default {
             }
         },
         checkWidth() {
-            this.isWide = window.innerWidth > 768;
+            this.isWide = window.innerWidth >= 768;
         },
     },
 };

@@ -103,7 +103,7 @@ export default {
             ascending,
             descending,
             showSortPopup: false,
-            isWide: window.innerWidth > 768,
+            isWide: window.innerWidth >= 768,
         };
     },
     components: {
@@ -138,7 +138,7 @@ export default {
             this.$emit("update:showFilters", true);
         },
         checkWidth() {
-            this.isWide = window.innerWidth > 768;
+            this.isWide = window.innerWidth >= 768;
         },
     },
     computed: {

@@ -13,7 +13,6 @@ export default {
             items: [],
             totalPages: 1,
             totalItems: 0,
-            lotsAvailable: 0,
             page: 1,
             lotDataIsLoading: false,
             isError: false,
@@ -49,7 +48,6 @@ export default {
                 this.page++;
                 this.totalPages = data.pages;
                 this.totalItems = data.total;
-                this.lotsAvailable = data.lots_available;
             } catch (error) {
                 if (error.name === 'AbortError') return;
 
@@ -147,7 +145,6 @@ export default {
             :lotDataIsLoading="lotDataIsLoading"
             :lotLoadingError="isError"
             :totalItems="totalItems"
-            :lotsAvailable="lotsAvailable"
             :fetchData="fetchData"
             :resetItems="resetItems"
             :updateSearchUrl="updateSearchUrl"

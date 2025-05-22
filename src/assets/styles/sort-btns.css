@@ -21,10 +21,6 @@
     margin-bottom: 0.75rem;
 }
 
-.portal-wrapper {
-    width: 100%;
-}
-
 .sort-popup {
     padding-inline: 20px;
     margin-top: -20px;
@@ -77,9 +73,14 @@
     .filter-actions {
         justify-content: space-between;
     }
+
     .filter__left-group {
         flex-basis: 265px;
         justify-content: space-between;
+    }
+
+    .portal-wrapper {
+        width: 100%;
     }
 }
 

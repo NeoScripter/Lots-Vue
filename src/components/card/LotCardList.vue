@@ -6,21 +6,28 @@
                 https://t.me/pulsprodajru_supportbot
             </a>
         </p>
-        <p v-else-if="items.length === 0 && !isLoading">
+        <p
+            v-else-if="items.length === 0 && !isLoading"
+            class="lot-explorer__empty"
+        >
             По вашему запросу ничего не найдено
         </p>
         <div v-for="(item, index) in items" :key="item.id">
-            <PriceCard :LotData="item" :complexId="complexId" :class="{'card__container--odd': index % 2 === 0}" />
+            <PriceCard
+                :LotData="item"
+                :complexId="complexId"
+                :class="{ 'card__container--odd': index % 2 === 0 }"
+            />
         </div>
         <CardSkeleton v-if="isLoading" />
     </div>
 </template>
 
 <script>
-import PriceCard from "@/components/card/PriceCard.vue";
-import CardSkeleton from "@/components/card/CardSkeleton.vue";
+import PriceCard from '@/components/card/PriceCard.vue';
+import CardSkeleton from '@/components/card/CardSkeleton.vue';
 export default {
-    name: "LotCardList",
+    name: 'LotCardList',
     components: { PriceCard, CardSkeleton },
     props: {
         items: { type: Array, default: () => [] },
@@ -41,6 +48,10 @@ export default {
 @media screen and (min-width: 1024px) {
     .lot-explorer__cards {
         padding-top: 0;
-    } 
+    }
+    .lot-explorer__empty {
+        margin-top: 1rem;
+        margin-inline: 0.25rem;
+    }
 }
 </style>

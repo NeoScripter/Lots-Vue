@@ -12,6 +12,8 @@ export default {
             complexDataIsLoading: false,
             isError: false,
             url: URLS.COMPLEX,
+            lotsAvailable: 0,
+            lotsOnSite: 0,
         };
     },
     methods: {
@@ -25,6 +27,8 @@ export default {
                 const response = await fetch(`${this.url}${this.complexId}`);
                 const data = await response.json();
 
+                this.lotsAvailable = data.lots_available;
+                this.lotsOnSite = data.lots_on_site;
                 this.complexData = data;
             } catch (error) {
                 console.error('API Error:', error);
@@ -66,6 +70,8 @@ export default {
             :actuality="getActuality"
             :getBuildings="getBuildings"
             :getRooms="getRooms"
+            :lotsAvailable="lotsAvailable"
+            :lotsOnSite="lotsOnSite"
         ></slot>
     </div>
 </template>

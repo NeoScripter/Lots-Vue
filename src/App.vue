@@ -1,4 +1,3 @@
-
 <script>
 import Welcome from './pages/Welcome.vue';
 import LotExplorer from './pages/LotExplorer.vue';
@@ -19,7 +18,10 @@ export default {
     methods: {
         async checkAuth() {
             try {
-                const response = await fetch('https://test3.pulsprodaj.ru/api/tgauth', {credentials:'include'});
+                const response = await fetch(
+                    'https://test3.pulsprodaj.ru/api/tgauth',
+                    { credentials: 'include' }
+                );
                 const data = await response.json();
 
                 this.authData = data;
@@ -34,7 +36,7 @@ export default {
             }
         },
     },
-/*    mounted() {
+    /*    mounted() {
         this.checkAuth();
         this.intervalId = setInterval(this.checkAuth, 3000);
     },
@@ -47,7 +49,7 @@ export default {
 <template>
     <div class="app">
         <LotExplorer />
-        </div>
+    </div>
 </template>
 
 <style scoped>
@@ -56,4 +58,3 @@ export default {
     margin-inline: auto;
 }
 </style>
-

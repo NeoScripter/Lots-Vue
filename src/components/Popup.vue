@@ -15,9 +15,9 @@ export default {
     watch: {
         show(newVal) {
             if (newVal) {
-                document.documentElement.classList.add('no-scroll'); 
+                document.documentElement.classList.add('no-scroll');
             } else {
-                document.documentElement.classList.remove('no-scroll'); 
+                document.documentElement.classList.remove('no-scroll');
             }
         },
         deep: true,
@@ -28,7 +28,7 @@ export default {
         };
     },
     beforeDestroy() {
-        document.documentElement.classList.remove('no-scroll'); 
+        document.documentElement.classList.remove('no-scroll');
     },
 };
 </script>
@@ -101,9 +101,12 @@ export default {
         max-width: 20rem;
         margin: auto;
         border-radius: 1rem;
-    } 
+        position: relative;
+    }
     .popup__header button {
-        display: none;
+        position: absolute;
+        right: 0.5rem;
+        top: 0.5rem;
     }
 }
 </style>

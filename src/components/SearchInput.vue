@@ -1,12 +1,12 @@
 <template>
     <div class="search__container">
-        <div class="search__input-wrapper">
-            <input autofocus ref="searchInput" v-model="searchUrl" type="search" placeholder="Введите url" />
-            <button @click="handleSearchClick" class="button is-light is-small search-btn__desktop">
+        <form @submit.prevent="handleSearchClick" class="search__input-wrapper">
+            <input ref="searchInput" v-model="searchUrl" type="search" placeholder="Введите url" />
+            <button class="button is-light is-small search-btn__desktop">
                 <img :src="searchIcon" alt="Filter" />
             </button>
 
-            <button @click="resetUrls" class="button is-light is-small">
+            <button type="button" @click="resetUrls" class="button is-light is-small">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <g id="Group 381">
                         <rect x="11.7573" y="3.53552" width="1" height="11" transform="rotate(45 11.7573 3.53552)"
@@ -16,7 +16,7 @@
                     </g>
                 </svg>
             </button>
-        </div>
+        </form>
 
         <button @click="handleSearchClick" class="button is-light is-medium search-btn__mobile">
             Поиск
@@ -98,7 +98,7 @@ export default {
             this.updateSearchUrl(newUrl);
         },
         show(newVal) {
-            if (newVal) {
+            if (newVal && screen.width <= 768) {
                 setTimeout(() => {
                     this.$refs.searchInput?.focus();
                 }, 100);
