@@ -59,6 +59,7 @@ export default {
 .data-row {
     position: relative;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.35rem;
     font-size: 14px;

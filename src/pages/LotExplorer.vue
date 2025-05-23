@@ -105,6 +105,15 @@
                             :isLoading="complexDataIsLoading"
                         />
 
+                        <BuildingFilter
+                            v-if="!isWide"
+                            :complexId="complexId"
+                            :lotOptions="lotOptions"
+                            :getBuildings="getBuildings"
+                            :inHeader="true"
+                            :setBuilding="setBuilding"
+                        />
+
                         <div><portal-target name="sort-btns__mobile" /></div>
                     </div>
                 </div>
@@ -150,6 +159,7 @@ import SearchDataProvider from '../components/providers/SearchDataProvider.vue';
 import SearchInput from '../components/SearchInput.vue';
 import ResponsivePortal from '@/components/utils/ResponsivePortal.vue';
 import LotHeader from '@/components/header/LotHeader.vue';
+import BuildingFilter from '@/components/BuildingFilter.vue';
 
 export default {
     data() {
@@ -211,6 +221,7 @@ export default {
         ResponsivePortal,
         LotHeader,
         LotCardList,
+        BuildingFilter,
     },
     methods: {
         resetLotOptions() {
@@ -229,6 +240,9 @@ export default {
                     sort_field: field,
                 };
             }
+        },
+        setBuilding(building) {
+            this.lotOptions = { ...this.lotOptions, building };
         },
         changeSortingOrder() {
             if (this.lotOptions.sort === SEARCH_FIELDS.ASCENDING_ORDER) {

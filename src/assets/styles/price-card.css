@@ -98,6 +98,10 @@
     display: none;
 }
 
+.card__close-chart {
+    display: none;
+}
+
 .card__panel-article {
     color: #4398b7;
     font-size: 12px;
@@ -134,8 +138,18 @@
         margin-right: auto;
         margin-left: 0.5rem;
     }
+
     .chart-popup--desktop {
         display: none;
+    }
+    .card__close-chart {
+        display: flex;
+        padding-block: 1rem;
+    }
+
+    .card__close-chart-btn {
+        color: black;
+        margin-left: auto;
     }
 }
 
@@ -165,18 +179,22 @@
     .card__panel-article--desktop {
         display: flex;
     }
+
     .card__sq-meter-price {
         display: flex;
     }
+
     .card__container {
         margin-bottom: 0;
         gap: 0;
         padding: 1rem;
         border-radius: 0;
     }
+
     .card__container--odd {
-        background-color: #F6F8F9;
+        background-color: #f6f8f9;
     }
+
     .card__data--desktop {
         align-items: center;
     }
@@ -186,7 +204,6 @@
     .card__price--desktop {
         font-size: 1rem !important;
     }
-
 }
 
 .card__panel-article img {
@@ -210,7 +227,7 @@
 }
 
 .attr:not(:first-of-type)::after {
-    content: "";
+    content: '';
     position: absolute;
     background-color: #514f62;
     left: 0;

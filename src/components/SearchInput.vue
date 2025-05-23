@@ -1,24 +1,48 @@
 <template>
     <div class="search__container">
         <form @submit.prevent="handleSearchClick" class="search__input-wrapper">
-            <input ref="searchInput" v-model="searchUrl" type="search" placeholder="Введите url" />
+            <input
+                ref="searchInput"
+                v-model="searchUrl"
+                type="search"
+                placeholder="Введите url"
+            />
             <button class="button is-light is-small search-btn__desktop">
                 <img :src="searchIcon" alt="Filter" />
             </button>
 
-            <button type="button" @click="resetUrls" class="button is-light is-small">
+            <button
+                type="button"
+                @click="resetUrls"
+                class="button is-light is-small"
+            >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <g id="Group 381">
-                        <rect x="11.7573" y="3.53552" width="1" height="11" transform="rotate(45 11.7573 3.53552)"
-                            fill="black" />
-                        <rect x="12.4644" y="11.3137" width="1" height="11" transform="rotate(135 12.4644 11.3137)"
-                            fill="black" />
+                        <rect
+                            x="11.7573"
+                            y="3.53552"
+                            width="1"
+                            height="11"
+                            transform="rotate(45 11.7573 3.53552)"
+                            fill="black"
+                        />
+                        <rect
+                            x="12.4644"
+                            y="11.3137"
+                            width="1"
+                            height="11"
+                            transform="rotate(135 12.4644 11.3137)"
+                            fill="black"
+                        />
                     </g>
                 </svg>
             </button>
         </form>
 
-        <button @click="handleSearchClick" class="button is-light is-medium search-btn__mobile">
+        <button
+            @click="handleSearchClick"
+            class="button is-light is-medium search-btn__mobile"
+        >
             Поиск
         </button>
     </div>
@@ -33,6 +57,7 @@
 }
 
 .search__input-wrapper {
+    border-radius: 0.25rem;
     background-color: #f5f8fa;
     display: flex;
     align-items: center;
@@ -40,6 +65,7 @@
 }
 
 .search__input-wrapper input {
+    border-radius: 0.25rem;
     border: none;
     background-color: #f5f8fa;
     padding: 0.75em;
@@ -74,7 +100,7 @@
 </style>
 
 <script>
-import searchIcon from "/svgs/search.svg";
+import searchIcon from '/svgs/search.svg';
 
 export default {
     props: {
@@ -90,7 +116,7 @@ export default {
     data() {
         return {
             searchIcon,
-            searchUrl: "",
+            searchUrl: '',
         };
     },
     watch: {
@@ -114,8 +140,8 @@ export default {
             this.resetLotOptions();
         },
         resetUrls() {
-            this.searchUrl = "";
-            this.updateSearchUrl("");
+            this.searchUrl = '';
+            this.updateSearchUrl('');
             this.resetLotOptions();
         },
     },

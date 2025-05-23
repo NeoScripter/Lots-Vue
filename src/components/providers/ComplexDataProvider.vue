@@ -22,7 +22,7 @@ export default {
 
             try {
                 this.complexDataIsLoading = true;
-                this.isError = false;;
+                this.isError = false;
 
                 const response = await fetch(`${this.url}${this.complexId}`);
                 const data = await response.json();
@@ -47,9 +47,7 @@ export default {
             );
         },
         getBuildings() {
-            return (this.complexData?.buildings || []).map(
-                (building) => building.num
-            );
+            return this.complexData?.buildings || [];
         },
         getRooms() {
             return this.complexData.rooms;

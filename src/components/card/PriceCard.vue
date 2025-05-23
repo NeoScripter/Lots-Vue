@@ -282,6 +282,14 @@
             </button>
         </div>
         <div>
+            <div class="card__close-chart" v-show="showChartBelow">
+                <button
+                    @click="showChartBelow = false"
+                    class="card__close-chart-btn button is-small"
+                >
+                    Закрыть
+                </button>
+            </div>
             <portal-target :name="LotData.id + 'chart-popup--desktop'" />
         </div>
     </div>
