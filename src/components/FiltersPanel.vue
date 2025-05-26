@@ -3,8 +3,8 @@
         <BuildingFilter
             :complexId="complexId"
             :lotOptions="lotOptions"
+            @update:lotOptions="$emit('update:lotOptions', $event)"
             :getBuildings="getBuildings"
-            :setBuilding="setBuilding"
         />
 
         <div class="filters__btn-group scrollbar-hidden">
@@ -13,7 +13,7 @@
                 <button
                     @click="setRoom('')"
                     class="button is-light is-small"
-                    :class="{ 'active-filter': lotOptions.rooms === '' }"
+                    :class="{ 'active-filter': lotOptions.rooms.length === 0 }"
                 >
                     Любая
                 </button>
@@ -22,7 +22,9 @@
                     v-for="room in getRooms"
                     :key="room + complexId"
                     @click="setRoom(room)"
-                    :class="{ 'active-filter': room === lotOptions.rooms }"
+                    :class="{
+                        'active-filter': lotOptions.rooms.includes(room),
+                    }"
                 >
                     {{ room === 'studio' ? 'Студия' : room }}
                 </button>
@@ -35,28 +37,34 @@
                 <button
                     @click="setStatus('')"
                     class="button is-light is-small"
-                    :class="{ 'active-filter': lotOptions.status === '' }"
+                    :class="{ 'active-filter': lotOptions.status.length === 0 }"
                 >
                     Все
                 </button>
                 <button
                     @click="setStatus('active')"
                     class="button is-light is-small"
-                    :class="{ 'active-filter': lotOptions.status === 'active' }"
+                    :class="{
+                        'active-filter': lotOptions.status.includes('active'),
+                    }"
                 >
                     В продаже
                 </button>
                 <button
                     @click="setStatus('bron')"
                     class="button is-light is-small"
-                    :class="{ 'active-filter': lotOptions.status === 'bron' }"
+                    :class="{
+                        'active-filter': lotOptions.status.includes('bron'),
+                    }"
                 >
                     Забронировано
                 </button>
                 <button
                     @click="setStatus('start')"
                     class="button is-light is-small"
-                    :class="{ 'active-filter': lotOptions.status === 'start' }"
+                    :class="{
+                        'active-filter': lotOptions.status.includes('start'),
+                    }"
                 >
                     Старт продаж
                 </button>
@@ -64,7 +72,8 @@
                     @click="setStatus('not_available')"
                     class="button is-light is-small"
                     :class="{
-                        'active-filter': lotOptions.status === 'not_available',
+                        'active-filter':
+                            lotOptions.status.includes('not_available'),
                     }"
                 >
                     Не в продаже
@@ -159,21 +168,41 @@ export default {
         closePopup: Function,
     },
     methods: {
-        setBuilding(building) {
-            this.$emit('update:lotOptions', { ...this.lotOptions, building });
-        },
         setRoom(room) {
+            if (room === '') {
+                this.$emit('update:lotOptions', {
+                    ...this.lotOptions,
+                    rooms: [],
+                });
+                return;
+            }
+            const rooms = this.lotOptions.rooms.includes(room)
+                ? this.lotOptions.rooms.filter((r) => r !== room)
+                : [...this.lotOptions.rooms, room];
+
             this.$emit('update:lotOptions', {
                 ...this.lotOptions,
-                rooms: room,
+                rooms,
             });
         },
         setStatus(status) {
+            if (status === '') {
+                this.$emit('update:lotOptions', {
+                    ...this.lotOptions,
+                    status: [],
+                });
+                return;
+            }
+            const newStatus = this.lotOptions.status.includes(status)
+                ? this.lotOptions.status.filter((s) => s !== status)
+                : [...this.lotOptions.status, status];
+
             this.$emit('update:lotOptions', {
                 ...this.lotOptions,
-                status: status,
+                status: newStatus,
             });
         },
+
         handleSearchClick() {
             this.closePopup();
         },

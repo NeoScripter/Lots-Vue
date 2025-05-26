@@ -144,9 +144,6 @@ export default {
             :items="items"
             :lotDataIsLoading="lotDataIsLoading"
             :lotLoadingError="isError"
-            :totalItems="totalItems"
-            :fetchData="fetchData"
-            :resetItems="resetItems"
             :updateSearchUrl="updateSearchUrl"
             :searchLot="searchLot"
         ></slot>

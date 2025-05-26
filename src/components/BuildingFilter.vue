@@ -1,12 +1,12 @@
 <template>
     <div class="filters__btn-group scrollbar-hidden">
-        <p :class="{'in-header' : inHeader }">Выбор корпуса</p>
-        <div :class="{'in-header' : inHeader }" class="filters__btn-wrapper">
+        <p :class="{ 'in-header': inHeader }">Выбор корпуса</p>
+        <div :class="{ 'in-header': inHeader }" class="filters__btn-wrapper">
             <button
                 v-if="!inHeader"
                 @click="setBuilding('')"
                 class="button is-light is-small"
-                :class="{ 'active-filter': lotOptions.building === '' }"
+                :class="{ 'active-filter': lotOptions.building.length === 0 }"
             >
                 Все
             </button>
@@ -16,7 +16,7 @@
                 :key="building.num + complexId"
                 @click="setBuilding(building.num)"
                 :class="{
-                    'active-filter': building.num === lotOptions.building,
+                    'active-filter': lotOptions.building.includes(building.num),
                     'filter-is-start': building.is_new,
                 }"
             >
@@ -49,14 +49,30 @@ export default {
             type: Boolean,
             default: false,
         },
-        setBuilding: {
-            type: Function,
-        }
     },
     data() {
         return {
             rocket,
         };
+    },
+    methods: {
+        setBuilding(building) {
+            if (building === '') {
+                this.$emit('update:lotOptions', {
+                    ...this.lotOptions,
+                    building: [],
+                });
+                return;
+            }
+            const newBuilding = this.lotOptions.building.includes(building)
+                ? this.lotOptions.building.filter((b) => b !== building)
+                : [...this.lotOptions.building, building];
+
+            this.$emit('update:lotOptions', {
+                ...this.lotOptions,
+                building: newBuilding,
+            });
+        },
     },
 };
 </script>

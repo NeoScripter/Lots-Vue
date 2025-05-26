@@ -18,10 +18,7 @@
             v-slot="{
                 items,
                 lotDataIsLoading,
-                totalItems,
                 lotLoadingError,
-                fetchData,
-                resetItems,
                 searchLot,
                 updateSearchUrl,
             }"
@@ -108,10 +105,9 @@
                         <BuildingFilter
                             v-if="!isWide"
                             :complexId="complexId"
-                            :lotOptions="lotOptions"
+                            :lotOptions.sync="lotOptions"
                             :getBuildings="getBuildings"
                             :inHeader="true"
-                            :setBuilding="setBuilding"
                         />
 
                         <div><portal-target name="sort-btns__mobile" /></div>
@@ -168,9 +164,9 @@ export default {
             telegram,
             complexId: COMPLEX_ID,
             defaultLotOptions: {
-                status: '',
-                building: '',
-                rooms: '',
+                status: [],
+                building: [],
+                rooms: [],
                 sort_field: '',
                 sort: '',
                 page: 1,
@@ -240,9 +236,6 @@ export default {
                     sort_field: field,
                 };
             }
-        },
-        setBuilding(building) {
-            this.lotOptions = { ...this.lotOptions, building };
         },
         changeSortingOrder() {
             if (this.lotOptions.sort === SEARCH_FIELDS.ASCENDING_ORDER) {
