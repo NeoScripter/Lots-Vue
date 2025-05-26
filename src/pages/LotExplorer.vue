@@ -40,6 +40,8 @@
                     :getBuildings="getBuildings"
                     :getRooms="getRooms"
                     :closePopup="() => (showFilters = false)"
+                    :selectMultiple="selectMultiple"
+                    :setMultiple="setMultiple"
                 />
             </ResponsivePortal>
 
@@ -176,6 +178,7 @@ export default {
             showFilters: false,
             showSearch: false,
             isWide: window.innerWidth >= 768,
+            selectMultiple: localStorage.getItem('selectMultiple') === 'true',
         };
     },
     created() {
@@ -220,6 +223,25 @@ export default {
         BuildingFilter,
     },
     methods: {
+        setMultiple(val) {
+            this.selectMultiple = val;
+            localStorage.setItem('selectMultiple', val ? 'true' : 'false');
+            if (val === false) {
+                this.enforceSingleSelection(this.lotOptions);
+            }
+        },
+        enforceSingleSelection(newOptions) {
+            const updated = { ...newOptions };
+
+            ['rooms', 'building', 'status'].forEach((key) => {
+                const value = newOptions[key];
+                if (Array.isArray(value) && value.length > 1) {
+                    updated[key] = [value[value.length - 1]];
+                }
+            });
+
+            this.lotOptions = updated;
+        },
         resetLotOptions() {
             this.lotOptions = { ...this.defaultLotOptions };
         },
@@ -263,6 +285,19 @@ export default {
             immediate: true,
             handler() {
                 this.resetLotOptions();
+            },
+        },
+        lotOptions: {
+            deep: true,
+            handler(newVal) {
+                if (
+                    !this.selectMultiple &&
+                    (newVal.rooms.length > 1 ||
+                        newVal.status.length > 1 ||
+                        newVal.building.length > 1)
+                ) {
+                    this.enforceSingleSelection(newVal);
+                }
             },
         },
     },

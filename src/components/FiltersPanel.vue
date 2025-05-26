@@ -81,6 +81,30 @@
             </div>
         </div>
 
+        <div class="filters__btn-group scrollbar-hidden">
+            <p>Выбор</p>
+            <div class="filters__btn-wrapper">
+                <button
+                    @click="setMultiple(true)"
+                    class="button is-light is-small"
+                    :class="{
+                        'active-filter': selectMultiple === true,
+                    }"
+                >
+                    Множественный
+                </button>
+                <button
+                    @click="setMultiple(false)"
+                    class="button is-light is-small"
+                    :class="{
+                        'active-filter': selectMultiple === false,
+                    }"
+                >
+                    Единичный
+                </button>
+            </div>
+        </div>
+
         <button
             @click="handleSearchClick"
             class="button is-light is-medium filters__close-btn"
@@ -166,6 +190,8 @@ export default {
         getRooms: Array,
         selectSortingOption: Function,
         closePopup: Function,
+        selectMultiple: Boolean,
+        setMultiple: Function,
     },
     methods: {
         setRoom(room) {
