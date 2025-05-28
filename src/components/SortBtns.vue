@@ -39,6 +39,7 @@
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.STATUS"
                         :sort="sort"
+                        tooltipText="Текущий статус лота"
                         @click="selectSortingOption(SEARCH_FIELDS.STATUS)"
                     />
 
@@ -47,6 +48,7 @@
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.BUILDING"
                         :sort="sort"
+                        tooltipText="Корпус"
                         @click="selectSortingOption(SEARCH_FIELDS.BUILDING)"
                     />
                     <SortBtn
@@ -54,6 +56,7 @@
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.FLOOR"
                         :sort="sort"
+                        tooltipText="Количество этажей"
                         @click="selectSortingOption(SEARCH_FIELDS.FLOOR)"
                     />
 
@@ -62,6 +65,7 @@
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.AREA"
                         :sort="sort"
+                        tooltipText="Корпус"
                         @click="selectSortingOption(SEARCH_FIELDS.AREA)"
                     />
 
@@ -70,6 +74,7 @@
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.ROOMS"
                         :sort="sort"
+                        tooltipText="Количество комнат"
                         @click="selectSortingOption(SEARCH_FIELDS.ROOMS)"
                     />
 
@@ -78,6 +83,7 @@
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.PRICE"
                         :sort="sort"
+                        tooltipText="Стомость лота"
                         @click="selectSortingOption(SEARCH_FIELDS.PRICE)"
                     />
 
@@ -86,6 +92,7 @@
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.SQM_PRICE"
                         :sort="sort"
+                        tooltipText="Цена за квадратный метр"
                         @click="selectSortingOption(SEARCH_FIELDS.SQM_PRICE)"
                     />
                     <SortBtn
@@ -93,6 +100,7 @@
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.DAYS_ON_SITE"
                         :sort="sort"
+                        tooltipText="Время нахождения на сайте"
                         @click="selectSortingOption(SEARCH_FIELDS.DAYS_ON_SITE)"
                     />
                     <SortBtn
@@ -100,6 +108,7 @@
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.START_CHANGE"
                         :sort="sort"
+                        tooltipText="Изменение цены со старта продажи"
                         @click="selectSortingOption(SEARCH_FIELDS.START_CHANGE)"
                     />
                     <SortBtn
@@ -107,6 +116,7 @@
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.WEEK_CHANGE"
                         :sort="sort"
+                        tooltipText="Изменение цены за 7 дней"
                         @click="selectSortingOption(SEARCH_FIELDS.WEEK_CHANGE)"
                     />
                     <SortBtn
@@ -114,6 +124,7 @@
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.MONTH_CHANGE"
                         :sort="sort"
+                        tooltipText="Изменение цены за 30 дней"
                         @click="selectSortingOption(SEARCH_FIELDS.MONTH_CHANGE)"
                     />
                     <SortBtn
@@ -121,6 +132,7 @@
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.DAY_CHANGE"
                         :sort="sort"
+                        tooltipText="Изменение цены за день"
                         @click="selectSortingOption(SEARCH_FIELDS.DAY_CHANGE)"
                     />
                     <SortBtn
@@ -128,6 +140,7 @@
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.KEYS_DATE"
                         :sort="sort"
+                        tooltipText="Выдача ключей до"
                         @click="selectSortingOption(SEARCH_FIELDS.KEYS_DATE)"
                     />
 
@@ -136,6 +149,7 @@
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.ARTICLE"
                         :sort="sort"
+                        tooltipText="Артикул лота"
                         @click="selectSortingOption(SEARCH_FIELDS.ARTICLE)"
                     />
                 </div>

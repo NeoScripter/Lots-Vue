@@ -22,12 +22,16 @@ export default {
             type: String,
             required: true,
         },
+        tooltipText: {
+            type: String,
+        },
     },
     data() {
         return {
             SEARCH_FIELDS,
             ascending,
             descending,
+            showTooltip: false,
         };
     },
     computed: {
@@ -43,7 +47,10 @@ export default {
         @click="$emit('click')"
         class="sort-btn button is-light is-small"
         :class="{ 'active-filter': isActive }"
+        @mouseenter="showTooltip = true"
+        @mouseleave="showTooltip = false"
     >
+    <span v-show="showTooltip" class="tooltip">{{ tooltipText }}</span>
         {{ label }}
         <img
             v-if="isActive"
@@ -66,6 +73,18 @@ export default {
         color: #8b8b8b !important;
         font-weight: 400 !important;
         padding: 0 !important;
+        position: relative !important;
+    }
+    .tooltip {
+        position: absolute;
+        background-color: white;
+        border-radius: 0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-block: 0.3em;
+        padding-inline: 1rem;
+        bottom: 100%;
+        border: 2px solid #f6f8f9;
     }
     .filter-actions > .sort-btn:nth-of-type(1) {
         flex-basis: 6.25rem;
