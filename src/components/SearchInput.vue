@@ -115,6 +115,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        lotOptions: {
+            type: Object,
+            required: true,
+        },
     },
     data() {
         return {
@@ -133,27 +137,37 @@ export default {
                 }, 100);
             }
         },
+        filteredLotOptions: {
+            handler() {
+                this.searchUrl = '';
+                this.updateSearchUrl('');
+            },
+            deep: true,
+        },
+    },
+    computed: {
+        filteredLotOptions() {
+            const { searchUrl, ...rest } = this.lotOptions;
+            return rest;
+        },
     },
     methods: {
         handleSearchClick() {
             if (!this.searchUrl) return;
             this.searchLot();
-            this.resetUrls();
             this.closePopup();
-            this.resetLotOptions();
         },
         resetUrls() {
             this.searchUrl = '';
             this.updateSearchUrl('');
             this.resetLotOptions();
         },
-            onFocus() {
-      document.documentElement.classList.add('no-scroll')
-    },
-    onBlur() {
-      document.documentElement.classList.remove('no-scroll')
-    },
-
+        onFocus() {
+            document.documentElement.classList.add('no-scroll');
+        },
+        onBlur() {
+            document.documentElement.classList.remove('no-scroll');
+        },
     },
     updated() {
         this.$nextTick(() => {

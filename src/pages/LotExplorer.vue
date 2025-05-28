@@ -21,6 +21,7 @@
                 lotLoadingError,
                 searchLot,
                 updateSearchUrl,
+                searchUrl,
             }"
         >
             <Popup :show.sync="showFilters" title="Фильтры">
@@ -74,6 +75,7 @@
                     :searchLot="searchLot"
                     :closePopup="() => (showSearch = false)"
                     :resetLotOptions="resetLotOptions"
+                    :lotOptions="lotOptions"
                 />
             </ResponsivePortal>
 
