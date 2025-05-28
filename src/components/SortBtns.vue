@@ -34,28 +34,66 @@
         >
             <div class="sort-popup">
                 <div class="filter-actions filter-actions--margin">
-                    <div class="filter__left-group">
-                        <SortBtn
-                            label="Статус"
-                            :sortField="sortField"
-                            :currentSortField="SEARCH_FIELDS.STATUS"
-                            :sort="sort"
-                            @click="selectSortingOption(SEARCH_FIELDS.STATUS)"
-                        />
-                        <SortBtn
-                            label="Стоимость"
-                            :sortField="sortField"
-                            :currentSortField="SEARCH_FIELDS.PRICE"
-                            :sort="sort"
-                            @click="selectSortingOption(SEARCH_FIELDS.PRICE)"
-                        />
-                    </div>
+                    <SortBtn
+                        label="Статус"
+                        :sortField="sortField"
+                        :currentSortField="SEARCH_FIELDS.STATUS"
+                        :sort="sort"
+                        @click="selectSortingOption(SEARCH_FIELDS.STATUS)"
+                    />
+
+                    <SortBtn
+                        label="Корп."
+                        :sortField="sortField"
+                        :currentSortField="SEARCH_FIELDS.BUILDING"
+                        :sort="sort"
+                        @click="selectSortingOption(SEARCH_FIELDS.BUILDING)"
+                    />
+                    <SortBtn
+                        label="Этаж"
+                        :sortField="sortField"
+                        :currentSortField="SEARCH_FIELDS.FLOOR"
+                        :sort="sort"
+                        @click="selectSortingOption(SEARCH_FIELDS.FLOOR)"
+                    />
+
+                    <SortBtn
+                        label="Площадь"
+                        :sortField="sortField"
+                        :currentSortField="SEARCH_FIELDS.AREA"
+                        :sort="sort"
+                        @click="selectSortingOption(SEARCH_FIELDS.AREA)"
+                    />
+
+                    <SortBtn
+                        label="Комнат"
+                        :sortField="sortField"
+                        :currentSortField="SEARCH_FIELDS.ROOMS"
+                        :sort="sort"
+                        @click="selectSortingOption(SEARCH_FIELDS.ROOMS)"
+                    />
+
+                    <SortBtn
+                        label="Стоимость"
+                        :sortField="sortField"
+                        :currentSortField="SEARCH_FIELDS.PRICE"
+                        :sort="sort"
+                        @click="selectSortingOption(SEARCH_FIELDS.PRICE)"
+                    />
+
                     <SortBtn
                         label="Цена метра"
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.SQM_PRICE"
                         :sort="sort"
                         @click="selectSortingOption(SEARCH_FIELDS.SQM_PRICE)"
+                    />
+                    <SortBtn
+                        label="На сайте"
+                        :sortField="sortField"
+                        :currentSortField="SEARCH_FIELDS.DAYS_ON_SITE"
+                        :sort="sort"
+                        @click="selectSortingOption(SEARCH_FIELDS.DAYS_ON_SITE)"
                     />
                     <SortBtn
                         label="Изм.со ст."
@@ -86,48 +124,11 @@
                         @click="selectSortingOption(SEARCH_FIELDS.DAY_CHANGE)"
                     />
                     <SortBtn
-                        label="на сайте"
-                        :sortField="sortField"
-                        :currentSortField="SEARCH_FIELDS.DAYS_ON_SITE"
-                        :sort="sort"
-                        @click="selectSortingOption(SEARCH_FIELDS.DAYS_ON_SITE)"
-                    />
-                    <SortBtn
                         label="Ключи до"
                         :sortField="sortField"
                         :currentSortField="SEARCH_FIELDS.KEYS_DATE"
                         :sort="sort"
                         @click="selectSortingOption(SEARCH_FIELDS.KEYS_DATE)"
-                    />
-                    <SortBtn
-                        label="Корп."
-                        :sortField="sortField"
-                        :currentSortField="SEARCH_FIELDS.BUILDING"
-                        :sort="sort"
-                        @click="selectSortingOption(SEARCH_FIELDS.BUILDING)"
-                    />
-                    <SortBtn
-                        label="Этаж"
-                        :sortField="sortField"
-                        :currentSortField="SEARCH_FIELDS.FLOOR"
-                        :sort="sort"
-                        @click="selectSortingOption(SEARCH_FIELDS.FLOOR)"
-                    />
-
-                    <SortBtn
-                        label="Площадь"
-                        :sortField="sortField"
-                        :currentSortField="SEARCH_FIELDS.AREA"
-                        :sort="sort"
-                        @click="selectSortingOption(SEARCH_FIELDS.AREA)"
-                    />
-
-                    <SortBtn
-                        label="Комнат"
-                        :sortField="sortField"
-                        :currentSortField="SEARCH_FIELDS.ROOMS"
-                        :sort="sort"
-                        @click="selectSortingOption(SEARCH_FIELDS.ROOMS)"
                     />
 
                     <SortBtn

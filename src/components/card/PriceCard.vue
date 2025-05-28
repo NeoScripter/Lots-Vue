@@ -205,6 +205,14 @@
                         Не в продаже
                     </div>
                 </div>
+            </div>
+
+            <DataItem title="корпус" :value="LotData.building" />
+            <DataItem title="Этаж" :value="LotData.floor" />
+            <DataItem title="Площадь" :value="LotData.area" />
+            <DataItem title="Комнат" :value="getRooms" />
+
+            <div class="card__status--desktop">
                 <button
                     :key="`${LotData.id}close-desktop-chart-btn`"
                     @click="showChartBelow = !showChartBelow"
@@ -232,6 +240,13 @@
                     'card__price--crossed': LotData.status === 'not_available',
                 }"
             />
+
+            <DataItem
+                title="На сайте"
+                :value="LotData.days_on_site"
+                suffix=" д"
+            />
+
             <DataItem
                 title="Изм. со ст"
                 :value="LotData.start_change"
@@ -257,20 +272,9 @@
             />
 
             <DataItem
-                title="на сайте"
-                :value="LotData.days_on_site"
-                suffix=" д"
-            />
-
-            <DataItem
                 title="ключи до"
                 :value="keysValue(LotData.keys_now, LotData.keys)"
             />
-
-            <DataItem title="корпус" :value="LotData.building" />
-            <DataItem title="Этаж" :value="LotData.floor" />
-            <DataItem title="Площадь" :value="LotData.area" />
-            <DataItem title="Комнат" :value="getRooms" />
 
             <button
                 @click="confirmRedirect(LotData.flat_url)"

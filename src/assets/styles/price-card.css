@@ -169,7 +169,6 @@
 
     .card__status--desktop {
         display: flex;
-        flex-basis: 265px;
     }
 
     .card__price--desktop {

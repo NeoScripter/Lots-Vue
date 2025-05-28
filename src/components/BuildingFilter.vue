@@ -1,5 +1,5 @@
 <template>
-    <div class="filters__btn-group scrollbar-hidden">
+    <div v-if="buildingList.length > 0" class="filters__btn-group scrollbar-hidden">
         <p :class="{ 'in-header': inHeader }" v-text="inHeader ? 'Корпуса за 30 дней' : 'Выбор корпуса'"></p>
         <div :class="{ 'in-header': inHeader }" class="filters__btn-wrapper">
             <button
@@ -12,7 +12,7 @@
             </button>
             <button
                 class="button is-light is-small"
-                v-for="building in getBuildings"
+                v-for="building in buildingList"
                 :key="building.num + complexId"
                 @click="setBuilding(building.num)"
                 :class="{
@@ -54,6 +54,11 @@ export default {
         return {
             rocket,
         };
+    },
+    computed: {
+        buildingList() {
+            return this.inHeader ? this.getBuildings.filter(b => b.is_new) : this.getBuildings; 
+        }
     },
     methods: {
         setBuilding(building) {
