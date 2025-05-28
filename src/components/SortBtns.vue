@@ -161,6 +161,7 @@
         </button>
 
         <button
+            v-if="!this.emptyFilters"
             @click="resetLotOptions"
             class="sort__desktop-hidden button button--icon is-light is-small"
         >
@@ -248,6 +249,13 @@ export default {
         },
     },
     computed: {
+        emptyFilters() {
+            return (
+                this.rooms.length === 0 &&
+                this.building.length === 0 &&
+                this.status.length === 0
+            );
+        },
         getSortButtonContent() {
             const sortLabels = {
                 [SEARCH_FIELDS.STATUS]: 'Статус',
@@ -268,11 +276,7 @@ export default {
             return sortLabels[this.sortField] || 'Сортировка';
         },
         getFilterButtonContent() {
-            if (
-                this.rooms.length === 0 &&
-                !this.building &&
-                this.status.length === 0
-            ) {
+            if (this.emptyFilters) {
                 return 'Фильтры';
             }
 

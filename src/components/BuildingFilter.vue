@@ -1,6 +1,6 @@
 <template>
     <div class="filters__btn-group scrollbar-hidden">
-        <p :class="{ 'in-header': inHeader }">Выбор корпуса</p>
+        <p :class="{ 'in-header': inHeader }" v-text="inHeader ? 'Корпуса за 30 дней' : 'Выбор корпуса'"></p>
         <div :class="{ 'in-header': inHeader }" class="filters__btn-wrapper">
             <button
                 v-if="!inHeader"

@@ -125,7 +125,7 @@
 
                 <div><portal-target name="filter-panel__desktop" /></div>
                 <div><portal-target name="search-panel__desktop" /></div>
-                <div><portal-target name="sort-btns__desktop" /></div>
+                <div class="sticky-sort-btns"><portal-target name="sort-btns__desktop" /></div>
 
                 <LotCardList
                     :items="items"

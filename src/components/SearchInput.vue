@@ -6,7 +6,10 @@
                 v-model="searchUrl"
                 type="search"
                 placeholder="Введите url"
+                @focus="onFocus"
+                @blur="onBlur"
             />
+
             <button class="button is-light is-small search-btn__desktop">
                 <img :src="searchIcon" alt="Filter" />
             </button>
@@ -144,6 +147,13 @@ export default {
             this.updateSearchUrl('');
             this.resetLotOptions();
         },
+            onFocus() {
+      document.documentElement.classList.add('no-scroll')
+    },
+    onBlur() {
+      document.documentElement.classList.remove('no-scroll')
+    },
+
     },
     updated() {
         this.$nextTick(() => {

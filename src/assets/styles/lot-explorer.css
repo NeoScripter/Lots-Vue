@@ -18,6 +18,10 @@
     .lot-explorer__header {
         padding-inline: 1.5rem;
     }
+    .sticky-sort-btns {
+        position: sticky;
+        top: 90px;
+    }
 }
 
 
