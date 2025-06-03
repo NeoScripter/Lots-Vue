@@ -1,10 +1,10 @@
 <script>
-import { SEARCH_FIELDS } from '../const/SearchFields.js';
-import ascending from '/svgs/asc.svg';
-import descending from '/svgs/desc.svg';
+import { SEARCH_FIELDS } from "../const/SearchFields.js";
+import ascending from "/svgs/asc.svg";
+import descending from "/svgs/desc.svg";
 
 export default {
-    name: 'SortButton',
+    name: "SortButton",
     props: {
         label: {
             type: String,
@@ -50,7 +50,7 @@ export default {
         @mouseenter="showTooltip = true"
         @mouseleave="showTooltip = false"
     >
-    <span v-show="showTooltip" class="tooltip">{{ tooltipText }}</span>
+        <span v-show="showTooltip" class="tooltip">{{ tooltipText }}</span>
         {{ label }}
         <img
             v-if="isActive"
@@ -67,6 +67,10 @@ export default {
 </template>
 
 <style scoped>
+.tooltip {
+    display: none;
+}
+
 @media screen and (min-width: 1024px) {
     .sort-btn {
         background-color: transparent !important;
@@ -85,6 +89,7 @@ export default {
         padding-inline: 1rem;
         bottom: 100%;
         border: 2px solid #f6f8f9;
+        display: block;
     }
     .filter-actions > .sort-btn:nth-of-type(1) {
         flex-basis: 6.25rem;
@@ -118,8 +123,5 @@ export default {
     .filter-actions > .sort-btn:nth-last-of-type(2) {
         margin-right: 1.5rem;
     }
-}
-
-@media screen and (min-width: 1080px) {
 }
 </style>

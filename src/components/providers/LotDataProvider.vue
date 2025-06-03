@@ -1,5 +1,5 @@
 <script>
-import { URLS } from '../../const/api-url.js';
+import { URLS } from "../../const/api-url.js";
 
 export default {
     props: {
@@ -17,8 +17,9 @@ export default {
             lotDataIsLoading: false,
             isError: false,
             url: URLS.LOT,
-            searchUrl: '',
+            searchUrl: "",
             abortController: null,
+            lastScrollY: 0,
         };
     },
     methods: {
@@ -35,8 +36,8 @@ export default {
                 const requestOptions = { ...this.options, page: this.page };
 
                 const response = await fetch(`${this.url}${this.complexId}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(requestOptions),
                     signal,
                 });
@@ -49,9 +50,9 @@ export default {
                 this.totalPages = data.pages;
                 this.totalItems = data.total;
             } catch (error) {
-                if (error.name === 'AbortError') return;
+                if (error.name === "AbortError") return;
 
-                console.error('API Error:', error);
+                console.error("API Error:", error);
                 this.isError = true;
             } finally {
                 this.lotDataIsLoading = false;
@@ -70,9 +71,9 @@ export default {
                 const response = await fetch(
                     `${this.url}${this.complexId}/search`,
                     {
-                        method: 'POST',
+                        method: "POST",
                         headers: {
-                            'Content-Type': 'application/json',
+                            "Content-Type": "application/json",
                         },
                         body: JSON.stringify({ search: this.searchUrl }),
                     }
@@ -82,7 +83,7 @@ export default {
 
                 this.items = [...data.items];
             } catch (error) {
-                console.error('API Error:', error);
+                console.error("API Error:", error);
                 this.isError = true;
             } finally {
                 this.lotDataIsLoading = false;
@@ -90,13 +91,23 @@ export default {
         },
 
         async handleScroll() {
+            const currentScrollY = window.scrollY;
+
+            // Only proceed if scrolling down
+            if (currentScrollY <= this.lastScrollY) {
+                this.lastScrollY = currentScrollY;
+                return;
+            }
+
             const nearBottom =
-                window.innerHeight + window.scrollY >=
+                window.innerHeight + currentScrollY >=
                 document.body.offsetHeight - 500;
 
             if (nearBottom && !this.isLoading && this.page < this.totalPages) {
                 await this.fetchData();
             }
+
+            this.lastScrollY = currentScrollY;
         },
         resetItems() {
             this.items.length = 0;
@@ -130,10 +141,10 @@ export default {
     },
     async created() {
         await this.fetchData();
-        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener("scroll", this.handleScroll);
     },
     beforeDestroy() {
-        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener("scroll", this.handleScroll);
     },
 };
 </script>
