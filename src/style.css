@@ -1,5 +1,5 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
-
+@import "./assets/styles/price-card.css";
 html {
     overflow-x: hidden;
     overflow-x: clip;

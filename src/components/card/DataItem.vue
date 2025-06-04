@@ -24,7 +24,7 @@ export default {
     </div>
 </template>
 
-<style scoped>
+<style>
 .card__data-wrapper {
     flex-shrink: 0;
     min-width: 2rem;
@@ -52,6 +52,31 @@ export default {
         display: block;
         height: auto;
         font-size: 0.75rem;
+        text-align: center;
+    }
+    .card__data-wrapper:nth-of-type(2) {
+        flex-basis: 45px;
+    }
+    .card__data-wrapper:nth-of-type(4) {
+        flex-basis: 46px;
+    }
+    .card__data-wrapper:nth-last-of-type(2) {
+        flex-basis: 37px;
+    }
+    .card__data-wrapper:nth-last-of-type(3) {
+        flex-basis: 51px;
+    }
+    .card__data-wrapper:nth-last-of-type(4) {
+        flex-basis: 51px;
+    }
+    .card__data-wrapper:nth-last-of-type(5) {
+        flex-basis: 51px;
+    }
+    .card__data-wrapper:nth-last-of-type(6) {
+        flex-basis: 43px;
+    }
+    .card__data-wrapper:nth-last-of-type(7) {
+        flex-basis: 57px;
     }
 }
 </style>

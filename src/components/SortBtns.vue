@@ -204,7 +204,7 @@
     </div>
 </template>
 
-<style scoped src="../assets/styles/sort-btns.css"></style>
+<style src="../assets/styles/sort-btns.css"></style>
 
 <script>
 import filterIcon from '/svgs/filter-icon.svg';

@@ -66,7 +66,7 @@ export default {
     </button>
 </template>
 
-<style scoped>
+<style>
 .tooltip {
     display: none;
 }
@@ -78,6 +78,8 @@ export default {
         font-weight: 400 !important;
         padding: 0 !important;
         position: relative !important;
+        text-align: center !important;
+        justify-content: center !important;
     }
     .tooltip {
         position: absolute;
@@ -93,35 +95,28 @@ export default {
     }
     .filter-actions > .sort-btn:nth-of-type(1) {
         flex-basis: 6.25rem;
-        justify-content: start;
-        margin-left: 0.5rem;
     }
     .filter-actions > .sort-btn:nth-of-type(2) {
-        margin-right: 0.5rem;
+        flex-basis: 45px;
     }
 
     .filter-actions > .sort-btn:nth-of-type(5) {
-        margin-left: 0.5rem;
     }
 
     .filter-actions > .sort-btn:nth-of-type(4) {
-        margin-left: 1.5rem;
     }
 
     .filter-actions > .sort-btn:nth-of-type(6) {
-        flex-basis: 7.25rem;
-        justify-content: end;
-    }
-    .filter-actions > .sort-btn:nth-of-type(7) {
-        margin-left: 2rem;
+        flex-basis: 100px; 
+        justify-content: end !important;
     }
 
-    .filter-actions > .sort-btn:nth-last-of-type(3) {
-        margin-right: 1.5rem;
-    }
 
     .filter-actions > .sort-btn:nth-last-of-type(2) {
-        margin-right: 1.5rem;
+        flex-basis: 61px;
+    }
+    .filter-actions > .sort-btn:nth-last-of-type(1) {
+        flex-basis: 52px;
     }
 }
 </style>

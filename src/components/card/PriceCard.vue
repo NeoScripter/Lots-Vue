@@ -377,4 +377,4 @@ export default {
 };
 </script>
 
-<style scoped src="../../assets/styles/price-card.css"></style>
+<!-- <style src="../../assets/styles/price-card.css"></style> -->
