@@ -273,7 +273,7 @@ export default {
             );
         },
         hideResetBtn() {
-            return this.emptyFilters && this.searchUrl === "";
+            return this.emptyFilters && this.searchUrl === "" && this.sortField === "";
         },
         getSortButtonContent() {
             const sortLabels = {
