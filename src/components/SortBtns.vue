@@ -176,7 +176,7 @@
         </button>
 
         <button
-            v-if="!this.emptyFilters"
+            v-if="!this.hideResetBtn"
             @click="resetLotOptions"
             class="sort__desktop-hidden button button--icon is-light is-small"
         >
@@ -248,6 +248,7 @@ export default {
         building: Array,
         rooms: Array,
         status: Array,
+        searchUrl: String,
     },
     methods: {
         handleSelectPriceClick() {
@@ -268,8 +269,11 @@ export default {
             return (
                 this.rooms.length === 0 &&
                 this.building.length === 0 &&
-                this.status.length === 0
+                this.status.length === 0 
             );
+        },
+        hideResetBtn() {
+            return this.emptyFilters && this.searchUrl === "";
         },
         getSortButtonContent() {
             const sortLabels = {

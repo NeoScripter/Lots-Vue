@@ -157,6 +157,7 @@ export default {
             :lotLoadingError="isError"
             :updateSearchUrl="updateSearchUrl"
             :searchLot="searchLot"
+            :searchUrl="searchUrl"
         ></slot>
     </div>
 </template>

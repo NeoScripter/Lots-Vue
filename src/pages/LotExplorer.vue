@@ -61,6 +61,7 @@
                     :status="lotOptions.status"
                     :showFilters.sync="showFilters"
                     :resetLotOptions="resetLotOptions"
+                    :searchUrl="searchUrl"
                 />
             </ResponsivePortal>
 

@@ -2,9 +2,10 @@
     <div class="search__container">
         <form @submit.prevent="handleSearchClick" class="search__input-wrapper">
             <input
+                @keydown.esc="onEscape"
                 ref="searchInput"
                 v-model="searchUrl"
-                type="search"
+                type="text"
                 placeholder="Введите url"
             />
 
@@ -101,7 +102,7 @@
 </style>
 
 <script>
-import searchIcon from '/svgs/search.svg';
+import searchIcon from "/svgs/search.svg";
 
 export default {
     props: {
@@ -121,7 +122,7 @@ export default {
     data() {
         return {
             searchIcon,
-            searchUrl: '',
+            searchUrl: "",
         };
     },
     watch: {
@@ -137,8 +138,8 @@ export default {
         },
         filteredLotOptions: {
             handler() {
-                this.searchUrl = '';
-                this.updateSearchUrl('');
+                this.searchUrl = "";
+                this.updateSearchUrl("");
             },
             deep: true,
         },
@@ -151,13 +152,23 @@ export default {
     },
     methods: {
         handleSearchClick() {
-            if (!this.searchUrl) return;
+            if (!this.searchUrl) {
+                this.resetLotOptions();
+                this.$refs.searchInput.blur();
+                return;
+            }
             this.searchLot();
             this.closePopup();
+            this.$refs.searchInput.blur();
+        },
+        onEscape() {
+            this.searchUrl = "";
+            this.resetLotOptions();
+            this.$refs.searchInput.blur();
         },
         resetUrls() {
-            this.searchUrl = '';
-            this.updateSearchUrl('');
+            this.searchUrl = "";
+            this.updateSearchUrl("");
             this.resetLotOptions();
         },
         // onFocus() {
@@ -167,10 +178,10 @@ export default {
         //     document.documentElement.classList.remove('no-scroll');
         // },
     },
-    updated() {
-        this.$nextTick(() => {
-            this.$refs.searchInput?.focus();
-        });
-    },
+    // updated() {
+    //     this.$nextTick(() => {
+    //         this.$refs.searchInput?.focus();
+    //     });
+    // },
 };
 </script>
