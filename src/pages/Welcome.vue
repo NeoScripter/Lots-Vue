@@ -77,7 +77,7 @@ export default {
                     подпишитесь на наш канал
                 </div>
 
-                <div class="has-text-centered mb-4">
+                <div class="has-text-centered mb-4 mx-auto" style="max-width: 16rem;">
                     <a
                         :href="botLink"
                         target="_blank"

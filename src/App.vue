@@ -18,10 +18,7 @@ export default {
     methods: {
         async checkAuth() {
             try {
-                const response = await fetch(
-                    'https://test3.pulsprodaj.ru/api/tgauth',
-                    { credentials: 'include' }
-                );
+                const response = await fetch('https://test3.pulsprodaj.ru/api/tgauth', {credentials:'include'});
                 const data = await response.json();
 
                 this.authData = data;
@@ -36,19 +33,20 @@ export default {
             }
         },
     },
-    /*    mounted() {
+    mounted() {
         this.checkAuth();
         this.intervalId = setInterval(this.checkAuth, 3000);
     },
     beforeDestroy() {
         if (this.intervalId) clearInterval(this.intervalId);
-    },*/
+    },
 };
 </script>
 
 <template>
-    <div class="app">
-        <LotExplorer />
+    <div class="parent">
+        <LotExplorer v-if="isAuthorized" />
+        <Welcome v-else :auth-data="authData" />
     </div>
 </template>
 
