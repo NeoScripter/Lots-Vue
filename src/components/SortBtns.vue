@@ -297,7 +297,7 @@ export default {
 
             const parts = [];
 
-            if (this.building) {
+            if (this.building.length > 0) {
                 parts.push(`${this.building} корп.`);
             }
 
