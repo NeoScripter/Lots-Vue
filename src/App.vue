@@ -33,10 +33,10 @@ export default {
             }
         },
     },
-    mounted() {
-        this.checkAuth();
-        this.intervalId = setInterval(this.checkAuth, 3000);
-    },
+    // mounted() {
+    //     this.checkAuth();
+    //     this.intervalId = setInterval(this.checkAuth, 3000);
+    // },
     beforeDestroy() {
         if (this.intervalId) clearInterval(this.intervalId);
     },
@@ -45,8 +45,8 @@ export default {
 
 <template>
     <div class="parent">
-        <LotExplorer v-if="isAuthorized" />
-        <Welcome v-else :auth-data="authData" />
+        <LotExplorer />
+        <!-- <Welcome v-else :auth-data="authData" /> -->
     </div>
 </template>
 
